@@ -202,7 +202,7 @@
                  <source src="./videos/video2.mp4" type="video/mp4">
             </video>
             <video id="video-b" autoplay loop muted playsinline> 
-                <source src="./videos/勝得造船廠工安事件_SP500.mp4" type="video/mp4">
+                <source src="./videos/旗津拆船廠失火_1.mp4" type="video/mp4">
             </video>
             <!-- 加入字幕層 -->
             <div id="video-b-subtitles" class="subtitle-overlay">2024年5月25日，高雄旗津區中洲三路一間造船廠發生火警</div>
@@ -210,6 +210,10 @@
             <video id="video-c" autoplay loop muted playsinline>
             <source src="./videos/勝得造船廠工安事件_SP500.mp4" type="video/mp4">
             </video>
+
+            <!-- 加入字幕層 -->
+            <div id="video-c-subtitles" class="subtitle-overlay">居民自家監視器拍下怪手在拆船時不慎翻覆，<br>翻出了旗津居民長期以來的憤怒與恐懼，<br>也將老舊漁船汰除的問題，翻上檯面……</div>
+
 
             <div class="monitor-overlay"></div> 
 
@@ -258,22 +262,13 @@
 
         
             <h3 id="text-main" class="scroll-text">佈滿鏽蝕痕跡的老船，<br>曾是馳騁於大海的一方霸主。<br>但在國際配額限縮的大浪拍打下，<br>只能在港邊搖擺，<br>等待著拆解之日的到來。</h3><h2>老船拆除卻成了過街老鼠，<br><br>海上「遺產」誰負責？</h2>
-            
-             <!-- <div id="text-main" class="scroll-text" >
-                <h3 class="reveal-text" >佈滿鏽蝕痕跡的老船，曾是馳騁於大海的一方霸主。</h3>
-                <h3 class="reveal-text">但在國際配額限縮的大浪拍打下，只能在港邊搖擺，</h3>
-                <h3 class="reveal-text">等待著拆解之日的到來。</h3>
-            </div> -->
-
-
-            <!-- <h2 id="text-monitor" class="scroll-text">拆船監視器畫面</h2>  -->
 
 
         </div>
     </div>
 
     <div class="scrolling-bg-container"> 
-        <img src="./images/sailboat-medeteranian-sea.jpg" id="global-bg" alt="background"> 
+        <img src="./images/sailboat-medeteranian-sea_qt4.jpg" id="global-bg" alt="background"> 
     </div>
 
 </section>
@@ -360,16 +355,16 @@
         </div>
 
         <div class="tuna-texts">
-            <h2 class="tuna-text-1">全球每三片鮪魚生魚片<br><br><br></h2>
-            <h2 class="tuna-text-2">就有一片來自臺灣</h2>
+            <h2 class="tuna-text-1">全球每三片鮪魚生魚片<br><br></h2>
+            <h2 class="tuna-text-2"><br><br><br>就有一片來自臺灣</h2>
 
 
         </div>
 
 
              <div class="tuna-texts-3">
-                看著港口裡那些密密麻麻、隨著海浪搖晃的船影，<br>
-                很難想像，這曾是為台灣拚出千億產值的海上傳奇。
+                <br><br>看著港口裡那些密密麻麻、<br>隨著海浪搖晃的船影，<br>
+                很難想像，<br>這曾是為台灣拚出千億產值的海上傳奇。
             </div>
             <!-- 從左邊來的船 -->
             <div class="ship-wrapper fleet-left-1"><img src="./images/PNG/ChatGPT Image 2026年6月5日 上午09_50_34_左.png" class="ship-img" alt="Ship Left 1"></div>
@@ -797,6 +792,9 @@
             // 這裡設定 delay: 2 讓影片 B 的畫面先撐一下再切換
             .to(["#video-b", "#video-b-subtitles", ".monitor-overlay"], { opacity: 0, duration: 2, delay: 2 })
             .to("#video-c", { opacity: 1, duration: 2 }, "<")
+            .to(".monitor-overlay", { opacity: 1, duration: 3 }, "<")
+
+            .to("#video-c-subtitles", { opacity: 1, y: -10, duration: 1, ease: "power2.out" })
 
             // 🛑 新增 [階段七]：利用空物件動畫（Dummy Tween）鎖定畫面
             // 當影片 C 100% 出現後，網頁會在這裡「凍結」一長段滾動距離，製造出停頓 2 秒的體感

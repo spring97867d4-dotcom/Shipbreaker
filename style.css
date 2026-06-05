@@ -37,6 +37,7 @@ body {
     object-fit: cover;
     opacity: 0; /* 預設隱藏，由 GSAP 控制出場 */
     z-index: 5; /* 層級介於影片 B 與 監視器遮罩之間 */
+    filter: contrast(1.4) brightness(0.8) grayscale(0.6) blur(1px);
 }
 
 .monitor-overlay {
@@ -980,13 +981,14 @@ body {
     text-shadow: 0 4px 20px rgba(0,0,0,0.8);
 }
 
+
 .tuna-text-2 {
     font-size: clamp(32px, 5vw, 64px);
     margin: 10px 0 0 0;
     color: var(--accent2, #f59e0b); /* 使用你設定好的金色 */
     opacity: 0; 
     transform: translateY(20px);
-    text-shadow: 0 0 20px rgba(245, 158, 11, 0.4); /* 臺灣字樣發出微微金光 */
+    text-shadow: 0 0 20px rgba(245, 158, 11, 0.4); /*臺灣字樣發出微微金光*/
     
 }
 
@@ -1034,7 +1036,7 @@ body {
 /* 中央 3D 翻轉主角 */
 .tuna-center-wrapper {
     position: absolute;
-    top: 50%;
+    top: 52%;
     left: 50%;
     width: 30vw;
     max-width: 350px;
@@ -1064,6 +1066,7 @@ body {
 
 .tuna-back {
     transform: rotateY(180deg); /* 臺灣一開始是背對我們的 */
+    top: -10%;
     filter: drop-shadow(0 0 25px rgba(125,211,252,0.8)); /* 臺灣現身時帶點藍色或金色光暈 */
 }
 
