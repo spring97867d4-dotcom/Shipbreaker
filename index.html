@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8"> 
+    <title>大海的枷鎖：台灣遠洋漁業困局</title> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MotionPathPlugin.min.js"></script>
+    <link rel="stylesheet" href="style.css"> 
+    <style>
+
+            :root {
+      --bg: #07151d;
+      --bg2: #0d2430;
+      --panel: rgba(11, 24, 34, 0.78);
+      --panel-2: rgba(255, 255, 255, 0.05);
+      --text: #e9f2f6;
+      --muted: #a8bdc9;
+      --line: rgba(255,255,255,0.12);
+      --accent: #7dd3fc;
+      --accent2: #f59e0b;
+      --danger: #fb7185;
+      --ok: #34d399;
+      --shadow: 0 20px 60px rgba(0,0,0,.35);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --max: 1180px;
+    }
+
+        a { color: inherit; text-decoration: none; }
+
+        .spacer { height: 100vh; display: flex; align-items: center; justify-content: center; } 
+        .scrolly-section { position: relative; height: 300vh; } 
+        .sticky-map { position: sticky; top: 0; width: 100%; height: 100vh; background: rgba(104, 200, 255, 0.3); overflow: hidden; display: flex; align-items: center; justify-content: center; } 
+        #route-path { fill: none; stroke: white; stroke-width: 2; stroke-dasharray: 5,5; } 
+        #ship { font-size: 40px; } 
+        .content-box { position: absolute; right: 10%; width: 300px; background: rgba(250, 13, 13, 0.8); padding: 20px; border-radius: 8px; color: white; z-index: 10; } 
+        
+        #text-main, #text-monitor { opacity: 0; transform: translate(-50%, -40%); width:fit-content; line-height: 1.5; letter-spacing: 10px; } 
+
+        .zoom-sticky video {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+        }
+
+
+
+
+        .timeline {
+        position: relative;
+        display: grid;
+        gap: 16px;
+        }
+        .timeline::before {
+        content: "";
+        position: absolute;
+        left: 18px;
+        top: 10px;
+        bottom: 10px;
+        width: 2px;
+        background: linear-gradient(180deg, rgba(125,211,252,.65), rgba(245,158,11,.25));
+        }
+        .time-item {
+        position: relative;
+        padding-left: 54px;
+        }
+        .time-item::before {
+        content: "";
+        position: absolute;
+        left: 10px;
+        top: 8px;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        box-shadow: 0 0 0 6px rgba(125,211,252,.12);
+        }
+        .time-year {
+        font-size: 14px;
+        color: var(--accent);
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+        }
+        .time-title {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 6px;
+        }
+        .time-body { color: var(--muted); }
+
+
+
+
+
+
+
+
+
+        .topbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        backdrop-filter: blur(14px);
+        background: rgba(4, 12, 18, 0.72);
+        border-bottom: 1px solid var(--line);
+        }
+        .topbar-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        padding: 5px 20px 0;
+        }
+        .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 700;
+        letter-spacing: .04em;
+        }
+        .brand-mark {
+        width: 36px;
+        height: 36px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, rgba(125,211,252,.24), rgba(245,158,11,.18));
+        border: 1px solid rgba(255,255,255,.14);
+        box-shadow: var(--shadow);
+        }
+
+        .nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: flex-end;
+        font-size: 14px;
+        color: var(--muted);
+        }
+        .nav a {
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(255,255,255,.03);
+        border: 1px solid rgba(255,255,255,.08);
+        }
+        .nav a:hover { color: var(--text); border-color: rgba(125,211,252,.28); }
+
+
+
+    </style>
+</head>
+<body>
+
+
+    
+    <audio id="bgm" loop>
+    <source src="./music/The Other Universe.mp3" type="audio/mpeg">
+</audio>
+
+<div id="music-btn" class="music-control">
+    <span class="music-icon">🔇</span> </div>
+
+
+
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+
+        <div class="brand">
+            <img src="LOGO/LOGO10501頻道天標(慶聯版).svg" alt="我的 LOGO" style="height: 1.5em; width: auto;">
+        </div>
+
+        <div>
+          <div style="font-size: 18px;">高雄港老舊遠洋漁船拆專題</div>
+          <div class="muted" style="font-size:12px;">Kaohsiung Shipbreaker Feature Draft</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="頁面導覽">
+        <a href="#top-of-page">首頁</a>
+        <a href="#problem">現況</a>
+        <a href="#history-timeline">歷史</a>
+        <a href="#why">為何難拆</a>
+        <a href="#impact">衝擊</a>
+        <!-- <a href="#voices">人物</a> -->
+        <a href="#solution">解方</a>
+      </nav>
+    </div>
+  </div>
+
+
+
+<section id="top-of-page">
+    <div class="zoom-section"> 
+        <div class="zoom-sticky"> 
+            <video id="video-a" autoplay loop muted playsinline>
+                 <source src="./videos/video2.mp4" type="video/mp4">
+            </video>
+            <video id="video-b" autoplay loop muted playsinline> 
+                <source src="./videos/勝得造船廠工安事件_SP500.mp4" type="video/mp4">
+            </video>
+            <!-- 加入字幕層 -->
+            <div id="video-b-subtitles" class="subtitle-overlay">2024年5月25日，高雄旗津區中洲三路一間造船廠發生火警</div>
+
+            <video id="video-c" autoplay loop muted playsinline>
+            <source src="./videos/勝得造船廠工安事件_SP500.mp4" type="video/mp4">
+            </video>
+
+            <div class="monitor-overlay"></div> 
+
+
+        
+            <!-- 小影片暫時隱藏 -->
+            <div class="mini-videos-container">
+
+        
+                <!-- <div class="mini-video-wrapper v1">
+                    <video muted loop playsinline><source src="./videos/flim1/mini1_受災戶_屋損.mp4" type="video/mp4"></video>
+                    <span>REC 01</span>
+                    <p class="mini-caption">小港居民房屋受損</p>
+                </div>
+                <div class="mini-video-wrapper v2">
+                    <video muted loop playsinline><source src="./videos/flim1/mini2_老廢漁船滿港停.mp4" type="video/mp4"></video>
+                    <span>REC 02</span>
+                    <p class="mini-caption">老廢漁船滿港停</p>
+                </div>
+                <div class="mini-video-wrapper v3">
+                    <video muted loop playsinline><source src="./videos/flim1/mini3_廢油汙染海水.mp4" type="video/mp4"></video>
+                    <span>REC 03</span>
+                    <p class="mini-caption">廢油汙染海水</p>
+                </div>
+                <div class="mini-video-wrapper v4">
+                    <video muted loop playsinline><source src="./videos/flim1/mini4_拆船.mp4" type="video/mp4"></video>
+                    <span>REC 04</span>
+                    <p class="mini-caption">老舊廢船拆除</p>
+                </div>
+                <div class="mini-video-wrapper v5">
+                    <video muted loop playsinline><source src="./videos/flim1/mini5_居民調解會.mp4" type="video/mp4"></video>
+                    <span>REC 05</span>
+                    <p class="mini-caption">旗津拆船協調會</p>
+                </div> -->
+            </div>
+
+
+
+
+            <img src="./images/Gemini_Generated_Image_1q1vcq1q1vcq1q1v.png_.png" class="zoom-png-frame" alt="Frame"> 
+            <div class="zoom-content" id="intro-titles"> 
+                <h1 class="zoom-title"><br>被遺忘的海上遺產</h1>
+             </div>
+           
+
+
+        
+            <h3 id="text-main" class="scroll-text">佈滿鏽蝕痕跡的老船，<br>曾是馳騁於大海的一方霸主。<br>但在國際配額限縮的大浪拍打下，<br>只能在港邊搖擺，<br>等待著拆解之日的到來。</h3><h2>老船拆除卻成了過街老鼠，<br><br>海上「遺產」誰負責？</h2>
+            
+             <!-- <div id="text-main" class="scroll-text" >
+                <h3 class="reveal-text" >佈滿鏽蝕痕跡的老船，曾是馳騁於大海的一方霸主。</h3>
+                <h3 class="reveal-text">但在國際配額限縮的大浪拍打下，只能在港邊搖擺，</h3>
+                <h3 class="reveal-text">等待著拆解之日的到來。</h3>
+            </div> -->
+
+
+            <!-- <h2 id="text-monitor" class="scroll-text">拆船監視器畫面</h2>  -->
+
+
+        </div>
+    </div>
+
+    <div class="scrolling-bg-container"> 
+        <img src="./images/sailboat-medeteranian-sea.jpg" id="global-bg" alt="background"> 
+    </div>
+
+</section>
+
+
+
+        
+<!-- 笨方法區隔用 -->
+<section>
+    <div>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </div>
+</section>
+
+
+      <section id="problem">
+    <div class="container" >
+      <div class="section-head">
+        <!-- <div class="section-kicker"><br><br><br><br>現況問題</div> -->
+        <h2>港灣裡的沉默船隊</h2>
+        <p class="section-desc">現在發生了什麼事？<Br>這些船為何會留在港裡？<Br>又為什麼這件事不只是景觀問題，而是環境、管理與產業轉型的交叉議題？</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card pad">
+          <h3>船還在，故事卻被時間拖慢了</h3>
+          <p style="font-size: 16px;">高雄港部分水域停泊著多艘老舊遠洋漁船。有些仍在等待出售，有些已進入拆解程序，也有一些長期閒置，幾乎沒有人再使用。</p>
+          <p style="font-size: 16px;">船體長年泡在海水中，鏽蝕不斷擴散；油料殘留、塗料剝落與廢棄零件，也讓港灣環境承受更高壓力。</p>
+          <!-- <p class="muted"><strong>可替換素材：</strong>高雄港老舊船舶空拍、船身鏽蝕特寫、港邊作業鏡頭、海面油污或漂浮物畫面。</p> -->
+          <div class="stats">
+            <div class="stat"><div class="num">400</div><div class="txt">億元的產值</div></div>
+            <div class="stat"><div class="num">80</div><div class="txt">艘老舊漁船</div></div>
+            <div class="stat"><div class="num">3</div><div class="txt">家符合國際綠色拆船規範的拆船廠</div></div>
+            <!-- <div class="stat"><div class="num">XX</div><div class="txt">相關單位／管理權責（待核對）</div></div> -->
+          </div>
+        </div>
+
+        <div class="media-placeholder">
+          <div>
+            <strong>前鎮漁港</strong>
+            <!-- <span>請替換為「高雄港老舊遠洋漁船空拍影片」或「港邊鏽蝕船身特寫照片」。</span> -->
+             <video style="width: 100%; height: auto; border-radius: 8px;" autoplay muted loop playsinline><source src="./videos/Video-3(拆船、廢船停靠).mp4" type="video/mp4"></video>
+            <!-- <img src="./images/Gemini/jpg/01.圖片一_戰後初期_1945年後_Gemini_Generated_Image_6yy4sv6yy4sv6yy4.jpg" class="timeline-img" alt="1945示意圖"> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 笨方法區隔用 -->
+<section>
+    <div>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </div>
+</section>
+
+        <!-- <section class="flashlight-section">
+            <div class="flashlight-sticky"> -->
+                <!-- 將原本的 h2 改為 div 容器，並保留特效 class -->
+                <!-- <div class="flashlight-text fg-text">
+                    <h2>全球每三片鮪魚生魚片，就有一片來自臺灣</h2> -->
+                    <!-- 新增段落文字，並加上自訂樣式調整大小與間距 -->
+                    <!-- <p style="font-size: 1.2rem; margin-top: 20px; font-weight: normal; letter-spacing: 2px;">
+                        看著港口裡那些密密麻麻、隨著海浪微微搖晃的船影，很難想像，這曾是為台灣拚出千億產值的海上傳奇。
+                    </p>
+                </div>
+            </div>
+        </section> -->
+
+<section class="tuna-section">
+    <div class="tuna-sticky">
+        
+        <div class="tuna-images">
+            <img src="./images/PNG/Gemini_Generated_Image_omskzxomskzxomsk_alpha.png" class="tuna-left" alt="Tuna Left">
+            <img src="./images/PNG/Gemini_Generated_Image_omskzxomskzxomsk_alpha.png" class="tuna-right" alt="Tuna Right">
+            
+            <div class="tuna-center-wrapper">
+                <div class="tuna-center-inner">
+                    <img src="./images/PNG/Gemini_Generated_Image_omskzxomskzxomsk_alpha.png" class="tuna-front" alt="Tuna Center">
+                    <img src="./images/PNG/Gemini_Generated_Image_5pbvp75pbvp75pbv_臺灣PNG.png" class="tuna-back" alt="Taiwan">
+                </div>
+            </div>
+        </div>
+
+        <div class="tuna-texts">
+            <h2 class="tuna-text-1">全球每三片鮪魚生魚片<br><br><br></h2>
+            <h2 class="tuna-text-2">就有一片來自臺灣</h2>
+
+
+        </div>
+
+
+             <div class="tuna-texts-3">
+                看著港口裡那些密密麻麻、隨著海浪搖晃的船影，<br>
+                很難想像，這曾是為台灣拚出千億產值的海上傳奇。
+            </div>
+            <!-- 從左邊來的船 -->
+            <div class="ship-wrapper fleet-left-1"><img src="./images/PNG/ChatGPT Image 2026年6月5日 上午09_50_34_左.png" class="ship-img" alt="Ship Left 1"></div>
+            <div class="ship-wrapper fleet-left-2"><img src="./images/PNG/ChatGPT Image 2026年6月5日 上午09_50_34_左.png" class="ship-img" alt="Ship Left 2"></div>
+            <div class="ship-wrapper fleet-left-3"><img src="./images/PNG/ChatGPT Image 2026年6月5日 上午09_50_34_左.png" class="ship-img" alt="Ship Left 3"></div>
+            <div class="ship-wrapper fleet-left-4"><img src="./images/PNG/ChatGPT Image 2026年6月5日 上午09_50_34_左.png" class="ship-img" alt="Ship Left 4"></div>
+            
+            <!-- 從右邊來的船 -->
+            <div class="ship-wrapper fleet-right-1"><img src="./images/PNG/ChatGPT Image 2026年6月5日 上午09_50_49_右.png" class="ship-img" alt="Ship Right 1"></div>
+            <div class="ship-wrapper fleet-right-2"><img src="./images/PNG/ChatGPT Image 2026年6月5日 上午09_50_49_右.png" class="ship-img" alt="Ship Right 2"></div>
+            <div class="ship-wrapper fleet-right-3"><img src="./images/PNG/ChatGPT Image 2026年6月5日 上午09_50_49_右.png" class="ship-img" alt="Ship Right 3"></div>
+            <div class="ship-wrapper fleet-right-4"><img src="./images/PNG/ChatGPT Image 2026年6月5日 上午09_50_49_右.png" class="ship-img" alt="Ship Right 4"></div>
+                
+            <!-- 從下方來的船 (可以多放幾艘營造密密麻麻感) -->
+            <div class="ship-wrapper fleet-bottom-1"><img src="./images/PNG/ChatGPT Image 2026年6月5日 上午11_02_54_正面.png" class="ship-img" alt="Ship Bottom 1"></div>
+            <div class="ship-wrapper fleet-bottom-2"><img src="./images/PNG/ChatGPT Image 2026年6月5日 上午11_02_54_正面.png" class="ship-img" alt="Ship Bottom 2"></div>
+            <div class="ship-wrapper fleet-bottom-3"><img src="./images/PNG/ChatGPT Image 2026年6月5日 上午11_02_54_正面.png" class="ship-img" alt="Ship Bottom 3"></div>
+            <div class="ship-wrapper fleet-bottom-4"><img src="./images/PNG/ChatGPT Image 2026年6月5日 上午11_02_54_正面.png" class="ship-img" alt="Ship Bottom 4"></div>
+
+        </div>
+
+    </div>
+</section>
+
+        
+
+        <!-- <img src="./images/600x600/dutch-shrimp-fishing-cutter-vessel-2026-01-09-01-13-51-utc.jpg" alt="3">
+
+        <section class="text-reveal-section">
+            <div class="text-reveal-sticky">
+                <p class="reveal-p">鏽跡之外的微光<br>我們不要全球最大的拆船遺址<br>我們要能看見藍天的海岸線</p>
+            </div>
+        </section> -->
+
+
+<!-- 笨方法區隔用 -->
+<section>
+    <div>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </div>
+</section>
+
+
+
+        <section id="history-timeline">
+            <h2 class="timeline-main-title"><br>高雄拆船業大事記</h2>
+            <div class="timeline-container">
+                <div class="timeline-line-progress"></div> 
+                    <div class="timeline-item left">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">1945</div>
+                        <div class="timeline-content">
+                            戰後初期：高雄港內沈船多，政府鼓勵打撈拆解，奠定拆船工業基礎，初期集中於第三船渠。
+                            <img src="./images/Gemini/jpg/01.圖片一_戰後初期_1945年後_Gemini_Generated_Image_6yy4sv6yy4sv6yy4.jpg" class="timeline-img" alt="1945示意圖">
+                        </div>
+                    </div>
+
+                <div class="timeline-item right">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">1960</div>
+                    <div class="timeline-content">
+                        1963年起政府標購廢船，1965年停止美援後，政府推出獎勵措施，拆船業迅速擴張。
+                        <img src="./images/Gemini/jpg/02.圖片二_960年代_Gemini_Generated_Image_rmpmwyrmpmwyrmpm.jpg" class="timeline-img" alt="1963示意圖">
+                    </div>
+                </div>
+
+                <div class="timeline-item left">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">1968</div>
+                    <div class="timeline-content">
+                        高雄拆船量躍居世界第一，成為名副其實的「拆船王國」。
+                        <img src="./images/Gemini/jpg/03.圖片三_1968年_Gemini_Generated_Image_2yh8ib2yh8ib2yh8.jpg" class="timeline-img" alt="1968示意圖">
+                    </div>
+                </div>
+
+                <div class="timeline-item right">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">1970</div>
+                    <div class="timeline-content">
+                        拆船工業與鋼鐵、拖船等產業結合，滿足台灣四成鋼鐵需求。拆解所得五金在公園路形成著名「大五金街」。
+                        <img src="./images/Gemini/jpg/04.圖片四_1970年代_Gemini_Generated_Image_8qj0d08qj0d08qj0.jpg" class="timeline-img" alt="1970示意圖">
+                    </div>
+                </div>
+
+                <div class="timeline-item left">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">1975-1978</div>
+                    <div class="timeline-content">
+                        興建大仁宮拆船專區(1975)與大林拆船專區(1978)，拆船效率極高，一萬噸大船約18天可拆解完成。
+                        <img src="./images/Gemini/jpg/05.圖片五_1975-1978年_Gemini_Generated_Image_6apfax6apfax6apf.jpg" class="timeline-img" alt="1975示意圖">
+                    </div>
+                </div>
+
+                <div class="timeline-item right">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">1986年8月11日</div>
+                    <div class="timeline-content">
+                        發生震撼的「大仁宮廢船爆炸事件」，加那利號（Canari）油輪爆炸，釀成16死87傷，導致拆船業盛極轉衰。
+                        <img src="./images/Gemini/jpg/06.圖片六_1986_Gemini_Generated_Image_ba66hnba66hnba66.jpg" class="timeline-img" alt="1986示意圖">
+                    </div>
+                </div>
+
+                <div class="timeline-item left">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">1989</div>
+                    <div class="timeline-content">
+                        大仁宮拆船專區被收回，闢建為第五貨櫃中心，高雄拆船業正式步入歷史，許多業者轉向東南亞發展。
+                        <img src="./images/Gemini/jpg/07.圖片七_1989年_Gemini_Generated_Image_1s1sz1s1sz1s1sz1.jpg" class="timeline-img" alt="1989示意圖">
+                    </div>
+                </div>
+
+                <div class="timeline-item right">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2008</div>
+                    <div class="timeline-content">
+                        高雄市政府執行「綠八計畫」，拆除公園路五金街，僅剩部分  店家遷往它處。
+                        <img src="./images/Gemini/jpg/08.圖片八_2008年_Gemini_Generated_Image_5xbh7x5xbh7x5xbh.jpg" class="timeline-img" alt="2008示意圖">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        
+        <!-- 原先的資料，暫留 -->
+    <!-- <section class="image-grid-container"> 
+        <img src="./images/600x600/abstract-aerial-view-background-of-blue-waves-2026-01-09-10-14-51-utc.jpg" alt="1">
+        <section class="text-reveal-section">
+            <div class="text-reveal-sticky">
+                <p class="reveal-p">港底的沈默毒藥<br>清不完的重金屬<br>高雄港拆船業遺留下的『生態帳單』<br>由誰買單？</p>
+            </div>
+        </section> -->
+
+        <!-- <img src="./images/600x600/beautiful-shot-of-a-shrimp-boat-at-sunset-2026-01-07-23-14-54-utc.jpeg" alt="2">
+        <img src="./images/600x600/beautiful-shot-of-a-shrimp-boat-at-sunset-2026-01-07-23-14-54-utc.jpeg" alt="2"> -->
+
+
+        <!-- //三張圖平行 -->
+        <!-- <div class="image-container">
+        <img src="./images/600x600/beautiful-shot-of-a-shrimp-boat-at-sunset-2026-01-07-23-14-54-utc.jpeg" alt="2">
+        <img src="./images/600x600/beautiful-shot-of-a-shrimp-boat-at-sunset-2026-01-07-23-14-54-utc.jpeg" alt="2">
+        <img src="./images/600x600/beautiful-shot-of-a-shrimp-boat-at-sunset-2026-01-07-23-14-54-utc.jpeg" alt="2">
+        </div>
+        <section class="flashlight-section">
+        </section> -->
+
+
+
+
+<!-- 笨方法區隔用 -->
+<section>
+    <div>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </div>
+</section>
+
+
+
+
+    <section > 
+        <section class="text-reveal-section">
+            <div class="text-reveal-sticky" >
+                <p class="reveal-p">為什麼老船一直留在港裡？</p>
+            </div>
+        </section>
+        <img src="./images/still/HeroVideo.00_03_44_28.Still005.png" alt="1">
+
+
+
+
+
+  <section id="why">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-kicker"><br><br><br><br>核心原因</div>
+        <h2>為什麼老船一直留在港裡？</h2>
+        <p class="section-desc">不是大家不知道問題，而是拆解與汰除之所以困難，背後有成本、責任與制度三層阻力。</p>
+      </div>
+
+      <div class="three-col">
+        <div class="mini-card">
+          <div class="icon">1</div>
+          <h3>拆解成本高</h3>
+          <p>老舊船舶拆解涉及人力、吊裝、污染物處理與廢棄物清運，成本往往不是單一船主可以輕易負擔。</p>
+        </div>
+        <div class="mini-card">
+          <div class="icon">2</div>
+          <h3>權責不易釐清</h3>
+          <p>船籍、所有權、停泊管理與環境責任分散在不同單位之間，導致問題常常「看得到，卻很難立刻處理」。</p>
+        </div>
+        <div class="mini-card">
+          <div class="icon">3</div>
+          <h3>缺乏長期制度</h3>
+          <p>若沒有穩定的補助、回收機制或汰除方案，老船就容易在港內持續累積，形成越拖越大的治理負擔。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+    <section id="impact">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-kicker"><br><br><br><br>環境衝擊</div>
+        <h2>港底的沉默毒藥</h2>
+        <p class="section-desc">這一段建議從感性標題走向可驗證的內容：哪些污染風險可能存在？它們會如何影響港灣與周邊社區？</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card pad">
+          <h3>可能的風險來源</h3>
+          <p>長期閒置或年久失修的船體，可能涉及廢油、塗料剝落、金屬鏽蝕、機械殘留物與其他廢棄材料的管理問題。</p>
+          <p>若拆解過程缺乏完整污染控制，風險不只留在船上，也會進一步擴散到港灣水域與岸線環境。</p>
+          <p class="muted">這一段建議正式上線前，補上可查證的研究、監測數據與單位訪談，以避免敘述過度抽象。</p>
+        </div>
+        <div class="media-placeholder">
+          <div>
+            <strong>暫時性資料圖／顯微細節區塊</strong>
+            <span>請替換為：污染來源示意圖、港底沉積物照片、拆船流程圖、專家訪談影片。</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+        <!-- <section class="flashlight-section">
+            <div class="flashlight-sticky">
+                <p class="flashlight-text bg-text">被遺忘的海域，每艘廢船都鎖著一段不為人知的過去。</p>
+                <p class="flashlight-text fg-text">被遺忘的海域，每艘廢船都鎖著一段不為人知的過去。</p>
+            </div>
+        </section> -->
+
+        
+
+        <!-- <img src="./images/600x600/dutch-shrimp-fishing-cutter-vessel-2026-01-09-01-13-51-utc.jpg" alt="3">
+
+        <section class="text-reveal-section">
+            <div class="text-reveal-sticky">
+                <p class="reveal-p">鏽跡之外的微光<br>我們不要全球最大的拆船遺址<br>我們要能看見藍天的海岸線</p>
+            </div>
+        </section> -->
+
+<!-- 笨方法區隔用 -->
+<section>
+    <div>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </div>
+</section>
+
+
+
+
+        <section id="solution">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-kicker"><br><br><br><br>解方與未來</div>
+        <h2>老船的最後航程</h2>
+        <p class="section-desc">不要讓報導只停留在問題。讓觀眾看見，政策、制度與產業都有機會做出改變。</p>
+      </div>
+
+      <div class="solutions">
+        <div class="solution-list">
+          <div class="solution-item">
+            <div class="bubble">A</div>
+            <div>
+              <h3>建立更明確的老船汰除機制</h3>
+              <p>包含補助、通報、回收與拆解流程，降低船主單獨承擔的門檻。</p>
+            </div>
+          </div>
+          <div class="solution-item">
+            <div class="bubble">B</div>
+            <div>
+              <h3>讓港務、環保與漁業管理對接</h3>
+              <p>清楚分工、共享資料，避免問題拖延太久才被處理。</p>
+            </div>
+          </div>
+          <div class="solution-item">
+            <div class="bubble">C</div>
+            <div>
+              <h3>參考國內外綠色拆船或回收案例</h3>
+              <p>把拆解過程變得更安全、更透明，也讓環境成本可控。</p>
+            </div>
+          </div>
+          <div class="solution-item">
+            <div class="bubble">D</div>
+            <div>
+              <h3>保存部分船舶記憶，轉化為公共教育素材</h3>
+              <p>不是每艘船都要被保留，但可以留下影像、口述歷史與港口記憶。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="media-placeholder">
+          <div>
+            <strong>暫時性解方圖表／案例區塊</strong>
+            <span>請替換為：政策流程圖、國外案例比較、港區再利用示意圖、時間軸結尾動畫。</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+<!-- 笨方法區隔用 -->
+<section>
+    <div>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </div>
+</section>
+
+
+
+
+  <section id="ending">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-kicker">收尾</div>
+        <h2>這些船曾經航向世界，如今停留在港灣深處</h2>
+        <p class="section-desc">結尾要有餘韻，但也要有收束。用一句有力的總結，把「產業記憶」與「現實治理」重新連起來。</p>
+      </div>
+
+      <div class="end-card">
+        <div class="overlay">
+          <h3>等待拆解的不只是鋼鐵，還有一段海洋時代的尾聲</h3>
+          <p>高雄港裡的老舊遠洋漁船，曾經承載台灣的外銷榮景，也映照產業轉型後留下的治理空白。它們最後的去向，將會決定港灣如何與自己的過去和解。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+    </section>
+
+
+
+
+
+
+
+
+    <section class="flourish-container"> 
+        <p>近20年200~1000噸級漁船統計</p>
+        <div class="flourish-embed flourish-chart" data-src="visualisation/27388666">
+            <script src="https://public.flourish.studio/resources/embed.js"></script>
+        </div>
+    </section>
+
+    <div class="spacer"><h2>往下捲動，開始航行 ↓</h2></div> 
+    <div class="scrolly-section"> 
+        <div class="sticky-map">
+            <svg width="800" height="600" viewBox="0 0 800 600">
+                <path id="route-path" d="M100,800 C200,100 600,600 700,100" /> 
+                <g id="ship-group">
+                    <text id="ship">🚢</text> 
+                </g>
+            </svg>
+            <div class="content-box" style="top: 20%;">這是起點：高雄港</div>
+            <div class="content-box" style="top: 150%;">經過危險海域...</div>
+            <div class="content-box" style="top: 280%;">抵達目的地</div>
+        </div>
+    </div>
+
+    <script>
+
+
+
+
+
+
+        gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+
+        // 1. 主時間軸
+        const masterTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".zoom-section",
+                start: "top top",
+                end: "bottom bottom", 
+                scrub: 1.5,
+                pin: ".zoom-sticky",
+                anticipatePin: 1
+            }
+        });
+
+        masterTl
+            // [階段一] 圖片相框放大，產生穿透感
+            .to(".zoom-png-frame", { scale: 80, ease: "power2.in", duration: 4 }) 
+            // 「被遺忘的海上遺產」放大並淡出 (提早 3.5 秒跟著相框一起動作)
+            .to("#intro-titles", { opacity: 0, scale: 2, duration: 2 }, "-=3.5") 
+
+            // [階段二] 替換成你要的文字！「拆船監視器畫面」淡入出現
+            .to("#text-main", { opacity: 1, y: "-50%", duration: 2 })
+            // 讓文字停留 1.5 秒後，再淡出往上飄 (如果不想要淡出，可以把這行刪掉)
+            .to("#text-main", { opacity: 0, y: "-60%", duration: 2, delay: 1.5 }) 
+
+
+            // [階段三] 準備切換監視器影片
+            .to("#video-a", { opacity: 0, duration: 3, ease: "none" })
+            // 空白停頓 1 秒製造懸疑感
+            .to({}, { duration: 1 }) 
+
+            // [階段四] 出現影片B與掃描線遮罩
+            .to("#video-b", { opacity: 1, duration: 3, ease: "power1.inOut" })
+            .to(".monitor-overlay", { opacity: 1, duration: 3 }, "<")
+            // 注意：只有最後一行才有分號 (;) 結尾！這很重要，否則動畫會斷掉當機
+
+            // [階段五] 顯示影片 B 的專屬字幕
+            .to("#video-b-subtitles", { opacity: 1, y: -10, duration: 1, ease: "power2.out" })
+
+
+            // 🎬 新增 [階段六]：影片 B 與其字幕、監視器遮罩同步淡出，滿版影片 C 同步淡入
+            // 這裡設定 delay: 2 讓影片 B 的畫面先撐一下再切換
+            .to(["#video-b", "#video-b-subtitles", ".monitor-overlay"], { opacity: 0, duration: 2, delay: 2 })
+            .to("#video-c", { opacity: 1, duration: 2 }, "<")
+
+            // 🛑 新增 [階段七]：利用空物件動畫（Dummy Tween）鎖定畫面
+            // 當影片 C 100% 出現後，網頁會在這裡「凍結」一長段滾動距離，製造出停頓 2 秒的體感
+            // 如果覺得停留時間不夠長，可以把 duration 的數值（例如 6）再往上調大
+            .to({}, { duration: 6 });
+
+
+
+
+
+        // =========================================
+        // 新增特效：監視器故障開機序列
+        // =========================================
+        const miniVideos = gsap.utils.toArray(".mini-video-wrapper");
+        
+        miniVideos.forEach((wrapper, i) => {
+            const videoEl = wrapper.querySelector('video');
+            const recSpan = wrapper.querySelector('span'); // 抓取 REC 文字
+
+            // 1. 為每個視窗建立一個獨立的「故障進場」小時間軸
+            const glitchEntry = gsap.timeline({
+                onStart: () => { 
+                    if(videoEl) videoEl.play(); // 確保影片存在才播放
+                }
+            });
+
+            // 2. 定義故障序列動畫關鍵影格 (Keyframes)
+            glitchEntry
+                // --- 階段一：初始爆閃訊號 (0s) ---
+                // 從全黑、縮小、高對比、高亮度開始，瞬間出現
+                .fromTo(wrapper, 
+                    { opacity: 0, scale: 0.7, filter: "brightness(3) contrast(2) grayscale(1)", borderColor: "#ff0000", skewX: 10 },
+                    { opacity: 1, scale: 1.05, filter: "brightness(2) contrast(1.5) grayscale(0.8)", borderColor: "#ffffff", skewX: 0, duration: 0.1, ease: "power4.in" }
+                )
+                // --- 階段二：訊號不穩定的抖動與閃爍 (0.1s - 0.4s) ---
+                .to(wrapper, { opacity: 0.4, scale: 0.95, skewX: -5, borderColor: "rgba(255,0,0,0.5)", duration: 0.05 }) // 變暗、歪斜、邊框變紅
+                .to(wrapper, { opacity: 1, scale: 1.02, skewX: 3, borderColor: "#ffffff", filter: "brightness(2.5)", duration: 0.08 }) // 變亮、反向歪斜
+                .to(wrapper, { opacity: 0.7, scale: 0.98, skewX: -2, duration: 0.05 })
+                .to(wrapper, { opacity: 1, scale: 1.01, skewX: 1, borderColor: "red", duration: 0.1 }) // 再次閃紅框
+                // --- 階段三：訊號穩定 (Settle) ---
+                .to(wrapper, {
+                    opacity: 1,
+                    scale: 1,
+                    skewX: 0,
+                    filter: "brightness(1) contrast(1) grayscale(0)", // 回復正常色彩與亮度
+                    borderColor: "rgba(255,255,255,0.6)", // 回復原本 CSS 設定的邊框色
+                    duration: 0.8,
+                    ease: "elastic.out(1, 0.5)" // 帶一點點彈性穩定的感覺
+                });
+
+
+                
+            // 3. 額外特效：讓紅色的 REC 文字也快速閃爍幾下
+            glitchEntry.fromTo(recSpan, 
+                { opacity: 0 }, 
+                {   opacity: 1, 
+                    duration: 0.1, 
+                    repeat: 5, 
+                    yoyo: true, 
+                    ease: "steps(1)",
+                    onComplete: () => {
+                        // 動畫結束後，另外執行一個無限循環的慢閃
+                        gsap.to(recSpan, {
+                            opacity: 0.4,
+                            duration: 0.8,
+                            repeat: -1,
+                            yoyo: true,
+                            ease: "power1.inOut"
+                        });
+                    }
+                }, 0);
+
+
+
+            // 3. 額外特效：讓紅色的 REC 文字也快速閃爍幾下，然後持續顯示
+            // glitchEntry.fromTo(recSpan, 
+            //     { opacity: 0 }, 
+            //     {   opacity: 1, 
+            //         duration: 0.1, 
+            //         repeat: 6, 
+            //         yoyo: true, 
+            //         ease: "steps(1)" 
+            //     }, 0);
+
+
+
+
+            // 4. 將這個設計好的小時間軸，加入主捲動時間軸 (masterTl)
+            // "+=0.4" 控制每個視窗跳出來的間隔時間
+            masterTl.add(glitchEntry, "+=0.4"); 
+        });
+
+
+
+
+
+
+  
+
+
+
+          // 最後留一點留白，讓最後一段影片停久一點
+            masterTl.to({}, { duration: 5 });
+
+
+
+        // 2. 背景圖視差
+        const bgImg = document.querySelector("#global-bg");
+        if(bgImg) {
+            gsap.to("#global-bg", {
+                y: () => -(bgImg.offsetHeight - window.innerHeight),
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "body",
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: 0.5
+                }
+            });
+        }
+
+        // 3. 手電筒動畫
+        // gsap.to(".fg-text", {
+        //     opacity: 1,
+        //     "--mask-size": "60%",
+        //     "--mask-blur": "100%",
+        //     ease: "power1.inOut",
+        //     scrollTrigger: {
+        //         trigger: ".flashlight-section",
+        //         start: "top top",      
+        //         end: "bottom bottom",  
+        //         scrub: 1,              
+        //         pin: ".flashlight-sticky", 
+        //         anticipatePin: 1
+        //     }
+        // });
+
+
+// 3. 手電筒動畫 (修改為 Timeline 以增加停留時間)
+const flashlightTl = gsap.timeline({
+    scrollTrigger: {
+        trigger: ".flashlight-section",
+        start: "top top",      
+        end: "bottom bottom",  
+        scrub: 1,              
+        pin: ".flashlight-sticky", 
+        anticipatePin: 1
+    }
+});
+
+flashlightTl
+    // 階段一：文字與手電筒光圈漸漸出現 (佔用一部分捲動時間)
+    .to(".fg-text", {
+        opacity: 1,
+        "--mask-size": "90%",
+        "--mask-blur": "100%",
+        ease: "power1.inOut",
+        duration: 1  // 設定這段動畫的比例為 1
+    })
+    // 階段二：加入空動畫，讓畫面在文字完全出現後「凍結停留」
+    // duration 設為 1，代表停留的時間跟「文字出現的時間」一樣長
+    // 如果你覺得停得不夠久，可以把這個數值改大，例如改為 1.5 或 2
+    .to({}, { duration: 1.5 });
+
+
+
+
+
+        // 4. 圖片滑入動畫
+        gsap.utils.toArray(".image-grid-container img").forEach((img, i) => {
+            gsap.fromTo(img, 
+                { opacity: 0, y: 100, scale: 0.9 },
+                { 
+                    opacity: 1, 
+                    y: 0, 
+                    scale: 1,
+                    scrollTrigger: { 
+                        trigger: img, 
+                        start: "top 85%", 
+                        end: "top 50%", 
+                        scrub: 1 
+                    } 
+                }
+            );
+        });
+
+        // 5. 文字揭露動畫
+        gsap.utils.toArray(".text-reveal-section").forEach((section) => {
+            const text = section.querySelector(".reveal-p");
+            const sticky = section.querySelector(".text-reveal-sticky");
+            gsap.to(text, {
+                opacity: 1,
+                filter: "blur(0px)",
+                y: -20,
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top top",      
+                    end: "+=80%",         
+                    scrub: 1,              
+                    pin: sticky,         
+                }
+            });
+        });
+
+        // 6. 新增：時間軸動畫邏輯
+        // 進度線動畫
+        gsap.fromTo(".timeline-line-progress", 
+            { height: 0 },
+            { 
+                height: "100%", 
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".timeline-container",
+                    start: "top 20%",
+                    end: "bottom 80%",
+                    scrub: true
+                }
+            }
+        );
+
+        // 每個項目滑入動畫
+        gsap.utils.toArray(".timeline-item").forEach((item, i) => {
+            const isLeft = item.classList.contains('left');
+            gsap.from(item, {
+                x: isLeft ? -100 : 100,
+                opacity: 0,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top 80%",
+                    end: "top 50%",
+                    scrub: 1
+                }
+            });
+        });
+
+        // 7. 船隻路徑動畫
+        gsap.to("#ship-group", {
+            scrollTrigger: { trigger: ".scrolly-section", start: "top top", end: "bottom bottom", scrub: 1 },
+            motionPath: { path: "#route-path", align: "#route-path", alignOrigin: [0.5, 0.5], autoRotate: true }
+        });
+
+
+
+
+// 修改 index.html 中的音樂控制邏輯
+const bgm = document.getElementById('bgm');
+const musicBtn = document.getElementById('music-btn');
+const musicIcon = musicBtn.querySelector('.music-icon');
+
+musicBtn.addEventListener('click', () => {
+    if (bgm.paused) {
+        bgm.play();
+        musicIcon.innerText = '🎵'; 
+        musicBtn.classList.add('is-playing'); // 啟動呼吸燈
+    } else {
+        bgm.pause();
+        musicIcon.innerText = '🔇'; 
+        musicBtn.classList.remove('is-playing'); // 關閉呼吸燈
+    }
+});
+
+
+
+
+
+
+
+
+
+// =========================================
+// 5. 鮪魚滾動敘事與 3D 翻轉動畫
+// =========================================
+const tunaTl = gsap.timeline({
+    scrollTrigger: {
+        trigger: ".tuna-section",
+        start: "top top",      
+        end: "bottom bottom",  
+        scrub: 1.5,              // 1.5 帶有一點滑順的延遲感
+        pin: ".tuna-sticky", 
+        anticipatePin: 1
+    }
+});
+
+tunaTl
+    // [幕次一]：「全球每三片鮪魚生魚片」破題浮現
+    .to(".tuna-text-1", { opacity: 1, duration: 1 })
+    .to({}, { duration: 0.5 }) // 稍作停頓
+
+    // [幕次二]：三隻鮪魚從左、右、下，游進畫面
+    .fromTo(".tuna-left", 
+        { x: "-30vw", opacity: 0 }, 
+        { x: 0, opacity: 1, duration: 2, ease: "power2.out" }, "fishIn"
+    )
+    .fromTo(".tuna-right", 
+        { x: "30vw", opacity: 0 }, 
+        { x: 0, opacity: 1, duration: 2, ease: "power2.out" }, "fishIn" // 與左邊同步
+    )
+    .fromTo(".tuna-center-wrapper",
+        { y: "40vh", opacity: 0 },
+        { y: 0, opacity: 1, duration: 2, ease: "power2.out" }, "fishIn" // 與左右同步
+    )
+    
+    // 讓三隻魚在畫面上停留一下，讓使用者意識到「三片鮪魚」
+    .to({}, { duration: 1.5 })
+
+    // [幕次三]：黃金翻轉大結局！
+    // 1. 中間鮪魚翻面變臺灣
+    .to(".tuna-center-inner", { rotateY: 180, duration: 2.5, ease: "power2.inOut" }, "flip")
+    // 2. 左、右兩片鮪魚往旁邊退開並淡出，讓出 C 位
+    .to(".tuna-left", { x: "-20vw", opacity: 0, duration: 2 }, "flip")
+    .to(".tuna-right", { x: "20vw", opacity: 0, duration: 2 }, "flip")
+    // 3. 原本的字微微往上移
+    .to(".tuna-text-1", { y: -50, duration: 2 }, "flip")
+    // 4. 「就有一片來自臺灣」與說明文，在翻轉一半時浮現
+    .to(".tuna-text-2", { opacity: 1, y: 0, duration: 2 }, "flip+=0.8")
+    
+
+    // [幕次四]：凍結畫面，留時間給觀眾閱讀感性文字
+    .to({}, { duration: 2.5 })
+
+
+    // 🌟 核心修改：[舞台清空過渡幕] 讓大標題文字與臺灣地圖淡出並往上飄移離開
+    .to([".tuna-text-1", ".tuna-text-2", ".tuna-center-wrapper"], { 
+        opacity: 0, 
+        y: "-=60", 
+        duration: 1.5, 
+        ease: "power2.in" 
+    }, "fadeOutOld")
+    // 移除它們的排版佔位，確保接下來的感性文字能置中，並留白一小段滾動距離
+    .to([".tuna-text-1", ".tuna-text-2", ".tuna-center-wrapper"], { display: "none", duration: 0 })
+    .to({}, { duration: 0.5 })
+
+
+    
+    // 🌟 全新 [幕次五]：感性文字浮現，伴隨多艘老舊漁船從四周駛入
+    // 1. 感性文字出場
+    .to(".tuna-texts-3", { opacity: 1, y: 0, duration: 2 }, "flipin")
+
+    
+    // 2. 船隻從四周慢慢開進來（大幅增加 x 與 y 的移動數值，讓船靠近畫面中心）
+    
+    // 左邊船隊 (x 往正數加，越加越靠近右邊)
+    .fromTo(".fleet-left-1", { x: "-10vw", opacity: 0 }, { x: "25vw", opacity: 0.9, duration: 4, ease: "power1.out" }, "fleetIn")
+    .fromTo(".fleet-left-2", { x: "-10vw", opacity: 0 }, { x: "35vw", opacity: 0.9, duration: 3.5, ease: "power1.out" }, "fleetIn+=0.2")
+    .fromTo(".fleet-left-3", { x: "-10vw", opacity: 0 }, { x: "20vw", opacity: 0.9, duration: 4.5, ease: "power1.out" }, "fleetIn+=0.4")
+    .fromTo(".fleet-left-4", { x: "-10vw", opacity: 0 }, { x: "30vw", opacity: 0.9, duration: 3.8, ease: "power1.out" }, "fleetIn+=0.6")
+
+    // 右邊船隊 (x 往負數減，越減越靠近左邊)
+    .fromTo(".fleet-right-1", { x: "10vw", opacity: 0 }, { x: "-25vw", opacity: 0.9, duration: 4.2, ease: "power1.out" }, "fleetIn+=0.1")
+    .fromTo(".fleet-right-2", { x: "10vw", opacity: 0 }, { x: "-35vw", opacity: 0.9, duration: 3.2, ease: "power1.out" }, "fleetIn+=0.3")
+    .fromTo(".fleet-right-3", { x: "10vw", opacity: 0 }, { x: "-20vw", opacity: 0.9, duration: 4.6, ease: "power1.out" }, "fleetIn+=0.5")
+    .fromTo(".fleet-right-4", { x: "10vw", opacity: 0 }, { x: "-30vw", opacity: 0.9, duration: 3.6, ease: "power1.out" }, "fleetIn+=0.7")
+
+    // 正面底部船隊 (y 往負數減，越減越往畫面上方靠)
+    // .fromTo(".fleet-bottom-1", { y: "20vh", opacity: 0 }, { y: "-40vh", opacity: 0.8, duration: 3.5, ease: "power1.out" }, "fleetIn+=0.2")
+    // .fromTo(".fleet-bottom-2", { y: "20vh", opacity: 0 }, { y: "-55vh", opacity: 0.8, duration: 4, ease: "power1.out" }, "fleetIn+=0.4")
+    // .fromTo(".fleet-bottom-3", { y: "20vh", opacity: 0 }, { y: "-45vh", opacity: 0.8, duration: 3.8, ease: "power1.out" }, "fleetIn+=0.6")
+    // .fromTo(".fleet-bottom-4", { y: "20vh", opacity: 0 }, { y: "-35vh", opacity: 0.8, duration: 4.5, ease: "power1.out" }, "fleetIn+=0.8")
+
+    // [幕次六]：最終凍結，留時間給觀眾閱讀感性文字，並看著船隻搖晃
+    .to({}, { duration: 3 });
+
+
+    </script>
+</body>
+</html>

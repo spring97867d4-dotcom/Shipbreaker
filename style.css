@@ -1,0 +1,1154 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Hiragino Sans GB", "Microsoft JhengHei", sans-serif;
+    font-size: 25px; /* 全域字體大小 */
+    margin: 0; /* 移除邊距 */
+    background-color: transparent; /* 背景透明，顯示底層背景圖 */
+    color: white; /* 全域文字顏色 */
+}
+
+.scrolling-bg-container {
+    position: fixed; /* 固定在視窗上 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -2; /* 置於最底層 */
+    overflow: hidden;
+    background-color: #000000;
+}
+
+#global-bg {
+    width: 100%;
+    height: 150vh; /* 高度超過視窗以供捲動 */
+    object-fit: cover;
+    filter: saturate(0.4) brightness(0.4); /* 降低飽和度與亮度，強調壓抑感 */
+    will-change: transform; /* 優化效能 */
+}
+
+
+#video-b {  opacity: 0; /* 重複設定：隱藏影片 B */
+            filter: contrast(1.4) brightness(0.8) grayscale(0.8) blur(1px);
+} 
+
+#video-c {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0; /* 預設隱藏，由 GSAP 控制出場 */
+    z-index: 5; /* 層級介於影片 B 與 監視器遮罩之間 */
+}
+
+.monitor-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none; /* 防止遮罩干擾滑鼠點擊 */
+    opacity: 0;
+    /* 製作掃描線效果的漸層背景 */
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.2) 0px,
+        rgba(0, 0, 0, 0.2) 2px,
+        transparent 2px,
+        transparent 4px
+    );
+}
+
+.image-grid-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 新增：讓容器內的所有子元素（圖片）水平置中 */
+    gap: 150px; /* 圖片間距 */
+    padding: 100px 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+    /* background: transparent; */
+    /* background-color: #ff7979; */
+}
+
+.image-grid-container img {
+    width: 50%; /* 圖片寬度佔一半 */
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* 陰影 */
+    opacity: 0; /* 由 JS 控制顯示 */
+}
+
+/* .image-grid-container img:nth-child(odd) { align-self: flex-start; } 奇數圖靠左 */
+/* .image-grid-container img:nth-child(even) { align-self: flex-end; } 偶數圖靠右 */
+
+.flourish-container {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: transparent;
+}
+
+.zoom-section {
+    height: 800vh; /* 捲動動畫所需的空間 */
+    position: relative;
+    background-color: #000;
+}
+
+.zoom-sticky {
+    position: sticky; /* 釘選效果 */
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.zoom-target-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.zoom-png-frame {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 10;
+    will-change: transform;
+}
+
+.zoom-content {
+    position: absolute;
+    top: 46%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    z-index: 3;
+    margin: 0;
+    padding: 0;
+    color: white;
+    text-shadow: 0 0 20px rgba(0,0,0,0.8);
+    pointer-events: none;
+}
+
+
+
+/* 優化文字辨識度：增加陰影與半透明背景襯托 */
+.scroll-text, .zoom-title {
+    font-size: 2.5rem;
+    position: absolute; /* 確保在釘選容器內絕對定位 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    text-align: center;
+    z-index: 10;
+    
+    /* 增加文字陰影，解決背景雜亂導致文字看不清的問題 */
+    text-shadow: 0 0 15px rgba(0, 0, 0, 0.9), 0 0 5px rgba(0, 0, 0, 1);
+    letter-spacing: 2px;
+}
+
+/* 針對小標題給予微弱的背景色區隔 */
+#text-main, #text-monitor {
+    background: rgba(0, 0, 0, 0.5); 
+    padding: 10px 20px !important; 
+    border-radius: 12px;
+    backdrop-filter: blur(4px); /* 輕微模糊背景增加質感 */
+}
+
+/* 優化圖片網格的進場感覺 */
+.image-grid-container img {
+    width: 50%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    opacity: 0; 
+    transition: filter 0.5s ease; /* 增加滑鼠經過時的濾鏡變化 (可選) */
+
+    
+}
+
+.image-grid-container img:hover {
+    filter: brightness(1.2);
+    /* background-color: #000; */
+}
+
+
+
+
+
+
+.zoom-subtitle { font-size: 1.5rem; opacity: 0.8; }
+
+
+
+
+
+
+
+.text-reveal-section {
+    /* background-color: red; */
+    height: 200vh; /* 捲動動畫的長度，越高代表要滾越久動畫才會跑完 */
+    position: relative;
+    /* background-color: #000; */
+}
+
+.text-reveal-sticky {
+    /* background-color: blue; */
+    position: relative; 
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: #000; */
+}
+
+.reveal-p {
+    /* background-color: red; */
+    font-size: 2rem;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    filter: blur(20px); /* 初始模糊 */
+    line-height: 1.6;
+}
+
+
+.reveal-text{
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+
+
+
+
+
+
+/* 修正：手電筒文字區塊 */
+.flashlight-section {
+    height: 350vh; /* 縮短捲動距離讓節奏更緊湊 */
+    width: 100vw;  /* 強制滿版寬度 */
+    /* background-color: #000; */
+    /* margin-left: calc(-50vw + 50%);  修正：若在容器內，這能強制滿版 */
+    margin: 0; /* 移除原本的 margin-left 修正 */
+}
+
+.flashlight-sticky {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+
+
+
+/* 修正：讓手電筒文字在畫面絕對置中 */
+.flashlight-text {
+    position: absolute;
+    top: 50%;           /* 垂直置中起始點 */
+    left: 50%;          /* 水平置中起始點 */
+    transform: translate(-50%, -50%); /* 修正：將文字中心點移至座標中心點 */
+    width: 90%;
+    max-width: 1000px;
+    font-size: 2.2rem;
+    text-align: center;
+    line-height: 1.6;
+    font-weight: bold;
+    letter-spacing: 3px;
+    margin: 0;
+}
+
+
+
+.bg-text {
+    /* 修正：提高底字亮度（淡灰色），讓讀者在還沒照亮前能看到文字位置 */
+    color: rgba(255, 255, 255, 0.15); 
+    z-index: 1;
+    opacity: 0;
+}
+
+.fg-text {
+    color: #fff;
+    z-index: 2;
+    opacity: 0; /* 新增：初始不透明度為 0 */
+    /* 修正：使用 CSS 變數並提供預設值 */
+    --mask-size: 0%;
+    --mask-blur: 0%;
+    
+    /* 改進的放射狀漸層：black 代表顯示，transparent 代表隱藏 */
+    -webkit-mask-image: radial-gradient(
+        circle at center, 
+        black var(--mask-size), 
+        transparent var(--mask-blur)
+    );
+    mask-image: radial-gradient(
+        circle at center, 
+        black var(--mask-size), 
+        transparent var(--mask-blur)
+    );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --- 時間軸樣式區域 --- */
+
+.history-timeline {
+    width: 100%;
+    max-width: 1200px;
+    margin: 100px auto;
+    padding: 50px 20px;
+    position: relative;
+    color: #fff;
+}
+
+.timeline-main-title {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 80px;
+    letter-spacing: 5px;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.timeline-container {
+    position: relative;
+    width: 100%;
+    min-height: 1000px;
+}
+
+/* 中央基準線 (底色) */
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* 中央進度線 (動畫色) */
+.timeline-line-progress {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, #fff, transparent);
+    z-index: 1;
+}
+
+.timeline-item {
+    width: 50%; /* 從 47% 改為 50% 確保切齊中線 */
+    margin-bottom: 80px;
+    position: relative;
+    z-index: 2;
+    box-sizing: border-box; /* 確保 padding 不會撐開寬度 */
+    /* background-color: rgb(0, 66, 17); */
+
+    /* 核心修正：強制換行，防止左右項目排在同一橫排 */
+    clear: both;
+}
+ 
+
+
+
+.timeline-item.left {
+    float: left;
+    text-align: right; /* 改為靠右對齊中心線，或者保持左對齊但調整 padding */
+    padding-right: 50px;
+    /* background-color: #005f26; */
+}
+
+
+.timeline-item.right {
+    float: right;
+    text-align: left;
+    padding-left: 50px;
+    /* background-color: #08419c; */
+}
+
+/* 清除浮動 */
+.timeline-container::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* 圓點 */
+.timeline-dot {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: #ffca28;
+    border-radius: 50%;
+    top: 10px;
+    box-shadow: 0 0 15px #fff;
+}
+
+/* 修正圓點位置 */
+.left .timeline-dot { 
+    right: -8px; /* 16px 寬的點，一半是 8px，剛好中心對準 2px 的線 */
+}
+.right .timeline-dot { 
+    left: -8px; 
+}
+
+/* 日期與內容 */
+.timeline-date {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ffca28; /* 金黃色標記時間點 */
+    margin-bottom: 10px;
+}
+
+.timeline-content {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    
+    /* 新增這行：強制方框內的文字一律靠左對齊 */
+    text-align: left;
+}
+
+
+/* 時間軸圖片樣式 */
+.timeline-img {
+    width: 100%;
+    height: auto;
+    margin-top: 15px;
+    border-radius: 6px;
+    display: block;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+
+
+
+
+
+
+
+
+/* 小視窗影片容器 */
+.mini-videos-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 15; /* 高於背景影片與遮罩 */
+    pointer-events: none;
+}
+
+.mini-video-wrapper {
+    position: absolute; width: 300px; /* 進一步縮小 */
+    aspect-ratio: 16/9; border: 1px solid rgba(255,255,255,0.6);
+    background: #000; opacity: 0; transform: scale(0.7);
+    box-shadow: 0 0 20px rgba(0,0,0,0.9);
+}
+
+.mini-video-wrapper video { width: 100%; height: 100%; object-fit: cover; }
+.mini-video-wrapper span { position: absolute; top: 5px; left: 5px; font-size: 10px; color: red; font-family: monospace; }
+
+
+.mini-video {
+    position: absolute;
+    width: 300px; /* 小視窗寬度 */
+    aspect-ratio: 16 / 9;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    opacity: 0;
+    transform: scale(0.8); /* 初始縮小，進場時再放大 */
+    object-fit: cover;
+}
+
+/* 自定義每個小視窗的位置（可根據視覺需求調整） */
+.v1 { top: 10%; left: 10%; }
+.v2 { top: 18%; right: 8%; }
+.v3 { bottom: 25%; left: 30%; }
+.v4 { bottom: 18%; right: 17%; }
+.v5 { top: 20%; left: 50%; transform: translate(-50%, -50%) scale(0.8); }
+
+
+
+
+
+
+
+
+
+
+
+
+/* 在 style.css 中加入以下樣式 */
+.mini-caption {
+    position: absolute;
+    top: 100%;           /* 讓文字出現在 wrapper (影片) 的正下方 */
+    left: 0;
+    width: 100%;
+    margin: 5px 0 0 0;   /* 與影片保持 5px 的間距 */
+    font-size: 14px;     /* 配合小視窗縮小的字體 */
+    color: #ffffff;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.6); /* 半透明背景，增加文字辨識度 */
+    padding: 4px 0;
+    pointer-events: none;
+}
+
+/* 確保文字不會因為父層 overflow 被切掉 */
+.mini-video-wrapper {
+    overflow: visible !important; /* 覆蓋可能的隱藏設定，確保下方文字可見 */
+}
+
+
+
+
+
+
+
+
+
+
+
+/* style.css 新增內容 */
+.music-control {
+    position: fixed;
+    top: 55px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 999; /* 確保在所有層級之上，包含 mini-video-wrapper (z-index: 15) */
+    backdrop-filter: blur(5px);
+    transition: all 0.5s ease;
+}
+
+.music-control:hover {
+    background: rgba(255, 202, 40, 0.3); /* 懸停時帶點黃色光暈，符合時間軸主題色 */
+    border-color: #ffca28;
+}
+
+.music-icon {
+    font-size: 24px;
+    user-select: none;
+}
+
+
+
+
+    /* style.css 新增內容 */
+
+    /* 定義呼吸動畫 */
+    @keyframes musicBreathe {
+        0% { transform: scale(1); box-shadow: 0 0 5px rgba(255, 202, 40, 0.2); }
+        50% { transform: scale(1.1); box-shadow: 0 0 20px rgba(255, 202, 40, 0.6); }
+        100% { transform: scale(1); box-shadow: 0 0 5px rgba(255, 202, 40, 0.2); }
+    }
+
+    /* 當音樂播放時，套用到圖示與容器 */
+    .music-control.is-playing {
+        border-color: #ffca28; /* 變成時間軸的黃色 */
+        animation: musicBreathe 2s infinite ease-in-out;
+    }
+
+    .music-control.is-playing .music-icon {
+        text-shadow: 0 0 10px #ffca28;
+    }
+
+
+
+
+
+
+
+
+
+/* 響應式優化 */
+@media (max-width: 768px) {
+    .timeline-item { width: 90%; float: none !important; text-align: left !important; padding-left: 30px !important; margin-left: 10%; }
+    .timeline-container::before, .timeline-line-progress { left: 20px; transform: none; }
+    .timeline-dot { left: 12px !important; }
+}
+
+
+
+    @media (prefers-reduced-motion: reduce) {
+      .glow-box,
+      .glow-box::before,
+      .glow-box::after,
+      .glow-box > .edge-light {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid, .grid-2, .three-col, .quote-grid, .solutions, .stats {
+        grid-template-columns: 1fr;
+      }
+      .hero {
+        min-height: auto;
+        padding-top: 120px;
+      }
+      .nav { display: none; }
+    }
+
+    @media (max-width: 640px) {
+      section { padding: 68px 0; }
+      .container { width: min(var(--max), calc(100% - 22px)); }
+      .hero-copy, .section-desc { font-size: 16px; }
+      .meta-card .value { font-size: 16px; }
+    }
+
+
+
+/* 260528 新增兩張圖片平行分布 */
+.image-container {
+    display: flex;         /* 啟用 Flexbox，預設會讓子元素橫向排列 */
+    justify-content: center ; /* 圖片靠左對齊 (可改成 center 置中或 space-between 分散，(原本是flex-start)) */
+    gap: 15px;            /* 兩張圖片之間的間距，可自行調整 */
+}
+
+.image-container img {
+    width: 48%;           /* 確保兩張圖片加起來不超過 100%，避免擠下去 */
+    height: auto;         /* 保持圖片比例 */
+}
+
+
+
+
+    .container {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+
+
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+
+    .card.pad { padding: 22px; }
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    .card p { margin: 0 0 12px; color: #d5e2e8; }
+    .muted { color: var(--muted) !important; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .mini-card {
+      padding: 20px;
+      border-radius: var(--radius-lg);
+      background: rgba(5, 5, 5, 0.3);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .mini-card .icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      margin-bottom: 14px;
+      background: rgba(125,211,252,.12);
+      border: 1px solid rgba(125,211,252,.16);
+    }
+    .mini-card h3 { font-size: 20px; margin-bottom: 8px; }
+    .mini-card p { font-size: 16px; color: var(--muted); margin: 0; }
+
+
+
+
+
+
+
+
+        blockquote {
+      margin: 0;
+      padding: 22px;
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      position: relative;
+      min-height: 100%;
+    }
+    blockquote::before {
+      content: "“";
+      position: absolute;
+      top: 8px;
+      left: 14px;
+      font-size: 56px;
+      line-height: 1;
+      color: rgba(125,211,252,.18);
+      font-family: Georgia, serif;
+    }
+    blockquote p {
+      margin: 24px 0 14px;
+      font-size: 16px;
+      color: #e5eef3;
+    }
+    blockquote footer {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+
+
+
+
+
+
+
+     .section-kicker {
+      color: var(--accent);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+    }
+
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 7vw, 50px);
+      line-height: 1.02;
+      letter-spacing: .02em;
+      text-align: center;
+      text-wrap: balance;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1.15;
+      text-align: center;
+      text-wrap: balance;
+    }
+
+    .section-desc {
+        margin: 0 auto;
+        text-align: center;
+        line-height: 1.5;
+        max-width: 80ch;
+        color: var(--muted);
+        font-size: 17px;
+        padding: 20px;
+    }
+
+
+    .solution-item h3 { margin: 0 0 6px; font-size: 18px; }
+    .solution-item p { margin: 0; color: var(--muted); }
+
+
+
+
+    .media-placeholder {
+      min-height: 300px;
+      border-radius: var(--radius-xl);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 10px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)),
+        repeating-linear-gradient(45deg, rgba(255,255,255,.05) 0 12px, rgba(255,255,255,.02) 12px 24px),
+        linear-gradient(135deg, rgba(13,36,48,.95), rgba(4,12,18,.95));
+      border: 1px dashed rgba(255,255,255,.18);
+      color: #d7e6ec;
+    }
+
+    .media-placeholder strong {
+      display: block;
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+    .media-placeholder span {
+      color: var(--muted);
+      max-width: 36ch;
+      display: block;
+    }
+    .caption {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+
+
+        .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .stat {
+      padding: 16px;
+      border-radius: var(--radius-md);
+      background: var(--panel-2);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .stat .num {
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat .txt { color: var(--muted); font-size: 14px; }
+
+
+
+
+
+
+
+
+
+
+
+    .end-card {
+      position: relative;
+      min-height: 420px;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow);
+      background:
+        linear-gradient(180deg, rgba(2,10,16,.18), rgba(2,10,16,.92)),
+        url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+      display: grid;
+      align-items: end;
+      padding: 28px;
+    }
+    .end-card .overlay {
+      max-width: 56ch;
+      background: rgba(3,9,14,.58);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 22px;
+      padding: 22px;
+      backdrop-filter: blur(12px);
+    }
+    .end-card h3 { margin: 0 0 10px; font-size: 28px; }
+    .end-card p { margin: 0; color: #e6f0f5; }
+
+
+
+
+
+
+
+.subtitle-overlay {
+    position: absolute;
+    bottom: 12%; /* 將字幕放在畫面下方 */
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.9), 0 0 5px rgba(0,0,0,1); /* 強化陰影確保文字可讀性 */
+    background: rgba(0, 0, 0, 0.5); /* 半透明黑底襯托 */
+    padding: 10px 20px;
+    border-radius: 8px;
+    z-index: 20; /* 確保顯示在遮罩上方 */
+    opacity: 0; /* 預設隱藏，由 GSAP 控制 */
+    pointer-events: none;
+}
+
+
+
+
+
+
+
+
+
+/* =========================================
+   鮪魚 3D 翻轉特效區塊樣式
+   ========================================= */
+.tuna-section {
+    height: 800vh; /* 創造足夠長的滾動軌道 (滾越久播越慢) */
+    position: relative;
+    width: 100%;
+    /*background-color: #040c12;  深海背景色，可與你原本的背景無縫接軌 */
+    z-index: 5;
+    /* ─── 修改此處 ─── */
+    /* 透過兩層設定：前段是 85% 不透明度的深色遮罩，後段是你的圖片路徑 */
+    background-image: linear-gradient(to bottom, rgba(4, 12, 18, 0.85), rgba(4, 12, 18, 0.85)), 
+                      url('./images/Gemini/Gemini_Generated_Image_gxpwywgxpwywgxpw_深海鮪魚群_小檔.jpg'); 
+    background-size: cover;        /* 讓圖片滿版不變形 */
+    background-position: center;    /* 圖片置中對齊 */
+    background-repeat: no-repeat;  /* 防止圖片重複鋪滿 */
+    background-attachment: fixed;  /*讓圖片維持等比例、填滿單一螢幕*/
+}
+
+.tuna-sticky {
+    position: relative;
+    height: 100vh; /* 釘選時佔滿螢幕 */
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 文字層設計 */
+.tuna-texts {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    pointer-events: none;
+}
+
+
+
+.tuna-text-1 {
+    font-size: clamp(32px, 5vw, 64px);
+    margin: 0;
+    opacity: 0; /* 預設隱藏，由 GSAP 喚出 */
+    text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+}
+
+.tuna-text-2 {
+    font-size: clamp(32px, 5vw, 64px);
+    margin: 10px 0 0 0;
+    color: var(--accent2, #f59e0b); /* 使用你設定好的金色 */
+    opacity: 0; 
+    transform: translateY(20px);
+    text-shadow: 0 0 20px rgba(245, 158, 11, 0.4); /* 臺灣字樣發出微微金光 */
+    
+}
+
+
+
+
+.tuna-subtext {
+    opacity: 0;
+    max-width: 1400px;
+    transform: translateY(20px);
+    color: var(--muted);    
+    padding: 15px 30px;
+    border-radius: 12px;
+    /* background: rgba(0,0,0,0.4); */
+    /* backdrop-filter: blur(5px); */
+}
+
+
+
+
+
+/* 圖片與 3D 容器 */
+.tuna-images {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    perspective: 1500px; /* 關鍵：創造 3D 景深 */
+}
+
+/* 左、右護法鮪魚 */
+.tuna-left, .tuna-right {
+    position: absolute;
+    top: 50%;
+    width: 25vw;
+    max-width: 300px;
+    opacity: 0; /* 預設隱藏 */
+}
+/* 預設位置，Y軸位移 -50% 達到絕對垂直置中 */
+.tuna-left { left: 20%; transform: translateY(-50%); }
+.tuna-right { right: 20%; transform: translateY(-50%); }
+
+/* 中央 3D 翻轉主角 */
+.tuna-center-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30vw;
+    max-width: 350px;
+    aspect-ratio: 1/1;
+    /* 修正置中偏移 */
+    transform: translate(-50%, -50%);
+    opacity: 0; 
+}
+
+.tuna-center-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d; /* 關鍵：讓子元素具備 3D 空間特性 */
+    /* 翻轉動畫將由 JS 的 rotateY 控制 */
+}
+
+.tuna-front, .tuna-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    backface-visibility: hidden; /* 關鍵：翻到背面時隱藏 */
+}
+
+.tuna-back {
+    transform: rotateY(180deg); /* 臺灣一開始是背對我們的 */
+    filter: drop-shadow(0 0 25px rgba(125,211,252,0.8)); /* 臺灣現身時帶點藍色或金色光暈 */
+}
+
+
+
+
+
+/* 新增：感性文字的 CSS 樣式 */
+.tuna-texts-3 {
+    position: absolute;
+    top: 40%; /* 讓文字稍微偏下，不擋住臺灣跟魚 */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    font-size: 2rem;
+    line-height: 1.8;
+    color: #e9f2f6;
+    text-shadow: 0 0 15px rgba(0, 0, 0, 0.9);
+    opacity: 0; /* 預設隱藏，交給 GSAP 顯示 */
+    pointer-events: none;
+
+    text-align: center;
+}
+
+/* 船隻外層：專心交給 GSAP 控制進場位移 (x, y) */
+.ship-wrapper {
+    position: absolute;
+    opacity: 0; /* 預設隱藏，由 GSAP 負責淡入 */
+}
+
+/* 船隻內層圖片：專心交給 CSS 製造海浪搖晃 */
+.ship-img {
+    width: 100%;
+    display: block;
+    animation: floatWave 4s infinite ease-in-out;
+}
+
+/* 左邊船隊初始位置與大小 */
+.fleet-left-1 { top: 5%; left: -30%; width: 40vw; }
+.fleet-left-1 .ship-img { animation-delay: 0s; }
+
+.fleet-left-2 { top: 20%; left: -40%; width: 40vw; }
+.fleet-left-2 .ship-img { animation-delay: -1.2s; }
+
+.fleet-left-3 { top: 32%; left: -28%; width: 45vw; }
+.fleet-left-3 .ship-img { animation-delay: -2.5s; }
+
+.fleet-left-4 { top: 50%; left: -39%; width: 50vw; }
+.fleet-left-4 .ship-img { animation-delay: -0.7s; }
+
+/* 右邊船隊初始位置與大小 */
+.fleet-right-1 { top: 2%; right: -32%; width: 40vw; }
+.fleet-right-1 .ship-img { animation-delay: -0.5s; }
+
+.fleet-right-2 { top: 20%; right: -40%; width: 40vw; }
+.fleet-right-2 .ship-img { animation-delay: -1.8s; }
+
+.fleet-right-3 { top: 35%; right: -30%; width: 40vw; }
+.fleet-right-3 .ship-img { animation-delay: -3.1s; }
+
+.fleet-right-4 { top: 50%; right: -42%; width: 44vw; }
+.fleet-right-4 .ship-img { animation-delay: -1.1s; }
+
+/* 底部船隊初始位置與大小 */
+/* .fleet-bottom-1 { bottom: -25%; left: 22%; width: 24vw; }
+.fleet-bottom-1 .ship-img { animation-delay: -0.3s; }
+
+.fleet-bottom-2 { bottom: -28%; left: 36%; width: 18vw; }
+.fleet-bottom-2 .ship-img { animation-delay: -2.1s; }
+
+.fleet-bottom-3 { bottom: -20%; right: 34%; width: 22vw; }
+.fleet-bottom-3 .ship-img { animation-delay: -1.5s; }
+
+.fleet-bottom-4 { bottom: -20%; right: 28%; width: 17vw; }
+.fleet-bottom-4 .ship-img { animation-delay: -0.9s; } */
+
+
+
+
+
+
+
+
+/* 🌊 核心動態：載浮載沉的海浪物理效果 */
+@keyframes floatWave {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50%      { transform: translateY(-15px) rotate(3deg); }
+}
