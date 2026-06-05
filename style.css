@@ -1,3 +1,16 @@
+
+/* 新增這段全域設定 */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden; /* 強制隱藏 X 軸超出畫面的部分，解決右側留白 */
+}
+
+*, *::before, *::after {
+    box-sizing: border-box; /* 確保 padding 不會撐破原本設定的寬度 */
+}
+
+
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Hiragino Sans GB", "Microsoft JhengHei", sans-serif;
     font-size: 25px; /* 全域字體大小 */
@@ -238,7 +251,7 @@ body {
 /* 修正：手電筒文字區塊 */
 .flashlight-section {
     height: 350vh; /* 縮短捲動距離讓節奏更緊湊 */
-    width: 100vw;  /* 強制滿版寬度 */
+    width: 100%;  /* 強制滿版寬度 */
     /* background-color: #000; */
     /* margin-left: calc(-50vw + 50%);  修正：若在容器內，這能強制滿版 */
     margin: 0; /* 移除原本的 margin-left 修正 */
@@ -602,7 +615,7 @@ body {
 
 /* 響應式優化 */
 @media (max-width: 768px) {
-    .timeline-item { width: 90%; float: none !important; text-align: left !important; padding-left: 30px !important; margin-left: 10%; }
+    .timeline-item { width: 90%; float: none !important; text-align: left !important; padding-left: 30px !important; margin-left: 5%; }
     .timeline-container::before, .timeline-line-progress { left: 20px; transform: none; }
     .timeline-dot { left: 12px !important; }
 }
@@ -1154,4 +1167,126 @@ body {
 @keyframes floatWave {
     0%, 100% { transform: translateY(0px) rotate(0deg); }
     50%      { transform: translateY(-15px) rotate(3deg); }
+}
+
+
+
+
+
+
+
+
+/* =========================================
+   遠洋漁業影響力區塊樣式
+   ========================================= */
+.fleet-impact-section {
+    height: 400vh; /* 設定足夠的捲動空間來觸發依序出現的動畫 */
+    position: relative;
+    width: 100%;
+    background-color: #000;
+
+    background-image: linear-gradient(to bottom, rgba(4, 12, 18, 0.45), rgba(4, 12, 18, 0.65)), 
+                      url('./images/ChatGPT/ChatGPT\ Image\ 2026年6月5日\ 下午12_01_51_wordMap.png'); 
+    background-size: cover;        /* 讓圖片滿版不變形 */
+    background-position: center;    /* 圖片置中對齊 */
+    background-repeat: no-repeat;  /* 防止圖片重複鋪滿 */
+    background-attachment: fixed;  /*讓圖片維持等比例、填滿單一螢幕*/
+}
+
+.fleet-impact-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fleet-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    opacity: 0.6; /* 降低背景亮度，可依圖片情況自行微調 */
+}
+
+.fleet-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* 黑色半透明遮罩 */
+    z-index: 2;
+}
+
+.fleet-content {
+    position: relative;
+    z-index: 10;
+    width: 90%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.fleet-text-intro {
+    font-size: clamp(24px, 4vw, 42px);
+    line-height: 1.6;
+    color: #e9f2f6;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.9);
+    opacity: 0; /* 預設隱藏，交給 GSAP 控制 */
+    margin-bottom: -50px;
+}
+
+.fleet-stats-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.fleet-stat-left, .fleet-stat-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 48%;
+    opacity: 0; /* 預設隱藏 */
+}
+
+/* 預先設定好位移，左邊偏左、右邊偏右，等待被 GSAP 拉回原位 */
+.fleet-stat-left { transform: translateX(-150px); }
+.fleet-stat-right { transform: translateX(150px); }
+
+.fleet-stat-text {
+    font-size: clamp(28px, 4.5vw, 48px);
+    color: var(--accent2, #f59e0b); /* 使用您既有的金色變數 */
+    margin-bottom: 20px;
+    text-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+}
+
+.fleet-stat-img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+    aspect-ratio: 16 / 9; /* 維持影片或圖片比例 */
+    object-fit: cover;
+}
+
+.fleet-text-outro {
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: bold;
+    color: var(--accent, #7dd3fc); /* 使用您既有的淺藍色變數 */
+    margin-top: 60px;
+    text-shadow: 0 0 20px rgba(125, 211, 252, 0.6);
+    opacity: 0;
+    transform: translateY(50px); /* 預設在稍微偏下的位置 */
 }

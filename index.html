@@ -389,23 +389,43 @@
     </div>
 </section>
 
+       
+
+
+<!-- =========================================
+     新增：遠洋漁業影響力區塊
+     ========================================= -->
+<section class="fleet-impact-section">
+    <div class="fleet-impact-sticky">
+        <!-- 墊在底層的背景圖片 (請替換為您準備好的底圖路徑) -->
+        <!-- <img src="./images/ChatGPT/ChatGPT Image 2026年6月5日 下午12_01_51_wordMap.png" class="fleet-bg-img" alt="遠洋漁船底圖"> -->
+        <div class="fleet-overlay"></div> <!-- 加上一層微暗的遮罩，確保文字清楚 -->
         
-
-        <!-- <img src="./images/600x600/dutch-shrimp-fishing-cutter-vessel-2026-01-09-01-13-51-utc.jpg" alt="3">
-
-        <section class="text-reveal-section">
-            <div class="text-reveal-sticky">
-                <p class="reveal-p">鏽跡之外的微光<br>我們不要全球最大的拆船遺址<br>我們要能看見藍天的海岸線</p>
+        <div class="fleet-content">
+            <div class="fleet-text-intro">台灣的遠洋漁業船隊作業區域遍及三大洋，<br>千餘艘巨輪在波濤中前行，不僅拚出每年</div>
+            
+            <div class="fleet-stats-wrapper">
+                <!-- 左側滑入區塊 -->
+                <div class="fleet-stat-left">
+                    <h3 class="fleet-stat-text">60 萬公噸的漁獲</h3>
+                    <!-- 請替換為左側滑入的圖片路徑 -->
+                    <img src="./images/your-catch-image.png" alt="60萬公噸的漁獲" class="fleet-stat-img">
+                </div>
+                <!-- 右側滑入區塊 -->
+                <div class="fleet-stat-right">
+                    <h3 class="fleet-stat-text">400 億元的豐厚產值</h3>
+                    <!-- 請替換為右側滑入的圖片路徑 -->
+                    <img src="./images/your-value-image.png" alt="400億元的豐厚產值" class="fleet-stat-img">
+                </div>
             </div>
-        </section> -->
-
-
-<!-- 笨方法區隔用 -->
-<section>
-    <div>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+            
+            <!-- 最後出現的壓軸文字 -->
+            <div class="fleet-text-outro">更帶動周邊高達千億元的龐大產業鏈</div>
+        </div>
     </div>
 </section>
+
+
 
 
 
@@ -1159,6 +1179,63 @@ tunaTl
     .to({}, { duration: 3 });
 
 
+
+
+
+
+
+
+
+
+    // =========================================
+// 新增：遠洋漁業影響力區塊滾動動畫
+// =========================================
+const fleetTl = gsap.timeline({
+    scrollTrigger: {
+        trigger: ".fleet-impact-section",
+        start: "top top",      
+        end: "bottom bottom",  
+        scrub: 1.5, // 1.5 的延遲讓滑動起來更順暢水潤
+        pin: ".fleet-impact-sticky", 
+        anticipatePin: 1
+    }
+});
+
+fleetTl
+    // [幕次一]：開場文字從無到有浮現
+    .to(".fleet-text-intro", { opacity: 1, duration: 2 })
+    .to({}, { duration: 1 }) // 讓觀眾閱讀一下
+
+    // [幕次二]：首段文字微微上移，為下方騰出空間
+    .to(".fleet-text-intro", { y: -40, duration: 2, ease: "power1.inOut" }, "slideIn")
+
+    // [幕次三]：左側與右側的圖文同時從畫面兩側滑入並淡入
+    .to(".fleet-stat-left", { opacity: 1, x: 0, y: 0, duration: 2.5, ease: "power2.out" }, "slideIn+=0.5")
+    .to(".fleet-stat-right", { opacity: 1, x: 0, y: 0, duration: 2.5, ease: "power2.out" }, "slideIn+=0.5")
+    .to({}, { duration: 1.5 }) // 留點時間感受數據帶來的震撼
+
+    // [幕次四]：壓軸的千億元產業鏈文字從下方穩穩升起
+    .to(".fleet-text-outro", { opacity: 1, y: 0, duration: 2, ease: "power2.out" })
+    
+    // [幕次五]：收尾凍結畫面，作為過渡到歷史時間軸的緩衝
+    .to({}, { duration: 3 });
+
+
+
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+        <!-- <img src="./images/600x600/dutch-shrimp-fishing-cutter-vessel-2026-01-09-01-13-51-utc.jpg" alt="3">
+
+        <section class="text-reveal-section">
+            <div class="text-reveal-sticky">
+                <p class="reveal-p">鏽跡之外的微光<br>我們不要全球最大的拆船遺址<br>我們要能看見藍天的海岸線</p>
+            </div>
+        </section> -->
