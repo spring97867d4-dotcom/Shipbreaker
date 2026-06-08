@@ -156,7 +156,7 @@ body {
 
 /* 優化文字辨識度：增加陰影與半透明背景襯托 */
 .scroll-text, .zoom-title {
-    font-size: clamp(24px, 6vw, 40px);
+    font-size: clamp(32px, 6vw, 40px);
     position: absolute; /* 確保在釘選容器內絕對定位 */
     top: 50%;
     left: 50%;
@@ -613,61 +613,6 @@ body {
 
 
 
-
-/* 響應式優化 */
-@media (max-width: 768px) {
-    .timeline-item { width: 90%; float: none !important; text-align: left !important; padding-left: 30px !important; margin-left: 5%; }
-    .timeline-container::before, .timeline-line-progress { left: 20px; transform: none; }
-    .timeline-dot { left: 12px !important; }
-
-    /* 針對主要文字區塊調整 */
-    #text-main, #text-monitor {
-        letter-spacing: 2px !important; /* 縮小字距，避免把字擠到下一行 */
-        width: 95% !important; /* 讓文字塊佔滿螢幕寬度 */
-        max-width: none;
-        padding: 15px !important;
-        font-size: 1.2rem; /* 稍微縮小內文 */
-    }
-
-    /* 隱藏 HTML 中寫死的強制換行，讓手機自動判斷換行時機 */
-    #text-main br, 
-    #intro-titles br {
-        display: none; 
-    }
-}
-
-
-
-    @media (prefers-reduced-motion: reduce) {
-      .glow-box,
-      .glow-box::before,
-      .glow-box::after,
-      .glow-box > .edge-light {
-        transition: none !important;
-        animation: none !important;
-      }
-    }
-
-    @media (max-width: 960px) {
-      .hero-grid, .grid-2, .three-col, .quote-grid, .solutions, .stats {
-        grid-template-columns: 1fr;
-      }
-      .hero {
-        min-height: auto;
-        padding-top: 120px;
-      }
-      .nav { display: none; }
-    }
-
-    @media (max-width: 640px) {
-      section { padding: 68px 0; }
-      .container { width: min(var(--max), calc(100% - 22px)); }
-      .hero-copy, .section-desc { font-size: 16px; }
-      .meta-card .value { font-size: 16px; }
-    }
-
-
-
 /* 260528 新增兩張圖片平行分布 */
 .image-container {
     display: flex;         /* 啟用 Flexbox，預設會讓子元素橫向排列 */
@@ -950,6 +895,10 @@ body {
     z-index: 20; /* 確保顯示在遮罩上方 */
     opacity: 0; /* 預設隱藏，由 GSAP 控制 */
     pointer-events: none;
+
+    /* ▼ 新增這兩行 ▼ */
+    width: 90%; 
+    max-width: 800px;
 }
 
 
@@ -1390,3 +1339,75 @@ body {
 
 
 
+
+
+
+
+
+
+
+
+/* 響應式優化 */
+
+
+    @media (prefers-reduced-motion: reduce) {
+      .glow-box,
+      .glow-box::before,
+      .glow-box::after,
+      .glow-box > .edge-light {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+
+    @media (max-width: 960px) {
+        /* 強制將雙欄或三欄的網格，在平板/手機上變成單欄直排 */
+      .hero-grid, .grid-2, .three-col, .quote-grid, .solutions, .stats {
+        grid-template-columns: 1fr !important;;
+      }
+      .hero {
+        min-height: auto;
+        padding-top: 120px;
+      }
+      .nav { display: none; }
+    }
+
+
+
+    @media (max-width: 768px) {
+    /* 歷史時間軸調整 */
+    .timeline-item { width: 90%; float: none !important; text-align: left !important; padding-left: 30px !important; margin-left: 5%; }
+    .timeline-container::before, .timeline-line-progress { left: 20px; transform: none; }
+    .timeline-dot { left: 12px !important; }
+
+    /* 針對主要文字區塊調整 */
+    #text-main, #text-monitor {
+        letter-spacing: 2px !important; /* 縮小字距，避免把字擠到下一行 */
+        width: 95% !important; /* 讓文字塊佔滿螢幕寬度 */
+        max-width: none;
+        padding: 15px !important;
+        font-size: 1.2rem !important; /* 稍微縮小內文 */
+    }
+
+    /* 隱藏 HTML 中寫死的強制換行 */
+    #text-main br, #intro-titles br, .tuna-text-1 br, .tuna-text-2 br {
+        display: none; 
+    }
+
+
+    /* 修正監視器字幕（麵條狀文字） */
+    .subtitle-overlay {
+        font-size: 18px !important; /* 手機版字體縮小 */
+        width: 90% !important;      /* 給予充足寬度 */
+        bottom: 5% !important;      /* 稍微往下移一點 */
+    }
+
+}
+
+
+    @media (max-width: 640px) {
+      section { padding: 68px 0; }
+      .container { width: min(var(--max), calc(100% - 22px)); }
+      .hero-copy, .section-desc { font-size: 16px; }
+      .meta-card .value { font-size: 16px; }
+    }
