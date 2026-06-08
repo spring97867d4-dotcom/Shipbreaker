@@ -156,12 +156,13 @@ body {
 
 /* 優化文字辨識度：增加陰影與半透明背景襯托 */
 .scroll-text, .zoom-title {
-    font-size: 2.5rem;
+    font-size: clamp(24px, 6vw, 40px);
     position: absolute; /* 確保在釘選容器內絕對定位 */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
+    width: 90%; /* 從 80% 改寬一點，給手機多點空間 */
+    max-width: 800px;
     text-align: center;
     z-index: 10;
     
@@ -618,6 +619,21 @@ body {
     .timeline-item { width: 90%; float: none !important; text-align: left !important; padding-left: 30px !important; margin-left: 5%; }
     .timeline-container::before, .timeline-line-progress { left: 20px; transform: none; }
     .timeline-dot { left: 12px !important; }
+
+    /* 針對主要文字區塊調整 */
+    #text-main, #text-monitor {
+        letter-spacing: 2px !important; /* 縮小字距，避免把字擠到下一行 */
+        width: 95% !important; /* 讓文字塊佔滿螢幕寬度 */
+        max-width: none;
+        padding: 15px !important;
+        font-size: 1.2rem; /* 稍微縮小內文 */
+    }
+
+    /* 隱藏 HTML 中寫死的強制換行，讓手機自動判斷換行時機 */
+    #text-main br, 
+    #intro-titles br {
+        display: none; 
+    }
 }
 
 
@@ -1180,7 +1196,7 @@ body {
    遠洋漁業影響力區塊樣式
    ========================================= */
 .fleet-impact-section {
-    height: 400vh; /* 設定足夠的捲動空間來觸發依序出現的動畫 */
+    height: 900vh; /* 設定足夠的捲動空間來觸發依序出現的動畫 */
     position: relative;
     width: 100%;
     background-color: #000;
@@ -1290,3 +1306,87 @@ body {
     opacity: 0;
     transform: translateY(50px); /* 預設在稍微偏下的位置 */
 }
+
+
+
+
+
+
+
+
+/* =========================================
+   新增：FAO 統計區塊樣式
+   ========================================= */
+.fao-section {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 15; /* 確保在原本的文字之上 */
+    pointer-events: none;
+}
+
+.fao-text-1, .fao-text-2 {
+    font-size: clamp(24px, 4vw, 42px);
+    color: #e9f2f6;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.9);
+    opacity: 0; /* 預設隱藏，由 GSAP 控制 */
+    margin: 30px 0;
+    text-align: center;
+}
+
+.fao-text-2 {
+    color: var(--accent2, #f59e0b);
+    font-weight: bold;
+}
+
+/* 新增：轉型文字的樣式 */
+.fao-text-3 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 確保絕對置中 */
+    width: 90%;
+    font-size: clamp(24px, 4vw, 36px);
+    line-height: 1.8;
+    color: #e9f2f6;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.9);
+    opacity: 0; /* 預設隱藏，由 GSAP 控制 */
+    text-align: center;
+    pointer-events: none;
+}
+
+
+
+.fao-icons-container {
+    position: relative;
+    width: 100%;
+    height: 380px; /* 給予陣列與臺灣形狀足夠的高度空間 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0; 
+}
+
+.fao-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    background-image: url('./images/Gemini/icon/Gemini_Generated_Image_xgokv3xgokv3xgok_380噸級鮪延繩釣漁船_alpha_10.png'); 
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-left: -15px; /* 寬度一半，確保精準置中 */
+    margin-top: -15px;
+    opacity: 0; /* JS 動畫進場 */
+}
+
+
+

@@ -2,6 +2,8 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- (註：加上 `user-scalable=no` 是因為你的網頁有大量的 GSAP 滾動綁定特效，這樣可以防止使用者在手機上手滑雙擊放大，導致動畫跑版。) -->
     <title>大海的枷鎖：台灣遠洋漁業困局</title> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -401,9 +403,8 @@
      ========================================= -->
 <section class="fleet-impact-section">
     <div class="fleet-impact-sticky">
-        <!-- 墊在底層的背景圖片 (請替換為您準備好的底圖路徑) -->
-        <!-- <img src="./images/ChatGPT/ChatGPT Image 2026年6月5日 下午12_01_51_wordMap.png" class="fleet-bg-img" alt="遠洋漁船底圖"> -->
-        <div class="fleet-overlay"></div> <!-- 加上一層微暗的遮罩，確保文字清楚 -->
+        <div class="fleet-overlay"></div><!-- 加上一層微暗的遮罩，確保文字清楚 -->
+
         
         <div class="fleet-content">
             <div class="fleet-text-intro">台灣的遠洋漁業船隊作業區域遍及三大洋，<br>千餘艘巨輪在波濤中前行，不僅拚出每年</div>
@@ -411,19 +412,29 @@
             <div class="fleet-stats-wrapper">
                 <!-- 左側滑入區塊 -->
                 <div class="fleet-stat-left">
-                <h3 class="fleet-stat-text">60 萬公噸的漁獲</h3>
-                <video src="./videos/1150521 前鎮魚市場.mp4" class="fleet-stat-img" autoplay loop muted playsinline></video>
+                    <h3 class="fleet-stat-text">60 萬公噸的漁獲</h3>
+                    <video src="./videos/1150521 前鎮魚市場.mp4" class="fleet-stat-img" autoplay loop muted playsinline></video>
                 </div>
-                <!-- 右側滑入區塊 -->
+                 <!-- 右側滑入區塊 -->
                 <div class="fleet-stat-right">
-                <h3 class="fleet-stat-text">400 億元的豐厚產值</h3>
-                <video src="./videos/1130723 公園二路五金街 戰後拆船業帶動五金業聚集_clip.mp4" class="fleet-stat-img" autoplay loop muted playsinline></video>
+                    <h3 class="fleet-stat-text">400 億元的豐厚產值</h3>
+                    <video src="./videos/1130723 公園二路五金街 戰後拆船業帶動五金業聚集_clip.mp4" class="fleet-stat-img" autoplay loop muted playsinline></video>
                 </div>
             </div>
-            
-            <!-- 最後出現的壓軸文字 -->
+             <!-- 最後出現的壓軸文字 -->
             <div class="fleet-text-outro">更帶動周邊高達千億元的龐大產業鏈</div>
         </div>
+        <div class="fao-section">
+            <div class="fao-text-1">根據聯合國糧農組織（FAO）統計</div>
+            <div class="fao-icons-container" id="fao-icons-container">
+            </div>
+            <div class="fao-text-2">全球約有 1/3 以上的鮪延繩釣漁船掛籍在臺灣</div>
+            <div class="fao-text-3">然而，當國際捕撈配額的緊箍咒越收越緊，<br>加上全球對環境保護與海上人權的重視，<br>這支黃金船隊在幾年前，無聲地駛向了轉型的終點。</div>
+        </div>
+
+
+
+
     </div>
 </section>
 
@@ -1197,9 +1208,69 @@ tunaTl
 
 
 
-    // =========================================
-// 新增：遠洋漁業影響力區塊滾動動畫
 // =========================================
+// 新增：遠洋漁業影響力區塊滾動動畫 (包含 FAO 臺灣陣列特效)
+// =========================================
+
+// 1. 動態產生 50 個 FAO icon
+const faoContainer = document.getElementById('fao-icons-container');
+const faoIcons = [];
+for (let i = 0; i < 200; i++) {
+    const icon = document.createElement('div');
+    icon.className = 'fao-icon';
+    faoContainer.appendChild(icon);
+    faoIcons.push(icon);
+}
+
+// 2. 設定更精緻的臺灣形狀座標 (共 39 個點，範圍放大讓形狀更清晰)
+const taiwanCoords = [
+    // 北端 基隆角（東北偏右）
+    {x:15, y:-180}, {x:30, y:-180}, {x:45, y:-170}, {x:50, y:-162},
+    // 基隆/台北北海岸
+    {x:-5, y:-160}, {x:10, y:-160}, {x:25, y:-160}, {x:40, y:-154},
+    // 台北/淡水/桃園
+    {x:-27, y:-142}, {x:-12, y:-142}, {x:3, y:-142}, {x:18, y:-142}, {x:33, y:-140}, {x:45, y:-136},
+    // 桃園/新竹/宜蘭
+    {x:-45, y:-124}, {x:-30, y:-124}, {x:-15, y:-124}, {x:0, y:-124}, {x:15, y:-124}, {x:30, y:-122}, {x:44, y:-118},
+    // 新竹/苗栗
+    {x:-58, y:-104}, {x:-43, y:-106}, {x:-28, y:-106}, {x:-13, y:-106}, {x:2, y:-106}, {x:17, y:-106}, {x:32, y:-104}, {x:46, y:-100},
+    // 台中/彰化（最寬開始）
+    {x:-74, y:-86}, {x:-59, y:-88}, {x:-44, y:-90}, {x:-29, y:-90}, {x:-14, y:-90}, {x:1, y:-90}, {x:16, y:-90}, {x:31, y:-88}, {x:46, y:-84},
+    // 彰化/雲林（最寬）
+    {x:-84, y:-68}, {x:-69, y:-70}, {x:-54, y:-72}, {x:-39, y:-72}, {x:-24, y:-72}, {x:-9, y:-72}, {x:6, y:-72}, {x:21, y:-70}, {x:36, y:-68}, {x:48, y:-64},
+    // 雲林/嘉義
+    {x:-84, y:-50}, {x:-69, y:-52}, {x:-54, y:-54}, {x:-39, y:-54}, {x:-24, y:-54}, {x:-9, y:-54}, {x:6, y:-54}, {x:21, y:-52}, {x:36, y:-48},
+    // 嘉義/台南北
+    {x:-82, y:-34}, {x:-67, y:-36}, {x:-52, y:-38}, {x:-37, y:-38}, {x:-22, y:-38}, {x:-7, y:-38}, {x:8, y:-38}, {x:23, y:-36}, {x:36, y:-32},
+    // 台南/高雄
+    {x:-78, y:-16}, {x:-63, y:-18}, {x:-48, y:-20}, {x:-33, y:-20}, {x:-18, y:-20}, {x:-3, y:-20}, {x:12, y:-18}, {x:26, y:-14},
+    // 高雄南
+    {x:-72, y:2}, {x:-57, y:0}, {x:-42, y:-2}, {x:-27, y:-2}, {x:-12, y:-2}, {x:3, y:0}, {x:17, y:4},
+    // 屏東/枋山
+    {x:-63, y:20}, {x:-48, y:18}, {x:-33, y:18}, {x:-18, y:18}, {x:-3, y:20}, {x:9, y:24},
+    // 恆春收束
+    {x:-52, y:40}, {x:-37, y:38}, {x:-22, y:38}, {x:-7, y:40}, {x:5, y:44},
+    // 恆春半島
+    {x:-42, y:60}, {x:-29, y:58}, {x:-16, y:58}, {x:-3, y:62},
+    // 墾丁
+    {x:-34, y:80}, {x:-22, y:78}, {x:-10, y:82},
+    // 最南
+    {x:-28, y:100}, {x:-17, y:102},
+    // 尖端
+    {x:-23, y:120}
+];
+
+// 動態從 200 艘船中均勻挑選 39 艘來排成臺灣，不用手動填寫 index
+const taiwanIndices = [];
+const step = Math.floor(200 / taiwanCoords.length); 
+for (let i = 0; i < taiwanCoords.length; i++) {
+    // 加上微小偏移 (i % 3) 讓船隻飛往臺灣的來源看起來更自然錯落
+    taiwanIndices.push(i * step + (i % 3)); 
+}
+
+
+
+// 3. 建立時間軸
 const fleetTl = gsap.timeline({
     scrollTrigger: {
         trigger: ".fleet-impact-section",
@@ -1210,6 +1281,9 @@ const fleetTl = gsap.timeline({
         anticipatePin: 1
     }
 });
+
+
+
 
 fleetTl
     // [幕次一]：開場文字從無到有浮現
@@ -1227,10 +1301,84 @@ fleetTl
     // [幕次四]：壓軸的千億元產業鏈文字從下方穩穩升起
     .to(".fleet-text-outro", { opacity: 1, y: 0, duration: 2, ease: "power2.out" })
     
-    // [幕次五]：收尾凍結畫面，作為過渡到歷史時間軸的緩衝
-    .to({}, { duration: 3 });
+    // 🌟 [幕次五]：舊區塊整體淡出，並向上退場，讓出舞台中心
+    .to([".fleet-text-intro", ".fleet-stat-left", ".fleet-stat-right", ".fleet-text-outro"], {
+        opacity: 0,
+        y: -100,
+        duration: 2,
+        ease: "power2.inOut"
+    }, "fadeOutFleet")
+    // 瞬間將舊元素隱藏，避免干擾後續排版
+    .to([".fleet-content"], { display: "none", duration: 0 })
 
+    // 🌟 [幕次六]：顯示「FAO統計」，並讓 200 個 icon 從畫面下方滑入，排成 20x10 的陣列
+    .to(".fao-text-1", { opacity: 1, y: 0, duration: 2 }, "faoStart")
+    .to(".fao-icons-container", { opacity: 1, duration: 0 }, "faoStart")
+    .fromTo(faoIcons, {
+        opacity: 0,
+        // 從畫面下方極深處出發
+        y: () => window.innerHeight,
+        // 水平預先計算好 20 欄的間距 (55px)
+        x: (i) => ((i % 20) - 9.5) * 35
+    }, {
+        opacity: 1,
+        y: (i) => (Math.floor(i / 20) - 4.5) * 35, // 排成 5 列的垂直間距
+        duration: 2,
+        stagger: 0.005, // 產生魚貫而入的視覺差
+        ease: "power2.out"
+    }, "faoStart+=0.5")
+    .to({}, { duration: 1.5 }) // 讓滿版的陣列停留一下
 
+    // 🌟 [幕次七]：顯示「1/3來自臺灣」，同時陣列解體，一部分飛出，一部分組成臺灣
+    .to(".fao-text-2", { opacity: 1, y: 0, duration: 2 }, "faoMorph")
+    .to(faoIcons, {
+        x: (i) => {
+            const tIdx = taiwanIndices.indexOf(i);
+            if (tIdx !== -1) {
+                return taiwanCoords[tIdx].x; // 歸位到臺灣座標
+            } else {
+                return (Math.random() > 0.5 ? 1 : -1) * (window.innerWidth / 2 + 150); // 往左右畫面外飛
+            }
+        },
+        y: (i) => {
+            const tIdx = taiwanIndices.indexOf(i);
+            if (tIdx !== -1) {
+                return taiwanCoords[tIdx].y; // 歸位到臺灣座標
+            } else {
+                return (Math.random() - 0.5) * 600; // 飛出時帶點上下亂流
+            }
+        },
+        opacity: (i) => (taiwanIndices.includes(i) ? 1 : 0), // 只有臺灣形狀的保留不透明度
+        rotation: (i) => (taiwanIndices.includes(i) ? 0 : (Math.random() - 0.5) * 360), // 飛走的附帶旋轉效果
+        duration: 2.5,
+        ease: "power2.inOut"
+    }, "faoMorph")
+
+// 讓滿版的臺灣形狀與文字停留一下，讓觀眾看清楚
+    .to({}, { duration: 2.5 })
+
+    // 🌟 [幕次八]：舊畫面清空退場
+    // 讓上面所有的文字與排成臺灣的船隻一起淡出，並微微向上飄移
+    .to([".fao-text-1", ".fao-text-2", ...faoIcons], {
+        opacity: 0,
+        y: "-=40", // 往上飄的視覺效果
+        duration: 2,
+        ease: "power2.inOut"
+    }, "fadeOutFao")
+    // 瞬間隱藏舊元素，避免干擾排版與點擊
+    .to([".fao-text-1", ".fao-text-2", ".fao-icons-container"], { display: "none", duration: 0 })
+    
+    // 留白呼吸空間，營造「無聲駛向終點」的寧靜感
+    .to({}, { duration: 1 }) 
+
+    // 🌟 [幕次九]：最終轉型文字進場
+    .fromTo(".fao-text-3", 
+        { opacity: 0, y: 30 }, // 從稍微偏下的地方開始
+        { opacity: 1, y: 0, duration: 3, ease: "power2.out" }
+    )
+
+    // 收尾凍結畫面，作為過渡到歷史時間軸的長緩衝
+    .to({}, { duration: 3.5 });
 
     </script>
 </body>
