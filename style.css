@@ -1405,6 +1405,48 @@ body {
 }
 
 
+/* --- 手機版 Topbar 排版優化 --- */
+@media (max-width: 768px) {
+    /* 1. 將頂端列改為上下垂直排列 */
+    .topbar-inner {
+        flex-direction: column;
+        align-items: flex-start; /* 讓 LOGO 與標題靠左對齊 */
+        padding: 10px 15px 5px;  /* 微調內距，讓視覺舒適 */
+        gap: 8px;
+    }
+
+    /* 2. 微調手機版的標題字體大小，避免佔用太多空間 */
+    .brand > div > div:first-child {
+        font-size: 16px !important;
+    }
+    .brand > div > .muted {
+        font-size: 11px !important;
+    }
+
+    /* 3. 第二行導覽列按鈕：橫向滑動設計 */
+    .nav {
+        display: flex !important; /* 強制顯示，覆蓋原本隱藏的設定 */
+        width: 100%;
+        justify-content: flex-start;
+        
+        /* 核心機制：強制不換行，超出螢幕的部分允許左右滑動 */
+        flex-wrap: nowrap; 
+        overflow-x: auto; 
+        -webkit-overflow-scrolling: touch; /* 讓 iOS 設備滑動更滑順 */
+        
+        padding-bottom: 5px; /* 留一點底部空間 */
+        gap: 8px;
+    }
+
+    /* 4. 隱藏醜醜的手機預設捲軸，保持畫面乾淨 */
+    .nav::-webkit-scrollbar {
+        display: none; 
+    }
+    .nav {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+}
     @media (max-width: 640px) {
       section { padding: 68px 0; }
       .container { width: min(var(--max), calc(100% - 22px)); }
