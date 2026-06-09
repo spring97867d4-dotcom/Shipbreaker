@@ -819,7 +819,7 @@ body {
 
         .stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 14px;
       margin-top: 18px;
     }
@@ -1343,6 +1343,428 @@ body {
 
 
 
+/* =========================================
+   政策收購區塊樣式 (Policy Section)
+   ========================================= */
+.policy-section {
+    height: 400vh; /* 給予 400vh 的滾動空間讓動畫慢慢跑 */
+    position: relative;
+    width: 100%;
+    /* background-color: var(--bg2); 銜接深色背景 */
+
+    background-image: linear-gradient(to bottom, rgba(4, 12, 18, 0.05), rgba(4, 12, 18, 0.25)), 
+                      url('./images/ChatGPT/ChatGPT\ Image\ 2026年6月5日\ 下午12_01_51_wordMap.png'); 
+    background-size: cover;        /* 讓圖片滿版不變形 */
+    background-position: center;    /* 圖片置中對齊 */
+    background-repeat: no-repeat;  /* 防止圖片重複鋪滿 */
+    background-attachment: fixed;  /*讓圖片維持等比例、填滿單一螢幕*/
+}
+
+.policy-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.policy-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(13,36,48,0.8) 0%, rgba(4,12,18,1) 100%);
+    z-index: 1;
+}
+
+.policy-content {
+    position: relative;
+    z-index: 10;
+    width: 90%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 文字區域設計 */
+.policy-texts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 60px;
+    min-height: 180px; /* 預留高度，避免文字出現時下方卡片被擠壓 */
+    justify-content: flex-end; /* 讓文字從下往上疊加 */
+}
+
+.policy-text-1, .policy-text-2, .policy-text-3 {
+    font-size: clamp(20px, 3vw, 28px);
+    color: var(--text);
+    margin: 8px 0;
+    text-align: center;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.8);
+    opacity: 0; /* 預設隱藏 */
+    transform: translateY(20px); /* 預設微微向下 */
+    line-height: 1.5;
+}
+
+
+
+
+
+/* 卡片區域設計 */
+/* 1. 外層容器：確保三張卡牌能橫向並排並置中 */
+.policy-cards-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;       /* 三張卡牌之間的間距 */
+    width: 100%;
+    margin-top: 30px;
+}
+
+/* 2. 單一卡牌外層：提供 3D 視角與尺寸限制 */
+.policy-card {
+    flex: 1;
+    perspective: 1000px;
+    max-width: 320px;     /* 限制最大寬度，避免電腦螢幕太大時變形 */
+    aspect-ratio: 3 / 4;  /* 鎖定比例 (寬3高4，可依據你的圖卡比例修改) */
+}
+
+/* 3. 卡牌內層：負責執行翻轉動作 */
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transform: rotateY(180deg); /* 初始狀態先翻轉 180 度，露出背面 */
+}
+
+/* 4. 正面與背面的共通設定 */
+.card-front, .card-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;  /* 當翻轉時隱藏另一面 */
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4); /* 加上陰影增加立體感 */
+}
+
+/* 5. 確保圖片填滿卡片且不變形 */
+.card-front img, .card-back img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* 6. 背面原本就該轉 180 度，正面維持 0 度 */
+.card-back {
+    transform: rotateY(180deg); 
+}
+.card-front {
+    transform: rotateY(0deg); 
+}
+
+/* 7. 手機版響應式：螢幕變小時改為垂直排列 */
+@media (max-width: 768px) {
+    .policy-cards-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .policy-card {
+        max-width: 280px; /* 手機版縮小一點 */
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================
+   現實骨感區塊樣式 (Reality Section)
+   ========================================= */
+.reality-section {
+    height: 500vh; /* 500vh 給予足夠的滾動空間讓文字一句一句慢慢進來 */
+    position: relative;
+    width: 100%;
+    background-color: #000;
+    /* 使用深色遮罩疊加背景，營造沈重的日落/荒蕪感 */
+    background-image: linear-gradient(to bottom, rgba(4, 12, 18, 0.7), rgba(4, 12, 18, 0.85)), 
+                      url('./images/Gemini/Gemini_Generated_Image_ppyq0qppyq0qppyq.jpg'); 
+    background-size: cover;        /* 讓圖片滿版不變形 */
+    background-position: center;    /* 圖片置中對齊 */
+    background-repeat: no-repeat;  /* 防止圖片重複鋪滿 */
+    background-attachment: fixed;  /*讓圖片維持等比例、填滿單一螢幕*/
+}
+
+.reality-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reality-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* 從中間向四周變暗，聚焦文字 */
+    background: radial-gradient(circle at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%);
+    z-index: 1;
+}
+
+.reality-content {
+    position: relative;
+    z-index: 10;
+    width: 90%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.reality-heading {
+    font-size: clamp(32px, 5vw, 56px);
+    color: var(--danger, #fb7185); /* 使用警示紅/粉色調突顯骨感的現實 */
+    margin-bottom: 50px;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.9);
+    opacity: 0; /* 預設隱藏，由 GSAP 控制 */
+    transform: translateY(30px);
+}
+
+.reality-texts p {
+    font-size: clamp(20px, 3.5vw, 32px);
+    color: var(--text, #e9f2f6);
+    margin: 15px 0;
+    line-height: 1.6;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.9);
+    opacity: 0; /* 預設隱藏，由 GSAP 控制 */
+    transform: translateY(20px);
+}
+
+
+
+
+
+
+
+
+
+/* =========================================
+   新增：配額危機資料表格樣式
+   ========================================= */
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* 確保手機版可以左右滑動觀看完整表格 */
+    border-radius: var(--radius-md);
+}
+
+.crisis-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    color: var(--text);
+    font-size: 18px; /* 內文字體大小 */
+    line-height: 1.4;
+}
+
+.crisis-table th, .crisis-table td {
+    padding: 20px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+}
+
+.crisis-table th {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--accent, #7dd3fc); /* 使用現有的淺藍色變數 */
+    font-weight: bold;
+    white-space: nowrap; /* 讓表頭盡量不換行 */
+}
+
+/* 最後一行不要底線 */
+.crisis-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.crisis-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.03); /* 滑鼠游標經過時的微亮效果 */
+}
+
+/* 針對內容的強調樣式 */
+.crisis-table .ocean-name {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--accent2, #f59e0b); /* 海域名稱用金色強調 */
+    margin-bottom: 4px;
+}
+
+.crisis-table .fish-type {
+    font-size: 0.9em;
+    color: var(--muted);
+}
+
+.crisis-table .highlight {
+    color: var(--danger, #fb7185); /* 危機文字用紅色強調 */
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+}
+
+
+
+
+
+/* =========================================
+   優化：配額危機資料表格寬度與排版
+   ========================================= */
+/* 1. 解除預設容器寬度限制，讓這個區塊的卡片更寬 */
+#crisis-data .container {
+    width: 95%; /* 讓它佔滿螢幕 95% */
+    max-width: 1600px; /* 原本預設是 1180px，這裡放大以容納龐大表格 */
+}
+
+/* 2. 針對第一欄 (核心洋區/魚種) 強制不換行 */
+.crisis-table th:first-child,
+.crisis-table td:first-child {
+    white-space: nowrap; /* 確保魚種名稱絕對不會因為一個字而斷行 */
+    width: 12%; /* 固定佔比 */
+    padding-right: 10px; /* 稍微減少右邊留白，視覺更緊湊 */
+}
+
+/* 3. 針對第二欄 (現有船隊) 也強制不換行，保持數字整齊 */
+.crisis-table th:nth-child(2),
+.crisis-table td:nth-child(2) {
+    white-space: nowrap;
+    width: 12%; 
+}
+
+/* 4. 第三與第四欄 (說明文字較多) 均分剩下最大的空間 */
+.crisis-table th:nth-child(3),
+.crisis-table td:nth-child(3) {
+    width: 30%; /* 從 35% 縮小到 28% */
+    padding-right: 40px; /* 故意在右側多推一點空間，讓第四欄不要黏太緊 */
+}
+
+.crisis-table th:nth-child(4),
+.crisis-table td:nth-child(4) {
+    width: 46%;
+}
+
+
+
+
+
+
+
+
+/* =========================================
+   大仁宮事件 區塊
+   ========================================= */
+.dajingong-section {
+    height: 600vh;
+    position: relative;
+    width: 100%;
+    background-color: #0a0a0a;
+    background-image: linear-gradient(to bottom, rgba(20, 5, 5, 0.75), rgba(10, 5, 5, 0.9)),
+                      url('./images/Gemini/jpg/06.圖片六_1986_Gemini_Generated_Image_ba66hnba66hnba66.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+ 
+.dajingong-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+ 
+.dajingong-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.88) 100%);
+    z-index: 1;
+}
+ 
+.dajingong-content {
+    position: relative;
+    z-index: 10;
+    width: 90%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+ 
+.dajingong-heading {
+    font-size: clamp(36px, 6vw, 68px);
+    color: #fb7185;
+    margin-bottom: 50px;
+    text-shadow: 0 0 40px rgba(251, 113, 133, 0.6), 0 4px 20px rgba(0,0,0,0.9);
+    letter-spacing: 0.06em;
+    opacity: 0;
+    transform: translateY(30px);
+}
+ 
+.dajingong-texts p {
+    font-size: clamp(18px, 3vw, 30px);
+    color: var(--text, #e9f2f6);
+    margin: 12px 0;
+    line-height: 1.7;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.9);
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+
+
+
+
+
+
+
+
+/* 針對手機版稍微縮小間距 */
+@media (max-width: 768px) {
+    .reality-heading { margin-bottom: 30px; }
+    .reality-texts p { margin: 10px 0; font-size: 1.2rem; }
+}
 
 
 
@@ -1370,6 +1792,9 @@ body {
         padding-top: 120px;
       }
       .nav { display: none; }
+
+
+
     }
 
 
