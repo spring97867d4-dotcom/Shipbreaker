@@ -1680,7 +1680,6 @@ fleetTl
 
         // =========================================
         // 大仁宮事件區塊滾動動畫
-        // 大標 sticky 在頂部直到所有文字跑完，再停留 1 秒後才離開
         // =========================================
         const dajingongTl = gsap.timeline({
             scrollTrigger: {
@@ -1705,11 +1704,9 @@ fleetTl
             })
             // 大標移動到畫面頂端區域並停在那裡
             .to(".dajingong-heading", {
-                y: "-30vh",
-                fontSize: "clamp(24px, 3.5vw, 42px)",
-                marginBottom: "0px",
-                duration: 2,
-                ease: "power2.inOut"
+            y: "-40vh", // 讓標題停留在畫面上方，可依視覺需求微調數值
+            duration: 2,
+            ease: "power2.inOut"
             })
             .to({}, { duration: 0.5 })
  
@@ -1730,6 +1727,14 @@ fleetTl
                 y: -60,
                 duration: 2,
                 ease: "power2.inOut"
+            })
+                // [步驟五]：(可選) 整個段落結束要進入下一個 Section 前，再把大標題收走
+                .to(".dajingong-heading", {
+                opacity: 0,
+                y: "-45vh",
+                duration: 1.5,
+                ease: "power2.inOut"
+
             });
  
 
