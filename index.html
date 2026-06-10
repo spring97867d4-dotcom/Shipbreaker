@@ -708,32 +708,37 @@
 
 
   <section id="why">
-    <div class="container">
-      <div class="section-head">
-        <div class="section-kicker"><br><br><br><br><br></div>
+  <div class="why-sticky">
+    <div class="container why-container">
+      
+      <div class="section-head why-head">
         <h2>為什麼老船一直留在港裡？</h2>
         <p class="section-desc">不是大家不知道問題，而是拆解與汰除之所以困難，背後有成本、責任與制度三層阻力。</p>
       </div>
 
-      <div class="three-col">
-        <div class="mini-card">
+      <div class="why-cards-wrapper">
+        <div class="mini-card why-card why-card-1">
           <div class="icon">1</div>
           <h3>有錢也找不到地方拆</h3>
           <p>政府已經動23.7 億元補助老舊遠洋漁船汰除，但國內合法且具綠色認證的拆船廠寥寥無幾，加上地方居民對工安與環境汙染的憤怒，沒有合法、且符合現代環保標準的拆船場域，成為政策推行最大的礁石。</p>
         </div>
-        <div class="mini-card">
+        
+        <div class="mini-card why-card why-card-2">
           <div class="icon">2</div>
           <h3>法規監督真空</h3>
           <p>中央管核准、地方管污染。海岸線旁則是業者順著潮汐，將巨輪拉上「半陸半海」的尷尬灘岸，在各機關的管理盲區裡，一條潮線，割裂了工安與環境監督，讓這場轉型必經的拆解工程，成了誰都能管、卻誰都沒在管的體制真空。</p>
         </div>
-        <div class="mini-card">
+        
+        <div class="mini-card why-card why-card-3">
           <div class="icon">3</div>
           <h3>有生無死的產業鏈</h3>
           <p>台灣能造出遨遊三大洋的萬噸巨輪、名震國際的頂級遊艇，卻在產業藍圖的最後一哩路上留下了空白。當國際配額的限縮迎來集體大減船潮，這個長年「只管建、不管拆」的殘缺產業鏈終於引來反噬，在滿載的季節，滿滿地卡死了前鎮漁港。</p>
         </div>
       </div>
+
     </div>
-  </section>
+  </div>
+</section>
 
 
 
@@ -1750,6 +1755,93 @@ fleetTl
             }, "outro"); // 同樣使用 "outro" 標籤，但不加 Y 軸位移，避免影片往上飄
  
 
+
+
+
+
+
+
+
+
+            // =========================================
+            // 「為什麼老船一直留在港裡」發牌式捲動動畫
+            // =========================================
+            let mm = gsap.matchMedia();
+
+            // 💻 電腦版與平板 (橫向展開特效)
+            mm.add("(min-width: 769px)", () => {
+                const whyTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: "#why",
+                        start: "top top",
+                        end: "bottom bottom",
+                        scrub: 1.5,
+                        pin: ".why-sticky",
+                        anticipatePin: 1
+                    }
+                });
+
+                // 確保動畫開始前，三張卡片都在 X 軸正中央 (xPercent: 0)
+                gsap.set(".why-card", { xPercent: 0 });
+
+                whyTl
+                    // [幕次一]：標題與前言獨立在畫面中間停留
+                    .to({}, { duration: 1 })
+
+                    // [幕次二]：標題微微往上移，卡片1在正中央浮現
+                    .to(".why-head", { y: -30, duration: 1.5, ease: "power2.inOut" }, "step2")
+                    .to(".why-card-1", { opacity: 1, duration: 1.5, ease: "power2.inOut" }, "step2")
+                    
+                    // 停留閱讀
+                    .to({}, { duration: 1 }) 
+
+                    // [幕次三]：卡片1向左移，卡片2在右側浮現，兩者在畫面置中對稱
+                    // xPercent: -55 代表向左移動自身寬度的 55%，+55 代表向右
+                    .to(".why-card-1", { xPercent: -55, duration: 1.5, ease: "power2.inOut" }, "step3")
+                    .fromTo(".why-card-2",
+                        { xPercent: 55, opacity: 0 },
+                        { xPercent: 55, opacity: 1, duration: 1.5, ease: "power2.inOut" }, "step3"
+                    )
+                    
+                    // 停留閱讀
+                    .to({}, { duration: 1 }) 
+
+                    // [幕次四]：卡片1繼續退到左邊，卡片2回到正中央，卡片3在右側浮現
+                    // 110% 代表移動超過一整張卡片的寬度並保留 10% 的間距
+                    .to(".why-card-1", { xPercent: -110, duration: 1.5, ease: "power2.inOut" }, "step4")
+                    .to(".why-card-2", { xPercent: 0, duration: 1.5, ease: "power2.inOut" }, "step4")
+                    .fromTo(".why-card-3",
+                        { xPercent: 110, opacity: 0 },
+                        { xPercent: 110, opacity: 1, duration: 1.5, ease: "power2.inOut" }, "step4"
+                    )
+
+                    // [最終幕]：收尾凍結，讓觀眾看完完整的三個痛點
+                    .to({}, { duration: 2.5 });
+            });
+
+            // 📱 手機版 (單純向上浮現，防止版面撐破)
+            mm.add("(max-width: 768px)", () => {
+                // 手機版取消絕對定位，改回一般文檔流
+                gsap.set(".why-cards-wrapper", { height: "auto", flexDirection: "column", alignItems: "center", gap: "20px" });
+                gsap.set(".why-card", { position: "relative", width: "95%", xPercent: 0 });
+
+                const whyTlMobile = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: "#why",
+                        start: "top top",
+                        end: "bottom bottom",
+                        scrub: 1.5,
+                        pin: ".why-sticky"
+                    }
+                });
+
+                whyTlMobile
+                    .to({}, { duration: 0.5 })
+                    .fromTo(".why-card-1", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1 })
+                    .fromTo(".why-card-2", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1 })
+                    .fromTo(".why-card-3", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1 })
+                    .to({}, { duration: 1 });
+            });
 
 
 

@@ -1810,6 +1810,7 @@ body {
     background-color: rgba(0, 0, 0, 0.6); 
 }
 
+
 /* 手機版響應式：變成上下排列 */
 @media (max-width: 768px) {
     .dj-video-container {
@@ -1822,6 +1823,67 @@ body {
     }
 
 }
+
+
+
+
+
+
+
+/* =========================================
+   「為什麼老船一直留在港裡」捲動特效
+   ========================================= */
+#why {
+    height: 400vh; /* 創造足夠的捲動空間來觸發分段動畫 */
+    position: relative;
+    width: 100%;
+}
+
+.why-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.why-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.why-head {
+    position: relative;
+    z-index: 10;
+    margin-bottom: 0; /* 移除預設 bottom 邊距，讓 GSAP 的 Y 軸控制更精準 */
+}
+
+/* 讓三張卡片在畫面上絕對疊加在正中央 */
+.why-cards-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    height: 380px; /* 給予卡片一個固定高度的舞台 */
+    margin-top: 40px;
+    display: flex;
+    justify-content: center; /* 水平置中 */
+}
+
+/* 保留原本的 mini-card 視覺，加上定位屬性 */
+.why-card {
+    position: absolute;
+    width: 31%; /* 大約佔 1/3 的寬度 */
+    min-width: 280px; 
+    opacity: 0; /* 初始隱藏，交給 GSAP */
+}
+
+
 
 
 
