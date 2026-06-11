@@ -1,46 +1,244 @@
+/* ==========================================================================
+   1. Root Variables & Global Resets (全域變數與重設)
+   ========================================================================== */
+:root {
+    --bg: #07151d;
+    --bg2: #0d2430;
+    --panel: rgba(11, 24, 34, 0.78);
+    --panel-2: rgba(255, 255, 255, 0.05);
+    --text: #e9f2f6;
+    --muted: #a8bdc9;
+    --line: rgba(255,255,255,0.12);
+    --accent: #7dd3fc;
+    --accent2: #f59e0b;
+    --danger: #fb7185;
+    --ok: #34d399;
+    --shadow: 0 20px 60px rgba(0,0,0,.35);
+    --radius-xl: 28px;
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --max: 1180px;
+}
 
-/* 新增這段全域設定 */
 html, body {
     max-width: 100%;
-    overflow-x: hidden; /* 強制隱藏 X 軸超出畫面的部分，解決右側留白 */
+    overflow-x: hidden;
 }
 
 *, *::before, *::after {
-    box-sizing: border-box; /* 確保 padding 不會撐破原本設定的寬度 */
+    box-sizing: border-box;
 }
-
-
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Hiragino Sans GB", "Microsoft JhengHei", sans-serif;
-    font-size: 25px; /* 全域字體大小 */
-    margin: 0; /* 移除邊距 */
-    background-color: transparent; /* 背景透明，顯示底層背景圖 */
-    color: white; /* 全域文字顏色 */
+    font-size: 25px;
+    margin: 0;
+    background-color: transparent;
+    color: white;
 }
 
+a { 
+    color: inherit; 
+    text-decoration: none; 
+}
+
+/* 用於替代傳統 br 標籤拉長滾動體感的空白區塊 */
+.scroll-buffer {
+    height: 40vh;
+    display: block;
+}
+
+/* ==========================================================================
+   2. Layout & Common Components (佈局與基礎組件樣式)
+   ========================================================================== */
+.container {
+    width: min(var(--max), calc(100% - 32px));
+    margin: 0 auto;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
+    gap: 22px;
+    align-items: start;
+}
+
+.card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.card.pad { 
+    padding: 22px; 
+}
+
+.card h3 {
+    margin: 0 0 10px;
+    font-size: 24px;
+    line-height: 1.2;
+}
+
+.card p { 
+    margin: 0 0 12px; 
+    color: #d5e2e8; 
+}
+
+.muted { 
+    color: var(--muted) !important; 
+}
+
+.section-head {
+    margin-bottom: 40px;
+}
+
+.section-kicker {
+    color: var(--accent);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+}
+
+h1 {
+    margin: 0;
+    font-size: clamp(28px, 7vw, 50px);
+    line-height: 1.02;
+    letter-spacing: .02em;
+    text-align: center;
+    text-wrap: balance;
+}
+
+h2 {
+    margin: 0;
+    font-size: clamp(28px, 4vw, 48px);
+    line-height: 1.15;
+    text-align: center;
+    text-wrap: balance;
+}
+
+.section-desc {
+    margin: 0 auto;
+    text-align: center;
+    line-height: 1.5;
+    max-width: 80ch;
+    color: var(--muted);
+    font-size: 17px;
+    padding: 20px;
+}
+
+/* ==========================================================================
+   3. Topbar & Nav (導覽列與天標)
+   ========================================================================== */
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    backdrop-filter: blur(14px);
+    background: rgba(4, 12, 18, 0.72);
+    border-bottom: 1px solid var(--line);
+}
+
+.topbar-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 5px 20px 0;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    letter-spacing: .04em;
+}
+
+.brand-mark {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, rgba(125,211,252,.24), rgba(245,158,11,.18));
+    border: 1px solid rgba(255,255,255,.14);
+    box-shadow: var(--shadow);
+}
+
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-end;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.nav a {
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.08);
+}
+
+.nav a:hover { 
+    color: var(--text); 
+    border-color: rgba(125,211,252,.28); 
+}
+
+/* ==========================================================================
+   4. Background Video & Hero Canvas (背景大圖與首頁縮放影音)
+   ========================================================================== */
 .scrolling-bg-container {
-    position: fixed; /* 固定在視窗上 */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
-    z-index: -2; /* 置於最底層 */
+    z-index: -2;
     overflow: hidden;
     background-color: #000000;
 }
 
 #global-bg {
     width: 100%;
-    height: 150vh; /* 高度超過視窗以供捲動 */
+    height: 150vh;
     object-fit: cover;
-    filter: saturate(0.4) brightness(0.4); /* 降低飽和度與亮度，強調壓抑感 */
-    will-change: transform; /* 優化效能 */
+    filter: saturate(0.4) brightness(0.4);
+    will-change: transform;
 }
 
+.zoom-section {
+    height: 800vh;
+    position: relative;
+    background-color: #000;
+}
 
-#video-b {  opacity: 0; /* 重複設定：隱藏影片 B */
-            filter: contrast(1.4) brightness(0.8) grayscale(0.8) blur(1px);
+.zoom-sticky {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.zoom-sticky video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+#video-b {  
+    opacity: 0;
+    filter: contrast(1.4) brightness(0.8) grayscale(0.8) blur(1px);
 } 
 
 #video-c {
@@ -48,8 +246,8 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0; /* 預設隱藏，由 GSAP 控制出場 */
-    z-index: 5; /* 層級介於影片 B 與 監視器遮罩之間 */
+    opacity: 0;
+    z-index: 5;
     filter: contrast(1.4) brightness(0.8) grayscale(0.6) blur(1px);
 }
 
@@ -60,9 +258,8 @@ body {
     width: 100%;
     height: 100%;
     z-index: 10;
-    pointer-events: none; /* 防止遮罩干擾滑鼠點擊 */
+    pointer-events: none;
     opacity: 0;
-    /* 製作掃描線效果的漸層背景 */
     background: repeating-linear-gradient(
         to bottom,
         rgba(0, 0, 0, 0.2) 0px,
@@ -70,62 +267,6 @@ body {
         transparent 2px,
         transparent 4px
     );
-}
-
-.image-grid-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* 新增：讓容器內的所有子元素（圖片）水平置中 */
-    gap: 150px; /* 圖片間距 */
-    padding: 100px 5%;
-    max-width: 1400px;
-    margin: 0 auto;
-    /* background: transparent; */
-    /* background-color: #ff7979; */
-}
-
-.image-grid-container img {
-    width: 50%; /* 圖片寬度佔一半 */
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* 陰影 */
-    opacity: 0; /* 由 JS 控制顯示 */
-}
-
-/* .image-grid-container img:nth-child(odd) { align-self: flex-start; } 奇數圖靠左 */
-/* .image-grid-container img:nth-child(even) { align-self: flex-end; } 偶數圖靠右 */
-
-.flourish-container {
-    padding: 60px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: transparent;
-}
-
-.zoom-section {
-    height: 800vh; /* 捲動動畫所需的空間 */
-    position: relative;
-    background-color: #000;
-}
-
-.zoom-sticky {
-    position: sticky; /* 釘選效果 */
-    top: 0;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.zoom-target-content {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
 }
 
 .zoom-png-frame {
@@ -152,735 +293,35 @@ body {
     pointer-events: none;
 }
 
-
-
-/* 優化文字辨識度：增加陰影與半透明背景襯托 */
 .scroll-text, .zoom-title {
     font-size: clamp(32px, 6vw, 40px);
-    position: absolute; /* 確保在釘選容器內絕對定位 */
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 90%; /* 從 80% 改寬一點，給手機多點空間 */
+    width: 90%;
     max-width: 800px;
     text-align: center;
     z-index: 10;
-    
-    /* 增加文字陰影，解決背景雜亂導致文字看不清的問題 */
     text-shadow: 0 0 15px rgba(0, 0, 0, 0.9), 0 0 5px rgba(0, 0, 0, 1);
     letter-spacing: 2px;
 }
 
-/* 針對小標題給予微弱的背景色區隔 */
 #text-main, #text-monitor {
+    opacity: 0;
+    transform: translate(-50%, -40%);
+    width: fit-content;
+    line-height: 1.5;
+    letter-spacing: 10px;
     background: rgba(0, 0, 0, 0.5); 
     padding: 10px 20px !important; 
     border-radius: 12px;
-    backdrop-filter: blur(4px); /* 輕微模糊背景增加質感 */
+    backdrop-filter: blur(4px);
 }
-
-/* 優化圖片網格的進場感覺 */
-.image-grid-container img {
-    width: 50%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    border-radius: 12px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-    opacity: 0; 
-    transition: filter 0.5s ease; /* 增加滑鼠經過時的濾鏡變化 (可選) */
-
-    
-}
-
-.image-grid-container img:hover {
-    filter: brightness(1.2);
-    /* background-color: #000; */
-}
-
-
-
-
-
-
-.zoom-subtitle { font-size: 1.5rem; opacity: 0.8; }
-
-
-
-
-
-
-
-.text-reveal-section {
-    /* background-color: red; */
-    height: 200vh; /* 捲動動畫的長度，越高代表要滾越久動畫才會跑完 */
-    position: relative;
-    /* background-color: #000; */
-}
-
-.text-reveal-sticky {
-    /* background-color: blue; */
-    position: relative; 
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* background-color: #000; */
-}
-
-.reveal-p {
-    /* background-color: red; */
-    font-size: 2rem;
-    width: 100%;
-    text-align: center;
-    opacity: 0;
-    filter: blur(20px); /* 初始模糊 */
-    line-height: 1.6;
-}
-
-
-.reveal-text{
-    font-size: 2.5rem;
-    text-align: center;
-}
-
-
-
-
-
-
-
-/* 修正：手電筒文字區塊 */
-.flashlight-section {
-    height: 350vh; /* 縮短捲動距離讓節奏更緊湊 */
-    width: 100%;  /* 強制滿版寬度 */
-    /* background-color: #000; */
-    /* margin-left: calc(-50vw + 50%);  修正：若在容器內，這能強制滿版 */
-    margin: 0; /* 移除原本的 margin-left 修正 */
-}
-
-.flashlight-sticky {
-    position: relative;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-
-
-
-/* 修正：讓手電筒文字在畫面絕對置中 */
-.flashlight-text {
-    position: absolute;
-    top: 50%;           /* 垂直置中起始點 */
-    left: 50%;          /* 水平置中起始點 */
-    transform: translate(-50%, -50%); /* 修正：將文字中心點移至座標中心點 */
-    width: 90%;
-    max-width: 1000px;
-    font-size: 2.2rem;
-    text-align: center;
-    line-height: 1.6;
-    font-weight: bold;
-    letter-spacing: 3px;
-    margin: 0;
-}
-
-
-
-.bg-text {
-    /* 修正：提高底字亮度（淡灰色），讓讀者在還沒照亮前能看到文字位置 */
-    color: rgba(255, 255, 255, 0.15); 
-    z-index: 1;
-    opacity: 0;
-}
-
-.fg-text {
-    color: #fff;
-    z-index: 2;
-    opacity: 0; /* 新增：初始不透明度為 0 */
-    /* 修正：使用 CSS 變數並提供預設值 */
-    --mask-size: 0%;
-    --mask-blur: 0%;
-    
-    /* 改進的放射狀漸層：black 代表顯示，transparent 代表隱藏 */
-    -webkit-mask-image: radial-gradient(
-        circle at center, 
-        black var(--mask-size), 
-        transparent var(--mask-blur)
-    );
-    mask-image: radial-gradient(
-        circle at center, 
-        black var(--mask-size), 
-        transparent var(--mask-blur)
-    );
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* --- 時間軸樣式區域 --- */
-
-.history-timeline {
-    width: 100%;
-    max-width: 1200px;
-    margin: 100px auto;
-    padding: 50px 20px;
-    position: relative;
-    color: #fff;
-}
-
-.timeline-main-title {
-    text-align: center;
-    font-size: 3rem;
-    margin-bottom: 80px;
-    letter-spacing: 5px;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-}
-
-.timeline-container {
-    position: relative;
-    width: 100%;
-    min-height: 1000px;
-}
-
-/* 中央基準線 (底色) */
-.timeline-container::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.1);
-}
-
-/* 中央進度線 (動畫色) */
-.timeline-line-progress {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    background: linear-gradient(to bottom, transparent, #fff, transparent);
-    z-index: 1;
-}
-
-.timeline-item {
-    width: 50%; /* 從 47% 改為 50% 確保切齊中線 */
-    margin-bottom: 80px;
-    position: relative;
-    z-index: 2;
-    box-sizing: border-box; /* 確保 padding 不會撐開寬度 */
-    /* background-color: rgb(0, 66, 17); */
-
-    /* 核心修正：強制換行，防止左右項目排在同一橫排 */
-    clear: both;
-}
- 
-
-
-
-.timeline-item.left {
-    float: left;
-    text-align: right; /* 改為靠右對齊中心線，或者保持左對齊但調整 padding */
-    padding-right: 50px;
-    /* background-color: #005f26; */
-}
-
-
-.timeline-item.right {
-    float: right;
-    text-align: left;
-    padding-left: 50px;
-    /* background-color: #08419c; */
-}
-
-/* 清除浮動 */
-.timeline-container::after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-/* 圓點 */
-.timeline-dot {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    background: #ffca28;
-    border-radius: 50%;
-    top: 10px;
-    box-shadow: 0 0 15px #fff;
-}
-
-/* 修正圓點位置 */
-.left .timeline-dot { 
-    right: -8px; /* 16px 寬的點，一半是 8px，剛好中心對準 2px 的線 */
-}
-.right .timeline-dot { 
-    left: -8px; 
-}
-
-/* 日期與內容 */
-.timeline-date {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #ffca28; /* 金黃色標記時間點 */
-    margin-bottom: 10px;
-}
-
-.timeline-content {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 20px;
-    border-radius: 8px;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    
-    /* 新增這行：強制方框內的文字一律靠左對齊 */
-    text-align: left;
-}
-
-
-/* 時間軸圖片樣式 */
-.timeline-img {
-    width: 100%;
-    height: auto;
-    margin-top: 15px;
-    border-radius: 6px;
-    display: block;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-}
-
-
-
-
-
-
-
-
-
-/* 小視窗影片容器 */
-.mini-videos-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 15; /* 高於背景影片與遮罩 */
-    pointer-events: none;
-}
-
-.mini-video-wrapper {
-    position: absolute; width: 300px; /* 進一步縮小 */
-    aspect-ratio: 16/9; border: 1px solid rgba(255,255,255,0.6);
-    background: #000; opacity: 0; transform: scale(0.7);
-    box-shadow: 0 0 20px rgba(0,0,0,0.9);
-}
-
-.mini-video-wrapper video { width: 100%; height: 100%; object-fit: cover; }
-.mini-video-wrapper span { position: absolute; top: 5px; left: 5px; font-size: 10px; color: red; font-family: monospace; }
-
-
-.mini-video {
-    position: absolute;
-    width: 300px; /* 小視窗寬度 */
-    aspect-ratio: 16 / 9;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-    opacity: 0;
-    transform: scale(0.8); /* 初始縮小，進場時再放大 */
-    object-fit: cover;
-}
-
-/* 自定義每個小視窗的位置（可根據視覺需求調整） */
-.v1 { top: 10%; left: 10%; }
-.v2 { top: 18%; right: 8%; }
-.v3 { bottom: 25%; left: 30%; }
-.v4 { bottom: 18%; right: 17%; }
-.v5 { top: 20%; left: 50%; transform: translate(-50%, -50%) scale(0.8); }
-
-
-
-
-
-
-
-
-
-
-
-
-/* 在 style.css 中加入以下樣式 */
-.mini-caption {
-    position: absolute;
-    top: 100%;           /* 讓文字出現在 wrapper (影片) 的正下方 */
-    left: 0;
-    width: 100%;
-    margin: 5px 0 0 0;   /* 與影片保持 5px 的間距 */
-    font-size: 14px;     /* 配合小視窗縮小的字體 */
-    color: #ffffff;
-    text-align: center;
-    background: rgba(0, 0, 0, 0.6); /* 半透明背景，增加文字辨識度 */
-    padding: 4px 0;
-    pointer-events: none;
-}
-
-/* 確保文字不會因為父層 overflow 被切掉 */
-.mini-video-wrapper {
-    overflow: visible !important; /* 覆蓋可能的隱藏設定，確保下方文字可見 */
-}
-
-
-
-
-
-
-
-
-
-
-
-/* style.css 新增內容 */
-.music-control {
-    position: fixed;
-    top: 55px;
-    right: 20px;
-    width: 40px;
-    height: 40px;
-    background: rgba(0, 0, 0, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 999; /* 確保在所有層級之上，包含 mini-video-wrapper (z-index: 15) */
-    backdrop-filter: blur(5px);
-    transition: all 0.5s ease;
-}
-
-.music-control:hover {
-    background: rgba(255, 202, 40, 0.3); /* 懸停時帶點黃色光暈，符合時間軸主題色 */
-    border-color: #ffca28;
-}
-
-.music-icon {
-    font-size: 24px;
-    user-select: none;
-}
-
-
-
-
-    /* style.css 新增內容 */
-
-    /* 定義呼吸動畫 */
-    @keyframes musicBreathe {
-        0% { transform: scale(1); box-shadow: 0 0 5px rgba(255, 202, 40, 0.2); }
-        50% { transform: scale(1.1); box-shadow: 0 0 20px rgba(255, 202, 40, 0.6); }
-        100% { transform: scale(1); box-shadow: 0 0 5px rgba(255, 202, 40, 0.2); }
-    }
-
-    /* 當音樂播放時，套用到圖示與容器 */
-    .music-control.is-playing {
-        border-color: #ffca28; /* 變成時間軸的黃色 */
-        animation: musicBreathe 2s infinite ease-in-out;
-    }
-
-    .music-control.is-playing .music-icon {
-        text-shadow: 0 0 10px #ffca28;
-    }
-
-
-
-
-
-
-
-
-/* 260528 新增兩張圖片平行分布 */
-.image-container {
-    display: flex;         /* 啟用 Flexbox，預設會讓子元素橫向排列 */
-    justify-content: center ; /* 圖片靠左對齊 (可改成 center 置中或 space-between 分散，(原本是flex-start)) */
-    gap: 15px;            /* 兩張圖片之間的間距，可自行調整 */
-}
-
-.image-container img {
-    width: 48%;           /* 確保兩張圖片加起來不超過 100%，避免擠下去 */
-    height: auto;         /* 保持圖片比例 */
-}
-
-
-
-
-    .container {
-      width: min(var(--max), calc(100% - 32px));
-      margin: 0 auto;
-    }
-
-
-
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: 22px;
-      align-items: start;
-    }
-
-    .card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-
-    .card.pad { padding: 22px; }
-    .card h3 {
-      margin: 0 0 10px;
-      font-size: 24px;
-      line-height: 1.2;
-    }
-
-    .card p { margin: 0 0 12px; color: #d5e2e8; }
-    .muted { color: var(--muted) !important; }
-
-
-
-
-
-
-
-
-
-
-
-
-
-    .three-col {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-    .mini-card {
-      padding: 20px;
-      border-radius: var(--radius-lg);
-      background: rgba(5, 5, 5, 0.3);
-      border: 1px solid rgba(255,255,255,.08);
-    }
-    .mini-card .icon {
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      border-radius: 14px;
-      margin-bottom: 14px;
-      background: rgba(125,211,252,.12);
-      border: 1px solid rgba(125,211,252,.16);
-    }
-    .mini-card h3 { font-size: 20px; margin-bottom: 8px; }
-    .mini-card p { font-size: 16px; color: var(--muted); margin: 0; }
-
-
-
-
-
-
-
-
-        blockquote {
-      margin: 0;
-      padding: 22px;
-      border-radius: var(--radius-lg);
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.08);
-      position: relative;
-      min-height: 100%;
-    }
-    blockquote::before {
-      content: "“";
-      position: absolute;
-      top: 8px;
-      left: 14px;
-      font-size: 56px;
-      line-height: 1;
-      color: rgba(125,211,252,.18);
-      font-family: Georgia, serif;
-    }
-    blockquote p {
-      margin: 24px 0 14px;
-      font-size: 16px;
-      color: #e5eef3;
-    }
-    blockquote footer {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-
-
-
-
-
-
-
-     .section-kicker {
-      color: var(--accent);
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: .14em;
-    }
-
-
-    h1 {
-      margin: 0;
-      font-size: clamp(28px, 7vw, 50px);
-      line-height: 1.02;
-      letter-spacing: .02em;
-      text-align: center;
-      text-wrap: balance;
-    }
-
-    h2 {
-      margin: 0;
-      font-size: clamp(28px, 4vw, 48px);
-      line-height: 1.15;
-      text-align: center;
-      text-wrap: balance;
-    }
-
-    .section-desc {
-        margin: 0 auto;
-        text-align: center;
-        line-height: 1.5;
-        max-width: 80ch;
-        color: var(--muted);
-        font-size: 17px;
-        padding: 20px;
-    }
-
-
-    .solution-item h3 { margin: 0 0 6px; font-size: 18px; }
-    .solution-item p { margin: 0; color: var(--muted); }
-
-
-
-
-    .media-placeholder {
-      min-height: 300px;
-      border-radius: var(--radius-xl);
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 10px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)),
-        repeating-linear-gradient(45deg, rgba(255,255,255,.05) 0 12px, rgba(255,255,255,.02) 12px 24px),
-        linear-gradient(135deg, rgba(13,36,48,.95), rgba(4,12,18,.95));
-      border: 1px dashed rgba(255,255,255,.18);
-      color: #d7e6ec;
-    }
-
-    .media-placeholder strong {
-      display: block;
-      text-align: center;
-      font-size: 18px;
-      margin-bottom: 8px;
-    }
-    .media-placeholder span {
-      color: var(--muted);
-      max-width: 36ch;
-      display: block;
-    }
-    .caption {
-      margin-top: 10px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-
-
-        .stats {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-      margin-top: 18px;
-    }
-    .stat {
-      padding: 16px;
-      border-radius: var(--radius-md);
-      background: var(--panel-2);
-      border: 1px solid rgba(255,255,255,.08);
-    }
-    .stat .num {
-      font-size: 28px;
-      font-weight: 800;
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-    .stat .txt { color: var(--muted); font-size: 14px; }
-
-
-
-
-
-
-
-
-
-
-
-    .end-card {
-      position: relative;
-      min-height: 420px;
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,.10);
-      box-shadow: var(--shadow);
-      background:
-        linear-gradient(180deg, rgba(2,10,16,.18), rgba(2,10,16,.92)),
-        url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
-      display: grid;
-      align-items: end;
-      padding: 28px;
-    }
-    .end-card .overlay {
-      max-width: 56ch;
-      background: rgba(3,9,14,.58);
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: 22px;
-      padding: 22px;
-      backdrop-filter: blur(12px);
-    }
-    .end-card h3 { margin: 0 0 10px; font-size: 28px; }
-    .end-card p { margin: 0; color: #e6f0f5; }
-
-
-
-
-
-
 
 .subtitle-overlay {
     position: absolute;
-    bottom: 12%; /* 將字幕放在畫面下方 */
+    bottom: 12%;
     left: 50%;
     transform: translateX(-50%);
     color: white;
@@ -888,49 +329,36 @@ body {
     font-weight: bold;
     text-align: center;
     letter-spacing: 2px;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.9), 0 0 5px rgba(0,0,0,1); /* 強化陰影確保文字可讀性 */
-    background: rgba(0, 0, 0, 0.5); /* 半透明黑底襯托 */
+    text-shadow: 0 2px 10px rgba(0,0,0,0.9), 0 0 5px rgba(0,0,0,1);
+    background: rgba(0, 0, 0, 0.5);
     padding: 10px 20px;
     border-radius: 8px;
-    z-index: 20; /* 確保顯示在遮罩上方 */
-    opacity: 0; /* 預設隱藏，由 GSAP 控制 */
+    z-index: 20;
+    opacity: 0;
     pointer-events: none;
-
-    /* ▼ 新增這兩行 ▼ */
     width: 90%; 
     max-width: 800px;
 }
 
-
-
-
-
-
-
-
-
-/* =========================================
-   鮪魚 3D 翻轉特效區塊樣式
-   ========================================= */
+/* ==========================================================================
+   5. Tuna Storyboard & Ships Wave (鮪魚與滿版船隊大圖)
+   ========================================================================== */
 .tuna-section {
-    height: 800vh; /* 創造足夠長的滾動軌道 (滾越久播越慢) */
+    height: 800vh;
     position: relative;
     width: 100%;
-    /*background-color: #040c12;  深海背景色，可與你原本的背景無縫接軌 */
     z-index: 5;
-    /* ─── 修改此處 ─── */
-    /* 透過兩層設定：前段是 85% 不透明度的深色遮罩，後段是你的圖片路徑 */
     background-image: linear-gradient(to bottom, rgba(4, 12, 18, 0.85), rgba(4, 12, 18, 0.85)), 
                       url('./images/Gemini/Gemini_Generated_Image_gxpwywgxpwywgxpw_深海鮪魚群_小檔.jpg'); 
-    background-size: cover;        /* 讓圖片滿版不變形 */
-    background-position: center;    /* 圖片置中對齊 */
-    background-repeat: no-repeat;  /* 防止圖片重複鋪滿 */
-    background-attachment: fixed;  /*讓圖片維持等比例、填滿單一螢幕*/
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .tuna-sticky {
     position: relative;
-    height: 100vh; /* 釘選時佔滿螢幕 */
+    height: 100vh;
     width: 100%;
     overflow: hidden;
     display: flex;
@@ -938,7 +366,6 @@ body {
     justify-content: center;
 }
 
-/* 文字層設計 */
 .tuna-texts {
     position: relative;
     z-index: 10;
@@ -950,45 +377,22 @@ body {
     pointer-events: none;
 }
 
-
-
 .tuna-text-1 {
     font-size: clamp(32px, 5vw, 64px);
     margin: 0;
-    opacity: 0; /* 預設隱藏，由 GSAP 喚出 */
+    opacity: 0;
     text-shadow: 0 4px 20px rgba(0,0,0,0.8);
 }
-
 
 .tuna-text-2 {
     font-size: clamp(32px, 5vw, 64px);
     margin: 10px 0 0 0;
-    color: var(--accent2, #f59e0b); /* 使用你設定好的金色 */
+    color: var(--accent2, #f59e0b);
     opacity: 0; 
     transform: translateY(20px);
-    text-shadow: 0 0 20px rgba(245, 158, 11, 0.4); /*臺灣字樣發出微微金光*/
-    
+    text-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
 }
 
-
-
-
-.tuna-subtext {
-    opacity: 0;
-    max-width: 1400px;
-    transform: translateY(20px);
-    color: var(--muted);    
-    padding: 15px 30px;
-    border-radius: 12px;
-    /* background: rgba(0,0,0,0.4); */
-    /* backdrop-filter: blur(5px); */
-}
-
-
-
-
-
-/* 圖片與 3D 容器 */
 .tuna-images {
     position: absolute;
     top: 0;
@@ -996,22 +400,20 @@ body {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    perspective: 1500px; /* 關鍵：創造 3D 景深 */
+    perspective: 1500px;
 }
 
-/* 左、右護法鮪魚 */
 .tuna-left, .tuna-right {
     position: absolute;
     top: 50%;
     width: 25vw;
     max-width: 300px;
-    opacity: 0; /* 預設隱藏 */
+    opacity: 0;
 }
-/* 預設位置，Y軸位移 -50% 達到絕對垂直置中 */
+
 .tuna-left { left: 20%; transform: translateY(-50%); }
 .tuna-right { right: 20%; transform: translateY(-50%); }
 
-/* 中央 3D 翻轉主角 */
 .tuna-center-wrapper {
     position: absolute;
     top: 52%;
@@ -1019,7 +421,6 @@ body {
     width: 30vw;
     max-width: 350px;
     aspect-ratio: 1/1;
-    /* 修正置中偏移 */
     transform: translate(-50%, -50%);
     opacity: 0; 
 }
@@ -1028,8 +429,7 @@ body {
     position: relative;
     width: 100%;
     height: 100%;
-    transform-style: preserve-3d; /* 關鍵：讓子元素具備 3D 空間特性 */
-    /* 翻轉動畫將由 JS 的 rotateY 控制 */
+    transform-style: preserve-3d;
 }
 
 .tuna-front, .tuna-back {
@@ -1039,23 +439,18 @@ body {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    backface-visibility: hidden; /* 關鍵：翻到背面時隱藏 */
+    backface-visibility: hidden;
 }
 
 .tuna-back {
-    transform: rotateY(180deg); /* 臺灣一開始是背對我們的 */
+    transform: rotateY(180deg);
     top: -10%;
-    filter: drop-shadow(0 0 25px rgba(125,211,252,0.8)); /* 臺灣現身時帶點藍色或金色光暈 */
+    filter: drop-shadow(0 0 25px rgba(125,211,252,0.8));
 }
 
-
-
-
-
-/* 新增：感性文字的 CSS 樣式 */
 .tuna-texts-3 {
     position: absolute;
-    top: 40%; /* 讓文字稍微偏下，不擋住臺灣跟魚 */
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 90%;
@@ -1063,99 +458,59 @@ body {
     line-height: 1.8;
     color: #e9f2f6;
     text-shadow: 0 0 15px rgba(0, 0, 0, 0.9);
-    opacity: 0; /* 預設隱藏，交給 GSAP 顯示 */
+    opacity: 0;
     pointer-events: none;
-
     text-align: center;
 }
 
-/* 船隻外層：專心交給 GSAP 控制進場位移 (x, y) */
 .ship-wrapper {
     position: absolute;
-    opacity: 0; /* 預設隱藏，由 GSAP 負責淡入 */
+    opacity: 0;
 }
 
-/* 船隻內層圖片：專心交給 CSS 製造海浪搖晃 */
 .ship-img {
     width: 100%;
     display: block;
     animation: floatWave 4s infinite ease-in-out;
 }
 
-/* 左邊船隊初始位置與大小 */
 .fleet-left-1 { top: 5%; left: -30%; width: 40vw; }
 .fleet-left-1 .ship-img { animation-delay: 0s; }
-
 .fleet-left-2 { top: 20%; left: -40%; width: 40vw; }
 .fleet-left-2 .ship-img { animation-delay: -1.2s; }
-
 .fleet-left-3 { top: 32%; left: -28%; width: 45vw; }
 .fleet-left-3 .ship-img { animation-delay: -2.5s; }
-
 .fleet-left-4 { top: 50%; left: -39%; width: 50vw; }
 .fleet-left-4 .ship-img { animation-delay: -0.7s; }
 
-/* 右邊船隊初始位置與大小 */
 .fleet-right-1 { top: 2%; right: -32%; width: 40vw; }
 .fleet-right-1 .ship-img { animation-delay: -0.5s; }
-
 .fleet-right-2 { top: 20%; right: -40%; width: 40vw; }
 .fleet-right-2 .ship-img { animation-delay: -1.8s; }
-
 .fleet-right-3 { top: 35%; right: -30%; width: 40vw; }
 .fleet-right-3 .ship-img { animation-delay: -3.1s; }
-
 .fleet-right-4 { top: 50%; right: -42%; width: 44vw; }
 .fleet-right-4 .ship-img { animation-delay: -1.1s; }
 
-/* 底部船隊初始位置與大小 */
-/* .fleet-bottom-1 { bottom: -25%; left: 22%; width: 24vw; }
-.fleet-bottom-1 .ship-img { animation-delay: -0.3s; }
-
-.fleet-bottom-2 { bottom: -28%; left: 36%; width: 18vw; }
-.fleet-bottom-2 .ship-img { animation-delay: -2.1s; }
-
-.fleet-bottom-3 { bottom: -20%; right: 34%; width: 22vw; }
-.fleet-bottom-3 .ship-img { animation-delay: -1.5s; }
-
-.fleet-bottom-4 { bottom: -20%; right: 28%; width: 17vw; }
-.fleet-bottom-4 .ship-img { animation-delay: -0.9s; } */
-
-
-
-
-
-
-
-
-/* 🌊 核心動態：載浮載沉的海浪物理效果 */
 @keyframes floatWave {
     0%, 100% { transform: translateY(0px) rotate(0deg); }
     50%      { transform: translateY(-15px) rotate(3deg); }
 }
 
-
-
-
-
-
-
-
-/* =========================================
-   遠洋漁業影響力區塊樣式
-   ========================================= */
+/* ==========================================================================
+   6. Fleet Impact & FAO Statistics (數據衝擊與粒子排列地圖)
+   ========================================================================== */
 .fleet-impact-section {
-    height: 900vh; /* 設定足夠的捲動空間來觸發依序出現的動畫 */
+    height: 900vh;
     position: relative;
     width: 100%;
     background-color: #000;
-
     background-image: linear-gradient(to bottom, rgba(4, 12, 18, 0.45), rgba(4, 12, 18, 0.65)), 
                       url('./images/ChatGPT/ChatGPT\ Image\ 2026年6月5日\ 下午12_01_51_wordMap.png'); 
-    background-size: cover;        /* 讓圖片滿版不變形 */
-    background-position: center;    /* 圖片置中對齊 */
-    background-repeat: no-repeat;  /* 防止圖片重複鋪滿 */
-    background-attachment: fixed;  /*讓圖片維持等比例、填滿單一螢幕*/
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .fleet-impact-sticky {
@@ -1169,24 +524,13 @@ body {
     justify-content: center;
 }
 
-.fleet-bg-img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
-    opacity: 0.6; /* 降低背景亮度，可依圖片情況自行微調 */
-}
-
 .fleet-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* 黑色半透明遮罩 */
+    background: rgba(0, 0, 0, 0.5);
     z-index: 2;
 }
 
@@ -1206,7 +550,7 @@ body {
     line-height: 1.6;
     color: #e9f2f6;
     text-shadow: 0 4px 20px rgba(0,0,0,0.9);
-    opacity: 0; /* 預設隱藏，交給 GSAP 控制 */
+    opacity: 0;
     margin-bottom: -50px;
 }
 
@@ -1224,16 +568,15 @@ body {
     flex-direction: column;
     align-items: center;
     width: 48%;
-    opacity: 0; /* 預設隱藏 */
+    opacity: 0;
 }
 
-/* 預先設定好位移，左邊偏左、右邊偏右，等待被 GSAP 拉回原位 */
 .fleet-stat-left { transform: translateX(-150px); }
 .fleet-stat-right { transform: translateX(150px); }
 
 .fleet-stat-text {
     font-size: clamp(28px, 4.5vw, 48px);
-    color: var(--accent2, #f59e0b); /* 使用您既有的金色變數 */
+    color: var(--accent2, #f59e0b);
     margin-bottom: 20px;
     text-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
 }
@@ -1242,30 +585,20 @@ body {
     width: 100%;
     border-radius: 12px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.8);
-    aspect-ratio: 16 / 9; /* 維持影片或圖片比例 */
+    aspect-ratio: 16 / 9;
     object-fit: cover;
 }
 
 .fleet-text-outro {
     font-size: clamp(32px, 5vw, 56px);
     font-weight: bold;
-    color: var(--accent, #7dd3fc); /* 使用您既有的淺藍色變數 */
+    color: var(--accent, #7dd3fc);
     margin-top: 60px;
     text-shadow: 0 0 20px rgba(125, 211, 252, 0.6);
     opacity: 0;
-    transform: translateY(50px); /* 預設在稍微偏下的位置 */
+    transform: translateY(50px);
 }
 
-
-
-
-
-
-
-
-/* =========================================
-   新增：FAO 統計區塊樣式
-   ========================================= */
 .fao-section {
     position: absolute;
     top: 50%;
@@ -1276,7 +609,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    z-index: 15; /* 確保在原本的文字之上 */
+    z-index: 15;
     pointer-events: none;
 }
 
@@ -1284,7 +617,7 @@ body {
     font-size: clamp(24px, 4vw, 42px);
     color: #e9f2f6;
     text-shadow: 0 4px 20px rgba(0,0,0,0.9);
-    opacity: 0; /* 預設隱藏，由 GSAP 控制 */
+    opacity: 0;
     margin: 30px 0;
     text-align: center;
 }
@@ -1294,28 +627,25 @@ body {
     font-weight: bold;
 }
 
-/* 新增：轉型文字的樣式 */
 .fao-text-3 {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* 確保絕對置中 */
+    transform: translate(-50%, -50%);
     width: 90%;
     font-size: clamp(24px, 4vw, 36px);
     line-height: 1.8;
     color: #e9f2f6;
     text-shadow: 0 4px 20px rgba(0,0,0,0.9);
-    opacity: 0; /* 預設隱藏，由 GSAP 控制 */
+    opacity: 0;
     text-align: center;
     pointer-events: none;
 }
 
-
-
 .fao-icons-container {
     position: relative;
     width: 100%;
-    height: 380px; /* 給予陣列與臺灣形狀足夠的高度空間 */
+    height: 380px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1332,32 +662,24 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    margin-left: -15px; /* 寬度一半，確保精準置中 */
+    margin-left: -15px;
     margin-top: -15px;
-    opacity: 0; /* JS 動畫進場 */
+    opacity: 0;
 }
 
-
-
-
-
-
-
-/* =========================================
-   政策收購區塊樣式 (Policy Section)
-   ========================================= */
+/* ==========================================================================
+   7. Policy Flip Card & Reality (收購政策翻牌與現實反差)
+   ========================================================================== */
 .policy-section {
-    height: 400vh; /* 給予 400vh 的滾動空間讓動畫慢慢跑 */
+    height: 400vh;
     position: relative;
     width: 100%;
-    /* background-color: var(--bg2); 銜接深色背景 */
-
     background-image: linear-gradient(to bottom, rgba(4, 12, 18, 0.05), rgba(4, 12, 18, 0.25)), 
                       url('./images/ChatGPT/ChatGPT\ Image\ 2026年6月5日\ 下午12_01_51_wordMap.png'); 
-    background-size: cover;        /* 讓圖片滿版不變形 */
-    background-position: center;    /* 圖片置中對齊 */
-    background-repeat: no-repeat;  /* 防止圖片重複鋪滿 */
-    background-attachment: fixed;  /*讓圖片維持等比例、填滿單一螢幕*/
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .policy-sticky {
@@ -1391,14 +713,13 @@ body {
     align-items: center;
 }
 
-/* 文字區域設計 */
 .policy-texts {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-bottom: 60px;
-    min-height: 180px; /* 預留高度，避免文字出現時下方卡片被擠壓 */
-    justify-content: flex-end; /* 讓文字從下往上疊加 */
+    min-height: 180px;
+    justify-content: flex-end;
 }
 
 .policy-text-1, .policy-text-2, .policy-text-3 {
@@ -1407,58 +728,48 @@ body {
     margin: 8px 0;
     text-align: center;
     text-shadow: 0 4px 15px rgba(0,0,0,0.8);
-    opacity: 0; /* 預設隱藏 */
-    transform: translateY(20px); /* 預設微微向下 */
+    opacity: 0;
+    transform: translateY(20px);
     line-height: 1.5;
 }
 
-
-
-
-
-/* 卡片區域設計 */
-/* 1. 外層容器：確保三張卡牌能橫向並排並置中 */
 .policy-cards-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 20px;       /* 三張卡牌之間的間距 */
+    gap: 20px;
     width: 100%;
     margin-top: 30px;
 }
 
-/* 2. 單一卡牌外層：提供 3D 視角與尺寸限制 */
 .policy-card {
     flex: 1;
     perspective: 1000px;
-    max-width: 320px;     /* 限制最大寬度，避免電腦螢幕太大時變形 */
-    aspect-ratio: 3 / 4;  /* 鎖定比例 (寬3高4，可依據你的圖卡比例修改) */
+    max-width: 320px;
+    aspect-ratio: 3 / 4;
 }
 
-/* 3. 卡牌內層：負責執行翻轉動作 */
 .card-inner {
     position: relative;
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
-    transform: rotateY(180deg); /* 初始狀態先翻轉 180 度，露出背面 */
+    transform: rotateY(180deg);
 }
 
-/* 4. 正面與背面的共通設定 */
 .card-front, .card-back {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    backface-visibility: hidden;  /* 當翻轉時隱藏另一面 */
+    backface-visibility: hidden;
     border-radius: var(--radius-xl);
     overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.4); /* 加上陰影增加立體感 */
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
 }
 
-/* 5. 確保圖片填滿卡片且不變形 */
 .card-front img, .card-back img {
     width: 100%;
     height: 100%;
@@ -1466,55 +777,20 @@ body {
     display: block;
 }
 
-/* 6. 背面原本就該轉 180 度，正面維持 0 度 */
-.card-back {
-    transform: rotateY(180deg); 
-}
-.card-front {
-    transform: rotateY(0deg); 
-}
+.card-back { transform: rotateY(180deg); }
+.card-front { transform: rotateY(0deg); }
 
-/* 7. 手機版響應式：螢幕變小時改為垂直排列 */
-@media (max-width: 768px) {
-    .policy-cards-container {
-        flex-direction: column;
-        gap: 15px;
-    }
-    .policy-card {
-        max-width: 280px; /* 手機版縮小一點 */
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* =========================================
-   現實骨感區塊樣式 (Reality Section)
-   ========================================= */
 .reality-section {
-    height: 500vh; /* 500vh 給予足夠的滾動空間讓文字一句一句慢慢進來 */
+    height: 500vh;
     position: relative;
     width: 100%;
     background-color: #000;
-    /* 使用深色遮罩疊加背景，營造沈重的日落/荒蕪感 */
     background-image: linear-gradient(to bottom, rgba(4, 12, 18, 0.7), rgba(4, 12, 18, 0.85)), 
                       url('./images/Gemini/Gemini_Generated_Image_ppyq0qppyq0qppyq.jpg'); 
-    background-size: cover;        /* 讓圖片滿版不變形 */
-    background-position: center;    /* 圖片置中對齊 */
-    background-repeat: no-repeat;  /* 防止圖片重複鋪滿 */
-    background-attachment: fixed;  /*讓圖片維持等比例、填滿單一螢幕*/
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .reality-sticky {
@@ -1534,7 +810,6 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    /* 從中間向四周變暗，聚焦文字 */
     background: radial-gradient(circle at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%);
     z-index: 1;
 }
@@ -1552,10 +827,10 @@ body {
 
 .reality-heading {
     font-size: clamp(32px, 5vw, 56px);
-    color: var(--danger, #fb7185); /* 使用警示紅/粉色調突顯骨感的現實 */
+    color: var(--danger, #fb7185);
     margin-bottom: 50px;
     text-shadow: 0 4px 20px rgba(0,0,0,0.9);
-    opacity: 0; /* 預設隱藏，由 GSAP 控制 */
+    opacity: 0;
     transform: translateY(30px);
 }
 
@@ -1565,24 +840,21 @@ body {
     margin: 15px 0;
     line-height: 1.6;
     text-shadow: 0 4px 15px rgba(0,0,0,0.9);
-    opacity: 0; /* 預設隱藏，由 GSAP 控制 */
+    opacity: 0;
     transform: translateY(20px);
 }
 
+/* ==========================================================================
+   8. Crisis Table & Data Alignment (危機配額數據精確表格)
+   ========================================================================== */
+#crisis-data .container {
+    width: 95%;
+    max-width: 1600px;
+}
 
-
-
-
-
-
-
-
-/* =========================================
-   新增：配額危機資料表格樣式
-   ========================================= */
 .table-container {
     width: 100%;
-    overflow-x: auto; /* 確保手機版可以左右滑動觀看完整表格 */
+    overflow-x: auto;
     border-radius: var(--radius-md);
 }
 
@@ -1591,7 +863,7 @@ body {
     border-collapse: collapse;
     text-align: left;
     color: var(--text);
-    font-size: 18px; /* 內文字體大小 */
+    font-size: 18px;
     line-height: 1.4;
 }
 
@@ -1603,25 +875,23 @@ body {
 
 .crisis-table th {
     background: rgba(255, 255, 255, 0.05);
-    color: var(--accent, #7dd3fc); /* 使用現有的淺藍色變數 */
+    color: var(--accent, #7dd3fc);
     font-weight: bold;
-    white-space: nowrap; /* 讓表頭盡量不換行 */
+    white-space: nowrap;
 }
 
-/* 最後一行不要底線 */
 .crisis-table tbody tr:last-child td {
     border-bottom: none;
 }
 
 .crisis-table tbody tr:hover {
-    background: rgba(255, 255, 255, 0.03); /* 滑鼠游標經過時的微亮效果 */
+    background: rgba(255, 255, 255, 0.03);
 }
 
-/* 針對內容的強調樣式 */
 .crisis-table .ocean-name {
     font-size: 1.1em;
     font-weight: bold;
-    color: var(--accent2, #f59e0b); /* 海域名稱用金色強調 */
+    color: var(--accent2, #f59e0b);
     margin-bottom: 4px;
 }
 
@@ -1631,45 +901,29 @@ body {
 }
 
 .crisis-table .highlight {
-    color: var(--danger, #fb7185); /* 危機文字用紅色強調 */
+    color: var(--danger, #fb7185);
     font-weight: bold;
     display: block;
     margin-bottom: 8px;
 }
 
-
-
-
-
-/* =========================================
-   優化：配額危機資料表格寬度與排版
-   ========================================= */
-/* 1. 解除預設容器寬度限制，讓這個區塊的卡片更寬 */
-#crisis-data .container {
-    width: 95%; /* 讓它佔滿螢幕 95% */
-    max-width: 1600px; /* 原本預設是 1180px，這裡放大以容納龐大表格 */
-}
-
-/* 2. 針對第一欄 (核心洋區/魚種) 強制不換行 */
 .crisis-table th:first-child,
 .crisis-table td:first-child {
-    white-space: nowrap; /* 確保魚種名稱絕對不會因為一個字而斷行 */
-    width: 12%; /* 固定佔比 */
-    padding-right: 10px; /* 稍微減少右邊留白，視覺更緊湊 */
+    white-space: nowrap;
+    width: 12%;
+    padding-right: 10px;
 }
 
-/* 3. 針對第二欄 (現有船隊) 也強制不換行，保持數字整齊 */
 .crisis-table th:nth-child(2),
 .crisis-table td:nth-child(2) {
     white-space: nowrap;
     width: 12%; 
 }
 
-/* 4. 第三與第四欄 (說明文字較多) 均分剩下最大的空間 */
 .crisis-table th:nth-child(3),
 .crisis-table td:nth-child(3) {
-    width: 30%; /* 從 35% 縮小到 28% */
-    padding-right: 40px; /* 故意在右側多推一點空間，讓第四欄不要黏太緊 */
+    width: 30%;
+    padding-right: 40px;
 }
 
 .crisis-table th:nth-child(4),
@@ -1677,16 +931,9 @@ body {
     width: 46%;
 }
 
-
-
-
-
-
-
-
-/* =========================================
-   大仁宮事件 區塊
-   ========================================= */
+/* ==========================================================================
+   9. Dajingong Explosion Feature (大仁宮歷史回顧與雙影音)
+   ========================================================================== */
 .dajingong-section {
     height: 700vh;
     position: relative;
@@ -1701,7 +948,7 @@ body {
 }
  
 .dajingong-sticky {
-    position: relative; /* 關鍵：絕對不能寫 sticky，交給 GSAP 控制即可 */
+    position: relative;
     top: 0;
     height: 100vh;
     width: 100%;
@@ -1717,7 +964,6 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    /* background: radial-gradient(circle at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.88) 100%); */
     z-index: 1;
 }
  
@@ -1752,11 +998,6 @@ body {
     transform: translateY(20px);
 }
 
-
-
-/* --- 以下為新增的樣式 --- */
-
-/* 新增：背景影片 */
 .dj-bg-video {
     position: absolute;
     top: 0;
@@ -1764,14 +1005,13 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: 0;  /* 確保在 overlay 和內容的下方 */
-    opacity: 0;  /* 初始隱藏，由 GSAP 喚出 */
+    z-index: 0;
+    opacity: 0;
 }
 
-/* 新增：左右影片的外容器 */
 .dj-video-container {
     position: absolute;
-    top: 55%; /* 稍微偏下，讓出空間給留在上方的大標題 */
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 90%;
@@ -1780,13 +1020,12 @@ body {
     justify-content: space-between;
     gap: 30px;
     z-index: 45;
-    pointer-events: none; /* 外層容器不感應滑鼠，避免影片間的空隙卡住使用者的滾動 */
+    pointer-events: none;
 }
 
-/* 新增：單一影片包裝與小標 */
 .dj-video-wrapper {
-    width: 48%; /* 各佔一半，留一點間距 */
-    pointer-events: auto; /* 精準開啟！只讓有影片的這個方塊可以被滑鼠點擊 */
+    width: 48%;
+    pointer-events: auto;
 }
 
 .dj-video-wrapper video {
@@ -1796,7 +1035,7 @@ body {
     border-radius: 12px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.8);
     border: 1px solid rgba(255,255,255,0.15);
-    background-color: #000; /* 加這行打底！徹底解決沒有影片素材時的透明穿透問題 */
+    background-color: #000;
 }
 
 .dj-video-caption {
@@ -1808,11 +1047,459 @@ body {
     text-shadow: 0 2px 10px rgba(0,0,0,0.8);
     border-radius: var(--radius-xl);
     background-color: rgba(0, 0, 0, 0.6); 
+    padding: 6px 0;
 }
 
+/* ==========================================================================
+   9.5 Why Stay Section (為何老船留在港內)
+   ========================================================================== */
+#why-stay-section {
+    height: 600vh; /* 確保滾動時間與過渡效果充足，這是修正的關鍵 ID */
+    position: relative;
+    width: 100%;
+    background-color: #040c12; 
+    background-image: linear-gradient(to bottom, rgba(4, 12, 18, 0.9), rgba(4, 12, 18, 0.6)), 
+                      url('./images/Gemini/Gemini_Generated_Image_ppyq0qppyq0qppyq.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
 
-/* 手機版響應式：變成上下排列 */
+.why-stay-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.why-heading {
+    font-size: clamp(32px, 5vw, 56px);
+    color: var(--danger, #fb7185); 
+    margin-bottom: 20px;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.9);
+    opacity: 0;
+}
+
+.why-cards-container {
+    position: relative;
+    width: 90%;
+    max-width: 1200px;
+    height: 50vh; /* 給予卡片足夠的高度發展空間 */
+    margin-top: 30px;
+}
+
+.why-card {
+    position: absolute;
+    width: 31%; /* 三張卡片平分 */
+    min-width: 280px; 
+    top: 50%; /* JS 配合 yPercent:-50 會精準置中，不怕 CSS transform 衝突 */
+    background: rgba(13, 36, 48, 0.85); /* 深海藍色調背景 */
+    border: 1px solid rgba(125, 211, 252, 0.2);
+    border-radius: var(--radius-xl);
+    padding: 30px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    color: #e9f2f6;
+}
+
+/* 利用 z-index 確保就算在小螢幕擠壓重疊時，也能產生撲克牌展開的視覺感 */
+.why-card-1 { z-index: 1; }
+.why-card-2 { z-index: 2; }
+.why-card-3 { z-index: 3; }
+
+.why-card h3 {
+    color: var(--accent2, #f59e0b);
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: clamp(20px, 2.5vw, 24px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 10px;
+}
+
+.why-card p {
+    font-size: clamp(15px, 1.8vw, 17px);
+    line-height: 1.6;
+    margin: 0;
+    color: var(--muted);
+}
+
+/* ==========================================================================
+   10. History Timeline Layout (高雄拆船工業歷史時間軸)
+   ========================================================================== */
+#history-timeline {
+    width: 100%;
+    max-width: 1200px;
+    margin: 100px auto;
+    padding: 50px 20px;
+    position: relative;
+    color: #fff;
+}
+
+.timeline-main-title {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 80px;
+    letter-spacing: 5px;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.timeline-container {
+    position: relative;
+    width: 100%;
+    min-height: 1000px;
+}
+
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.timeline-line-progress {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, #fff, transparent);
+    z-index: 1;
+}
+
+.timeline-item {
+    width: 50%;
+    margin-bottom: 80px;
+    position: relative;
+    z-index: 2;
+    box-sizing: border-box;
+    clear: both;
+}
+
+.timeline-item.left {
+    float: left;
+    text-align: right;
+    padding-right: 50px;
+}
+
+.timeline-item.right {
+    float: right;
+    text-align: left;
+    padding-left: 50px;
+}
+
+.timeline-container::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.timeline-dot {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: #ffca28;
+    border-radius: 50%;
+    top: 10px;
+    box-shadow: 0 0 15px #fff;
+}
+
+.left .timeline-dot { right: -8px; }
+.right .timeline-dot { left: -8px; }
+
+.timeline-date {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ffca28;
+    margin-bottom: 10px;
+}
+
+.timeline-content {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: left;
+}
+
+.timeline-img {
+    width: 100%;
+    height: auto;
+    margin-top: 15px;
+    border-radius: 6px;
+    display: block;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+/* ==========================================================================
+   11. Other Sub-modules (其餘副模組：解方、統計、控制鈕)
+   ========================================================================== */
+.flourish-container {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: transparent;
+}
+
+.solutions {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.solution-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.solution-item {
+    display: flex;
+    gap: 16px;
+    background: rgba(255,255,255,0.03);
+    padding: 18px;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.solution-item .bubble {
+    width: 36px;
+    height: 36px;
+    background: var(--accent);
+    color: var(--bg);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.solution-item h3 { margin: 0 0 6px; font-size: 18px; }
+.solution-item p { margin: 0; color: var(--muted); }
+
+.media-placeholder {
+    min-height: 300px;
+    border-radius: var(--radius-xl);
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 10px;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)),
+      repeating-linear-gradient(45deg, rgba(255,255,255,.05) 0 12px, rgba(255,255,255,.02) 12px 24px),
+      linear-gradient(135deg, rgba(13,36,48,.95), rgba(4,12,18,.95));
+    border: 1px dashed rgba(255,255,255,.18);
+    color: #d7e6ec;
+}
+
+.media-placeholder strong {
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.media-placeholder span {
+    color: var(--muted);
+    max-width: 36ch;
+    display: block;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-top: 18px;
+}
+
+.stat {
+    padding: 16px;
+    border-radius: var(--radius-md);
+    background: var(--panel-2);
+    border: 1px solid rgba(255,255,255,.08);
+}
+
+.stat .num {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.stat .txt { color: var(--muted); font-size: 14px; }
+
+.end-card {
+    position: relative;
+    min-height: 420px;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.10);
+    box-shadow: var(--shadow);
+    background:
+      linear-gradient(180deg, rgba(2,10,16,.18), rgba(2,10,16,.92)),
+      url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+    display: grid;
+    align-items: end;
+    padding: 28px;
+}
+
+.end-card .overlay {
+    max-width: 56ch;
+    background: rgba(3,9,14,.58);
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 22px;
+    padding: 22px;
+    backdrop-filter: blur(12px);
+}
+
+.end-card h3 { margin: 0 0 10px; font-size: 28px; }
+.end-card p { margin: 0; color: #e6f0f5; }
+
+.spacer { height: 100vh; display: flex; align-items: center; justify-content: center; } 
+.scrolly-section { position: relative; height: 300vh; } 
+.sticky-map { position: sticky; top: 0; width: 100%; height: 100vh; background: rgba(104, 200, 255, 0.3); overflow: hidden; display: flex; align-items: center; justify-content: center; } 
+#route-path { fill: none; stroke: white; stroke-width: 2; stroke-dasharray: 5,5; } 
+#ship { font-size: 40px; } 
+.content-box { position: absolute; right: 10%; width: 300px; background: rgba(250, 13, 13, 0.8); padding: 20px; border-radius: 8px; color: white; z-index: 10; } 
+
+.music-control {
+    position: fixed;
+    top: 55px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 999;
+    backdrop-filter: blur(5px);
+    transition: all 0.5s ease;
+}
+
+.music-control:hover {
+    background: rgba(255, 202, 40, 0.3);
+    border-color: #ffca28;
+}
+
+.music-icon {
+    font-size: 24px;
+    user-select: none;
+}
+
+@keyframes musicBreathe {
+    0% { transform: scale(1); box-shadow: 0 0 5px rgba(255, 202, 40, 0.2); }
+    50% { transform: scale(1.1); box-shadow: 0 0 20px rgba(255, 202, 40, 0.6); }
+    100% { transform: scale(1); box-shadow: 0 0 5px rgba(255, 202, 40, 0.2); }
+}
+
+.music-control.is-playing {
+    border-color: #ffca28;
+    animation: musicBreathe 2s infinite ease-in-out;
+}
+
+.music-control.is-playing .music-icon {
+    text-shadow: 0 0 10px #ffca28;
+}
+
+/* ==========================================================================
+   12. Responsive Design & Breakpoints (響應式斷點與行動裝置優化)
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    .ship-img {
+        animation: none !important;
+    }
+}
+
+@media (max-width: 960px) {
+    .grid-2, .solutions, .stats {
+        grid-template-columns: 1fr !important;
+    }
+    .nav { display: none; }
+}
+
 @media (max-width: 768px) {
+    .timeline-item { width: 90%; float: none !important; text-align: left !important; padding-left: 30px !important; margin-left: 5%; }
+    .timeline-container::before, .timeline-line-progress { left: 20px; transform: none; }
+    .timeline-dot { left: 12px !important; }
+
+    #text-main, #text-monitor {
+        letter-spacing: 2px !important;
+        width: 95% !important;
+        max-width: none;
+        padding: 15px !important;
+        font-size: 1.2rem !important;
+    }
+
+    #text-main br, .tuna-text-1 br, .tuna-text-2 br {
+        display: none; 
+    }
+
+    .subtitle-overlay {
+        font-size: 18px !important;
+        width: 90% !important;
+        bottom: 5% !important;
+    }
+
+    .topbar-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 15px 5px;
+        gap: 8px;
+    }
+
+    .brand > div > div:first-child {
+        font-size: 16px !important;
+    }
+    .brand > div > .muted {
+        font-size: 11px !important;
+    }
+
+    .nav {
+        display: flex !important;
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: nowrap; 
+        overflow-x: auto; 
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 5px;
+        gap: 8px;
+    }
+
+    .nav::-webkit-scrollbar {
+        display: none; 
+    }
+    .nav {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .policy-cards-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .policy-card {
+        max-width: 280px;
+    }
+
+    .reality-heading { margin-bottom: 30px; }
+    .reality-texts p { margin: 10px 0; font-size: 1.2rem; }
+
     .dj-video-container {
         flex-direction: column;
         top: 60%;
@@ -1821,189 +1508,16 @@ body {
     .dj-video-wrapper {
         width: 100%;
     }
-
-}
-
-
-
-
-
-
-
-/* =========================================
-   「為什麼老船一直留在港裡」捲動特效
-   ========================================= */
-#why {
-    height: 400vh; /* 創造足夠的捲動空間來觸發分段動畫 */
-    position: relative;
-    width: 100%;
-}
-
-.why-sticky {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-.why-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    width: 100%;
-}
-
-.why-head {
-    position: relative;
-    z-index: 10;
-    margin-bottom: 0; /* 移除預設 bottom 邊距，讓 GSAP 的 Y 軸控制更精準 */
-}
-
-/* 讓三張卡片在畫面上絕對疊加在正中央 */
-.why-cards-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 1000px;
-    height: 380px; /* 給予卡片一個固定高度的舞台 */
-    margin-top: 40px;
-    display: flex;
-    justify-content: center; /* 水平置中 */
-}
-
-/* 保留原本的 mini-card 視覺，加上定位屬性 */
-.why-card {
-    position: absolute;
-    width: 31%; /* 大約佔 1/3 的寬度 */
-    min-width: 280px; 
-    opacity: 0; /* 初始隱藏，交給 GSAP */
-}
-
-
-
-
-
-
-
-/* 針對手機版稍微縮小間距 */
-@media (max-width: 768px) {
-    .reality-heading { margin-bottom: 30px; }
-    .reality-texts p { margin: 10px 0; font-size: 1.2rem; }
-}
-
-
-
-
-/* 響應式優化 */
-
-
-    @media (prefers-reduced-motion: reduce) {
-      .glow-box,
-      .glow-box::before,
-      .glow-box::after,
-      .glow-box > .edge-light {
-        transition: none !important;
-        animation: none !important;
-      }
-    }
-
-    @media (max-width: 960px) {
-        /* 強制將雙欄或三欄的網格，在平板/手機上變成單欄直排 */
-      .hero-grid, .grid-2, .three-col, .quote-grid, .solutions, .stats {
-        grid-template-columns: 1fr !important;;
-      }
-      .hero {
-        min-height: auto;
-        padding-top: 120px;
-      }
-      .nav { display: none; }
-
-
-
-    }
-
-
-
-    @media (max-width: 768px) {
-    /* 歷史時間軸調整 */
-    .timeline-item { width: 90%; float: none !important; text-align: left !important; padding-left: 30px !important; margin-left: 5%; }
-    .timeline-container::before, .timeline-line-progress { left: 20px; transform: none; }
-    .timeline-dot { left: 12px !important; }
-
-    /* 針對主要文字區塊調整 */
-    #text-main, #text-monitor {
-        letter-spacing: 2px !important; /* 縮小字距，避免把字擠到下一行 */
-        width: 95% !important; /* 讓文字塊佔滿螢幕寬度 */
-        max-width: none;
-        padding: 15px !important;
-        font-size: 1.2rem !important; /* 稍微縮小內文 */
-    }
-
-    /* 隱藏 HTML 中寫死的強制換行 */
-    #text-main br, #intro-titles br, .tuna-text-1 br, .tuna-text-2 br {
-        display: none; 
-    }
-
-
-    /* 修正監視器字幕（麵條狀文字） */
-    .subtitle-overlay {
-        font-size: 18px !important; /* 手機版字體縮小 */
-        width: 90% !important;      /* 給予充足寬度 */
-        bottom: 5% !important;      /* 稍微往下移一點 */
-    }
-
-}
-
-
-/* --- 手機版 Topbar 排版優化 --- */
-@media (max-width: 768px) {
-    /* 1. 將頂端列改為上下垂直排列 */
-    .topbar-inner {
-        flex-direction: column;
-        align-items: flex-start; /* 讓 LOGO 與標題靠左對齊 */
-        padding: 10px 15px 5px;  /* 微調內距，讓視覺舒適 */
-        gap: 8px;
-    }
-
-    /* 2. 微調手機版的標題字體大小，避免佔用太多空間 */
-    .brand > div > div:first-child {
-        font-size: 16px !important;
-    }
-    .brand > div > .muted {
-        font-size: 11px !important;
-    }
-
-    /* 3. 第二行導覽列按鈕：橫向滑動設計 */
-    .nav {
-        display: flex !important; /* 強制顯示，覆蓋原本隱藏的設定 */
-        width: 100%;
-        justify-content: flex-start;
-        
-        /* 核心機制：強制不換行，超出螢幕的部分允許左右滑動 */
-        flex-wrap: nowrap; 
-        overflow-x: auto; 
-        -webkit-overflow-scrolling: touch; /* 讓 iOS 設備滑動更滑順 */
-        
-        padding-bottom: 5px; /* 留一點底部空間 */
-        gap: 8px;
-    }
-
-    /* 4. 隱藏醜醜的手機預設捲軸，保持畫面乾淨 */
-    .nav::-webkit-scrollbar {
-        display: none; 
-    }
-    .nav {
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
+    
+    /* 為何老船不拆：手機版將寬度放大，依賴 z-index 產生扇形交疊效果 */
+    .why-card {
+        width: 75% !important; 
+        min-width: 260px;
     }
 }
-    @media (max-width: 640px) {
-      section { padding: 68px 0; }
-      .container { width: min(var(--max), calc(100% - 22px)); }
-      .hero-copy, .section-desc { font-size: 16px; }
-      .meta-card .value { font-size: 16px; }
-    }
+
+@media (max-width: 640px) {
+    section { padding: 40px 0; }
+    .container { width: min(var(--max), calc(100% - 22px)); }
+    .section-desc { font-size: 16px; }
+}
