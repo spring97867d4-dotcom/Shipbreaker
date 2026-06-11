@@ -1059,7 +1059,7 @@ h2 {
     width: 100%;
     background-color: #040c12; 
     background-image: linear-gradient(to bottom, rgba(4, 12, 18, 0.9), rgba(4, 12, 18, 0.6)), 
-                      url('./images/Gemini/Gemini_Generated_Image_ppyq0qppyq0qppyq.jpg'); 
+                      url('./images/Gemini/Gemini_Generated_Image_wdrhevwdrhevwdrh_港灣廢船.jpg'); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -1245,49 +1245,7 @@ h2 {
 /* ==========================================================================
    11. Other Sub-modules (其餘副模組：解方、統計、控制鈕)
    ========================================================================== */
-.flourish-container {
-    padding: 60px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: transparent;
-}
 
-.solutions {
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 30px;
-    margin-top: 40px;
-}
-
-.solution-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.solution-item {
-    display: flex;
-    gap: 16px;
-    background: rgba(255,255,255,0.03);
-    padding: 18px;
-    border-radius: var(--radius-lg);
-    border: 1px solid rgba(255,255,255,0.05);
-}
-
-.solution-item .bubble {
-    width: 36px;
-    height: 36px;
-    background: var(--accent);
-    color: var(--bg);
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    font-weight: bold;
-    flex-shrink: 0;
-}
-
-.solution-item h3 { margin: 0 0 6px; font-size: 18px; }
-.solution-item p { margin: 0; color: var(--muted); }
 
 .media-placeholder {
     min-height: 300px;
@@ -1416,6 +1374,151 @@ h2 {
 .music-control.is-playing .music-icon {
     text-shadow: 0 0 10px #ffca28;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   9.8 Xingda Marine Foundation Section (興達海基決策段落)
+   ========================================================================== */
+.xingda-section {
+    height: 450vh; /* 提供足夠的滾動長度給逐句動畫 */
+    position: relative;
+    width: 100%;
+    background-color: var(--bg2); /* 使用你設定好的深色背景變數 */
+    background-image: linear-gradient(to bottom, rgba(4, 12, 18, 0.9), rgba(4, 12, 18, 0.6)), 
+                      url('./images/ChatGPT/ChatGPT\ Image\ 2026年6月11日\ 下午01_31_27_黃昏中的船塭與城市天際線.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.xingda-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 15vh; /* 讓標題固定在偏上方，留空間給下方動畫 */
+}
+
+.xingda-heading {
+    font-size: clamp(32px, 5vw, 50px);
+    color: var(--accent, #7dd3fc);
+    margin-bottom: 2rem;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+    text-align: center;
+    opacity: 0;
+}
+
+.xingda-animation-container {
+    position: relative;
+    width: 85%;
+    max-width: 900px;
+    height: 180px;
+    margin: 2rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.xingda-dashed-line {
+    position: absolute;
+    top: 50%; /* 對齊船的中心高度 */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 2px;
+    width: 0; /* 初始寬度為 0，靠 GSAP 展開 */
+    border-top: 3px dashed var(--danger, #fb7185); 
+    z-index: 1;
+}
+
+.xd-ship {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+    opacity: 0;
+}
+
+/* 初始設定在正中央，靠 GSAP 賦予 left/right 位置推開 */
+.xd-ship-left { left: 50%; transform: translate(-50%, -50%); }
+.xd-ship-right { right: 50%; transform: translate(50%, -50%); }
+
+.xd-ship img {
+    width: 100px; /* 控制你的船隻 icon 大小 */
+    height: auto;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+    display: block; /* 加上 block 消除圖片預設的底部空白間隙 */
+}
+
+.xd-label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); /* 讓文字本身的中心點對齊船身中心 */
+    color: var(--danger, #fb7185);
+    font-weight: bold;
+    font-size: clamp(16px, 2vw, 22px);
+    text-align: center;
+    /* margin-top: 15px; */
+    opacity: 0; /* 抵達兩側後才顯示文字 */
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    white-space: nowrap; /* 確保「旗津」跟「(不能拆)」不會因為擠壓而亂斷行 */
+}
+
+.xingda-text-container {
+    width: 90%;
+    max-width: 900px;
+    text-align: center;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.xd-text {
+    font-size: clamp(18px, 2.5vw, 24px);
+    color: var(--text, #e9f2f6);
+    margin: 0;
+    opacity: 0;
+    transform: translateY(20px); /* 初始位置往下偏移，製造浮現效果 */
+    line-height: 1.6;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.8);
+}
+
+
+/* 針對左邊的船：文字推到船的「左側外圍」 */
+.xd-ship-left .xd-label {
+    right: 100%; /* 從船的左邊界開始算 */
+    margin-right: 20px; /* 與船身保持 20px 的呼吸空間 */
+}
+
+/* 針對右邊的船：文字推到船的「右側外圍」 */
+.xd-ship-right .xd-label {
+    left: 100%; /* 從船的右邊界開始算 */
+    margin-left: 20px; /* 與船身保持 20px 的呼吸空間 */
+}
+
+
+
+
+
 
 /* ==========================================================================
    12. Responsive Design & Breakpoints (響應式斷點與行動裝置優化)
