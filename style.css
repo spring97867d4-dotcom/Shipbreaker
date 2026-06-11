@@ -1520,6 +1520,156 @@ h2 {
 
 
 
+
+
+
+
+/* ==========================================================================
+   9.9 Qieding Resistance Section (茄萣反對與居民怒火段落)
+   ========================================================================== */
+.qieding-section {
+    height: 800vh; /* 提供充足的滾動長度給逐句與影片登場 */
+    position: relative;
+    width: 100%;
+    background-color: #0c0303; /* 使用極暗紅黑調，營造居民怒火與沉重感 */
+    background-image: linear-gradient(to bottom, rgba(4, 12, 18, 0.9), rgba(4, 12, 18, 0.6)), 
+                      url('./images/ChatGPT/ChatGPT\ Image\ 2026年6月11日\ 下午01_31_27_黃昏中的船塭與城市天際線.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.qieding-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 12vh; /* 留出空間給上方天標與大標題 */
+}
+
+.qieding-heading {
+    font-size: clamp(32px, 5vw, 50px);
+    color: var(--danger, #fb7185); /* 轉為憤怒、警告的粉紅紅變數 */
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 30px rgba(251, 113, 133, 0.4), 0 4px 20px rgba(0,0,0,0.8);
+    text-align: center;
+    opacity: 0;
+}
+
+.qieding-text-container {
+    width: 90%;
+    max-width: 900px;
+    text-align: center;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+
+
+/* --- 新增：第二段反思文字區塊 --- */
+.qieding-text-container-2 {
+    position: absolute;
+    top: 55%; /* 設定在畫面正中央偏下，完美佔用影片退場後的位置 */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px; /* 增加行距，讓讀者有呼吸感 */
+    pointer-events: none; /* 讓它不會干擾到下方影片的控制列點擊 */
+}
+
+
+
+.qd-text {
+    font-size: clamp(18px, 2.5vw, 24px);
+    color: var(--text, #e9f2f6);
+    margin: 0;
+    opacity: 0;
+    transform: translateY(20px);
+    line-height: 1.6;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.8);
+}
+
+
+.qd2-text {
+    font-size: clamp(18px, 2.5vw, 24px);
+    color: var(--text, #e9f2f6);
+    margin: 0;
+    opacity: 0;
+    transform: translateY(20px);
+    line-height: 1.6;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.8);
+    text-align: center;
+}
+
+
+
+
+
+/* 強調文字換成粉紅色，增加警示與無奈感 */
+.qd2-text.highlight-danger {
+    color: var(--danger, #fb7185);
+    font-weight: bold;
+}
+
+
+
+.qieding-video-wrapper {
+    width: 85%;
+    max-width: 800px;
+    opacity: 0;
+    transform: translateY(30px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.qieding-video-wrapper video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: var(--radius-xl, 28px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+    border: 1px solid rgba(251, 113, 133, 0.2); /* 淡淡的怒火紅邊框 */
+    background-color: #000;
+}
+
+.qd-video-caption {
+    color: var(--muted, #a8bdc9);
+    text-align: center;
+    margin-top: 15px;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+}
+
+/* 行動裝置最佳化適配 */
+@media (max-width: 768px) {
+    .qieding-sticky { padding-top: 15vh; }
+    .qieding-video-wrapper { width: 95%; }
+}
+
+
+
+
+
+
+
+
+
+
 /* ==========================================================================
    12. Responsive Design & Breakpoints (響應式斷點與行動裝置優化)
    ========================================================================== */

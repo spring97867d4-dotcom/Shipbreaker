@@ -419,6 +419,50 @@
 
 
 
+
+
+    <section id="qieding-section" class="qieding-section">
+        <div class="qieding-sticky">
+            <h2 class="qieding-heading">當藍圖撞上土地：茄萣人的二次遺棄感</h2>
+            
+            <div class="qieding-text-container">
+                <p class="qd-text qd-text-1">這場由上而下的引渡計畫，卻意外點燃了茄萣居民高分貝的怒火，</p>
+                <p class="qd-text qd-text-2">案子在地方議員與民眾的強烈質疑下，再度重新回到原點。</p>
+            </div>
+
+            <div class="qieding-video-wrapper">
+                <video id="qd-video" src="./videos/居民怒火.mp4" controls playsinline preload="metadata" poster="./images/居民怒火預覽圖.jpg"></video>
+                <p class="qd-video-caption">▲ 茄萣居民與地方民代召開公聽會強烈反對訴求</p>
+            </div>
+
+
+
+
+            <div class="qieding-video-wrapper">
+                <video id="qd-video" src="./videos/居民怒火.mp4" controls playsinline preload="metadata" poster="./images/居民怒火預覽圖.jpg"></video>
+                <p class="qd-video-caption">▲ 茄萣居民與地方民代召開公聽會強烈反對訴求</p>
+            </div>
+
+            <div class="qieding-text-container-2">
+                <p class="qd2-text qd2-text-1">這場政策對撞，戳破了台灣環境治理最諷刺的現實：</p>
+                <p class="qd2-text qd2-text-2 highlight-danger">體制的真空，並不會因為換了一個港灣就自動消失。</p>
+                <p class="qd2-text qd2-text-3">中央只要造船公司具有拆船營業項目就核准發照，</p>
+                <p class="qd2-text qd2-text-4">後續卻缺乏對每一家業者污染防治的實質監督。</p>
+                <p class="qd2-text qd2-text-5">茄萣居民很清楚，在缺乏嚴格監督機制的專案下，</p>
+                <p class="qd2-text qd2-text-6">那條在旗津「半陸半海、同步污染土地與海洋」的潮線，</p>
+                <p class="qd2-text qd2-text-7 highlight-danger">隨時會在興達港的海岸線上複製。</p>
+            </div>
+
+
+
+        </div>
+    </section>
+
+
+
+
+
+
     <section id="history-timeline">
         <h2 class="timeline-main-title"><br>高雄拆船業大事記</h2>
         <div class="timeline-container">
@@ -945,6 +989,62 @@
             // [分鏡6] 停留一段時間讓讀者看完，最後可選全淡出（若希望接續下一個 section 較順暢）
             .to({}, { duration: 4 })
             .to(".xingda-sticky > *", { opacity: 0, y: -50, duration: 2, ease: "power2.inOut" });
+
+
+
+
+            // 14. 茄萣居民怒火段落：大標浮現、影片控制、接續深刻反思
+        const qiedingTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#qieding-section",
+                start: "top top",
+                end: "bottom bottom",
+                scrub: 1.5,
+                pin: ".qieding-sticky",
+                anticipatePin: 1
+            }
+        });
+
+        qiedingTl
+            // [分鏡1] 大標題從下方移入浮現，固定定住
+            .fromTo(".qieding-heading", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 2 })
+            .to({}, { duration: 1 }) 
+
+            // [分鏡2] 內文第一句與第二句依序浮現
+            .to(".qd-text-1", { opacity: 1, y: 0, duration: 1.5 })
+            .to(".qd-text-2", { opacity: 1, y: 0, duration: 1.5 })
+            .to({}, { duration: 1.5 })
+
+            // [分鏡3] 居民怒火影片區塊優雅滑入登場
+            .to(".qieding-video-wrapper", { opacity: 1, y: 0, duration: 2, ease: "power2.out" })
+            
+            // [分鏡4] 預留停留時間讓使用者可以點擊播放影片
+            .to({}, { duration: 4 })
+            
+            // [分鏡5] 影片與前兩句內文「退場」(往上淡出)，【但保留大標題】
+            .to([".qieding-video-wrapper", ".qieding-text-container"], { opacity: 0, y: -40, duration: 2, ease: "power2.inOut" })
+            .to(".qieding-video-wrapper", { display: "none", duration: 0 }) // 徹底隱藏避免擋住點擊
+
+            // [分鏡6] 反思內文依序一句一句出現，像打字機節奏般重擊讀者
+            .to(".qd2-text-1", { opacity: 1, y: 0, duration: 1.5 }, "text2-start")
+            .to(".qd2-text-2", { opacity: 1, y: 0, duration: 1.5 })
+            .to({}, { duration: 0.8 }) // 刻意頓一下，強調前兩句的結論
+
+            .to(".qd2-text-3", { opacity: 1, y: 0, duration: 1.5 })
+            .to(".qd2-text-4", { opacity: 1, y: 0, duration: 1.5 })
+            .to({}, { duration: 0.8 }) // 刻意頓一下
+
+            .to(".qd2-text-5", { opacity: 1, y: 0, duration: 1.5 })
+            .to(".qd2-text-6", { opacity: 1, y: 0, duration: 1.5 })
+            .to(".qd2-text-7", { opacity: 1, y: 0, duration: 1.5 })
+
+            // [分鏡7] 留給讀者足夠的閱讀與反思時間
+            .to({}, { duration: 5 })
+
+            // [分鏡8] 結尾全體淡出退場 (大標題與第二段文字)，乾淨地交接給【高雄拆船業大事記】
+            .to(".qieding-sticky > *", { opacity: 0, y: -40, duration: 2, ease: "power2.inOut" });
+
+
 
 
 
