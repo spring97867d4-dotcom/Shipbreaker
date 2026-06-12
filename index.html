@@ -4,6 +4,10 @@
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>大海的枷鎖：台灣遠洋漁業困局</title> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600;900&display=swap" rel="stylesheet">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MotionPathPlugin.min.js"></script>
@@ -25,7 +29,7 @@
                 <img src="LOGO/LOGO10501頻道天標(慶聯版).svg" alt="我的 LOGO" style="height: 1.5em; width: auto;">
                 <div>
                     <div style="font-size: 18px;">高雄港老舊遠洋漁船拆專題</div>
-                    <div class="muted" style="font-size:12px;">Kaohsiung Shipbreaker Feature Draft</div>
+                    <div class="muted" style="font-size:12px; font-family: var(--font-sans);">Kaohsiung Shipbreaker Feature Draft</div>
                 </div>
             </div>
             <nav class="nav" aria-label="頁面導覽">
@@ -33,8 +37,8 @@
                 <a href="#problem">現況</a>
                 <a href="#history-timeline">歷史</a>
                 <a href="#why-stay-section">為何難拆</a>
-                <a href="#impact">衝擊</a>
-                <a href="#solution">解方</a>
+                <a href="#crisis-data">衝擊</a>
+                <a href="#xingda-section">解方</a>
             </nav>
         </div>
     </div>
@@ -62,7 +66,7 @@
                 <img src="./images/Gemini_Generated_Image_1q1vcq1q1vcq1q1v.png_.png" class="zoom-png-frame" alt="Frame"> 
                 
                 <div class="zoom-content" id="intro-titles"> 
-                    <h1 class="zoom-title"><br>被遺忘的海上遺產</h1>
+                    <h1 class="zoom-title"><br>為什麼老船無處拆？</h1>
                 </div>
                
                 <div id="text-main" class="scroll-text">
@@ -70,7 +74,7 @@
                 </div>
 
                 <div id="text-question" class="scroll-text" style="opacity: 0;">
-                    <h2 style="margin: 0; font-size: clamp(24px, 4vw, 40px); line-height: 1.5;">老船拆除卻成了過街老鼠，<br>海上「遺產」誰負責？</h2>
+                    <h2 style="margin: 0; font-size: clamp(28px, 5vw, 48px); line-height: 1.5;">老船拆除卻成了過街老鼠，<br><span style="color: var(--accent);">海上「遺產」誰負責？</span></h2>
                 </div>
             </div>
         </div>
@@ -85,26 +89,26 @@
     <section id="problem">
         <div class="container">
             <div class="section-head">
-                <h2><br>港灣裡的沉默船隊</h2>
-                <p class="section-desc">現在發生了什麼事？<br>這些船為何會留在港裡？<br>又為什麼這件事不只是景觀問題，而是環境、管理與產業轉型的交叉議題？</p>
+                <h2>港灣裡的沉默船隊</h2>
+                <p class="section-desc">現在發生了什麼事？這些船為何會留在港裡？<br>又為什麼這件事不只是景觀問題，而是環境、管理與產業轉型的交叉議題？</p>
             </div>
 
             <div class="grid-2">
                 <div class="card pad">
                     <h3>船還在，故事卻被時間拖慢了</h3>
-                    <p style="font-size: 16px;">高雄港部分水域停泊著多艘老舊遠洋漁船。有些仍在等待出售，有些已進入拆解程序，也有一些長期閒置，幾乎沒有人再使用。</p>
-                    <p style="font-size: 16px;">船體長年泡在海水中，鏽蝕不斷擴散；油料殘留、塗料剝落與廢棄零件，也讓港灣環境承受更高壓力。</p>
+                    <p>高雄港部分水域停泊著多艘老舊遠洋漁船。有些仍在等待出售，有些已進入拆解程序，也有一些長期閒置，幾乎沒有人再使用。</p>
+                    <p>船體長年泡在海水中，鏽蝕不斷擴散；油料殘留、塗料剝落與廢棄零件，也讓港灣環境承受更高壓力。</p>
                     
                     <div class="stats">
-                        <div class="stat"><div class="num">80</div><div class="txt">艘老舊漁船</div></div>
-                        <div class="stat"><div class="num">3</div><div class="txt">家符合國際綠色拆船規範的拆船廠</div></div>
+                        <div class="stat"><div class="num" style="color: var(--accent);">80</div><div class="txt">艘老舊漁船</div></div>
+                        <div class="stat"><div class="num" style="color: var(--accent);">3</div><div class="txt">家符合國際綠色拆船規範的拆船廠</div></div>
                     </div>
                 </div>
 
                 <div class="media-placeholder">
-                    <div>
+                    <div style="width: 100%;">
                         <strong>前鎮漁港</strong>
-                        <video style="width: 100%; height: auto; border-radius: 8px;" autoplay muted loop playsinline>
+                        <video style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;" autoplay muted loop playsinline>
                             <source src="./videos/Video-3(拆船、廢船停靠).mp4" type="video/mp4">
                         </video>
                     </div>
@@ -161,15 +165,15 @@
             <div class="fleet-overlay"></div>
             
             <div class="fleet-content">
-                <div class="fleet-text-intro">台灣的遠洋漁業船隊作業區域遍及三大洋，<br>千餘艘巨輪在波濤中前行，不僅拚出每年</div>
+                <div class="fleet-text-intro">台灣的遠洋漁業船隊作業區域遍及三大洋，千餘艘巨輪在波濤中前行，不僅拚出每年</div>
                 
                 <div class="fleet-stats-wrapper">
                     <div class="fleet-stat-left">
-                        <h3 class="fleet-stat-text">60 萬公噸的漁獲</h3>
+                        <div class="fleet-stat-text"><span class="huge-number">60</span><span style="font-size: 0.4em; display: block; margin-top: -10px;">萬公噸的漁獲</span></div>
                         <video src="./videos/1150521 前鎮魚市場.mp4" class="fleet-stat-img" autoplay loop muted playsinline></video>
                     </div>
                     <div class="fleet-stat-right">
-                        <h3 class="fleet-stat-text">400 億元的豐厚產值</h3>
+                        <div class="fleet-stat-text"><span class="huge-number">400</span><span style="font-size: 0.4em; display: block; margin-top: -10px;">億元的豐厚產值</span></div>
                         <video src="./videos/1130723 公園二路五金街 戰後拆船業帶動五金業聚集_clip.mp4" class="fleet-stat-img" autoplay loop muted playsinline></video>
                     </div>
                 </div>
@@ -192,8 +196,8 @@
             <div class="policy-content">
                 <div class="policy-texts">
                     <p class="policy-text-1">為了提供離漁誘因，漁業署自民國 113 年起啟動「遠洋大型鮪延繩釣及魷釣漁船專案收購計畫」</p>
-                    <p class="policy-text-2">預計在 116 年底前，以每噸新臺幣 6 萬元收購大釣漁船、每船新臺幣 2,100 萬元收購魷釣漁船</p>
-                    <p class="policy-text-3">目標是讓 80 艘老船（大釣 60 艘、魷釣 20 艘）正式退場。</p>
+                    <p class="policy-text-2">預計在 116 年底前，<br>以每噸新臺幣 <span style="color:var(--accent); font-weight:bold;">6 萬元</span> 收購大釣漁船、每船新臺幣 <span style="color:var(--accent); font-weight:bold;">2,100 萬元</span> 收購魷釣漁船</p>
+                    <p class="policy-text-3">目標是讓 <span style="color:var(--danger); font-weight:bold;">80 艘</span> 老船（大釣 60 艘、魷釣 20 艘）正式退場。</p>
                 </div>
 
                 <div class="policy-cards-container">
@@ -240,8 +244,8 @@
             <div class="reality-content">
                 <h2 class="reality-heading">政策藍圖美好，現實卻無比骨感。</h2>
                 <div class="reality-texts">
-                    <p class="r-text-1">這 80艘曾在大海拚搏的勇士，</p>
-                    <p class="r-text-2">轉身之後面對的是國內傳統拆船業因高污染、<br>工安事件而全數退場的荒蕪現況。</p>
+                    <p class="r-text-1">這 80 艘曾在大海拚搏的勇士，</p>
+                    <p class="r-text-2">轉身之後面對的是國內傳統拆船業因高污染、工安事件而全數退場的荒蕪現況。</p>
                     <p class="r-text-3">在拆船專區尚未成形的尷尬期，拆船彷彿成了過街老鼠。</p>
                     <p class="r-text-4">那些無處可去、等待著命運終點的老船，</p>
                     <p class="r-text-5">如今塞滿了前鎮漁港，在潮汐與日落中，留下了港灣最沉默的背影。</p>
@@ -272,55 +276,55 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>
+                                <td data-label="核心洋區 / 魚種">
                                     <div class="ocean-name">印度洋大釣漁船</div>
                                     <div class="fish-type">(大目鮪)</div>
                                 </td>
-                                <td>145 艘</td>
-                                <td>IOTC 第 23/04 號決議：<br>國家配額自 35,000 公噸銳減至 11,488 公噸。</td>
-                                <td>
+                                <td data-label="現有船隊">145 艘</td>
+                                <td data-label="國際現況與配額緊箍咒">IOTC 第 23/04 號決議：<br>國家配額自 35,000 公噸銳減至 11,488 公噸。</td>
+                                <td data-label="產業現場的「生存危機」">
                                     <span class="highlight">「僧多粥少」最嚴重的海域。</span>
                                     配額縮減近 67%，船隊規模遠超配額負荷，漁船無法獲得充分配額維持營運。
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td data-label="核心洋區 / 魚種">
                                     <div class="ocean-name">太平洋大釣漁船</div>
                                     <div class="fish-type">(大目鮪)</div>
                                 </td>
-                                <td>88 艘</td>
-                                <td>配額限制為 10,481 公噸。</td>
-                                <td>配額與大西洋、印度洋相去無幾，船隊勉強在有限配額內維持維運。</td>
+                                <td data-label="現有船隊">88 艘</td>
+                                <td data-label="國際現況與配額緊箍咒">配額限制為 10,481 公噸。</td>
+                                <td data-label="產業現場的「生存危機」">配額與大西洋、印度洋相去無幾，船隊勉強在有限配額內維持維運。</td>
                             </tr>
                             <tr>
-                                <td>
+                                <td data-label="核心洋區 / 魚種">
                                     <div class="ocean-name">大西洋大釣漁船</div>
                                     <div class="fish-type">(大目鮪)</div>
                                 </td>
-                                <td>84 艘</td>
-                                <td>國家配額限制在 9,226 公噸。</td>
-                                <td>配額同樣處於低檔，總量受制於國際區域漁業管理組織 (RFMOs) 的永續前提。</td>
+                                <td data-label="現有船隊">84 艘</td>
+                                <td data-label="國際現況與配額緊箍咒">國家配額限制在 9,226 公噸。</td>
+                                <td data-label="產業現場的「生存危機」">配額同樣處於低檔，總量受制於國際區域漁業管理組織 (RFMOs) 的永續前提。</td>
                             </tr>
                             <tr>
-                                <td>
+                                <td data-label="核心洋區 / 魚種">
                                     <div class="ocean-name">西南大西洋魷魚</div>
                                     <div class="fish-type">(阿根廷魷魚)</div>
                                 </td>
-                                <td>僅約 70 餘艘<br>前往作業</td>
-                                <td>高度依賴福克蘭群島漁業合作執照，<br>每年約 20 艘漁船無法取得資格。</td>
-                                <td>
+                                <td data-label="現有船隊">僅約 70 餘艘<br>前往作業</td>
+                                <td data-label="國際現況與配額緊箍咒">高度依賴福克蘭群島漁業合作執照，<br>每年約 20 艘漁船無法取得資格。</td>
+                                <td data-label="產業現場的「生存危機」">
                                     <span class="highlight">「季節性賦閒」與衍生管理危機。</span>
                                     這 20 艘未獲執照的船隻被迫在上半年留在高雄港整補，等候下半年的秋刀魚季，面臨嚴重的船員管理與補充難題。
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td data-label="核心洋區 / 魚種">
                                     <div class="ocean-name">北太平洋秋刀魚</div>
                                     <div class="fish-type">(秋刀魚)</div>
                                 </td>
-                                <td>近 10 年平均 89 艘作業<br>111 年降至 81 艘</td>
-                                <td>近 3 年秋刀魚漁況以 30% 以上的幅度持續衰退。</td>
-                                <td>
+                                <td data-label="現有船隊">近 10 年平均 89 艘作業<br>111 年降至 81 艘</td>
+                                <td data-label="國際現況與配額緊箍咒">近 3 年秋刀魚漁況以 30% 以上的幅度持續衰退。</td>
+                                <td data-label="產業現場的「生存危機」">
                                     <span class="highlight">「內捲與躺平危機」。</span>
                                     船隻數量過量跡象明確，111 年有近 10 艘漁船寧可在高雄港「賦閒躺平」，也不願冒著承受虧損的風險出海。
                                 </td>
@@ -362,8 +366,6 @@
         </div>
     </section>
 
-
-
     <section id="why-stay-section">
         <div class="why-stay-sticky">
             <h2 class="why-heading">為什麼老船一直留在港裡？</h2>
@@ -371,7 +373,7 @@
             <div class="why-cards-container">
                 <div class="why-card why-card-1">
                     <h3>有錢也找不到地方拆</h3>
-                    <p>政府已經動23.7 億元補助老舊遠洋漁船汰除，但國內合法且具綠色認證的拆船廠寥寥無幾，加上地方居民對工安與環境汙染的憤怒，沒有合法、且符合現代環保標準的拆船場域，成為政策推行最大的礁石。</p>
+                    <p>政府已經動 23.7 億元補助老舊遠洋漁船汰除，但國內合法且具綠色認證的拆船廠寥寥無幾，加上地方居民對工安與環境汙染的憤怒，沒有合法、且符合現代環保標準的拆船場域，成為政策推行最大的礁石。</p>
                 </div>
                 
                 <div class="why-card why-card-2">
@@ -386,8 +388,6 @@
             </div>
         </div>
     </section>
-
-
 
     <section id="xingda-section" class="xingda-section">
         <div class="xingda-sticky">
@@ -407,19 +407,13 @@
 
             <div class="xingda-text-container">
                 <p class="xd-text xd-text-1">旗津不能拆，前鎮放不下。</p>
-                <p class="xd-text xd-text-2">為了打破這個僵局，農業部漁業署在取得經濟部同意後報請行政院，</p>
-                <p class="xd-text xd-text-3">將目光投向了遙遠的北高雄茄萣，</p>
+                <p class="xd-text xd-text-2">為了打破這個僵局，農業部漁業署在取得經濟部同意後報請行政院，將目光投向了遙遠的北高雄茄萣，</p>
                 <p class="xd-text xd-text-4">原本預定作為國家離岸風電與高科技海洋產業園區的「興達海基」，</p>
                 <p class="xd-text xd-text-5">2025年10月行政院專案核定，將興達海基作為「暫時性、臨時性」的拆船場域，</p>
                 <p class="xd-text xd-text-6">避開人口稠密區，並配合收購計畫將無處可去的老船汰除解體，再將土地收回。</p>
             </div>
         </div>
     </section>
-
-
-
-
-
 
     <section id="qieding-section" class="qieding-section">
         <div class="qieding-sticky">
@@ -435,14 +429,6 @@
                 <p class="qd-video-caption">▲ 茄萣居民與地方民代召開公聽會強烈反對訴求</p>
             </div>
 
-
-
-
-            <div class="qieding-video-wrapper">
-                <video id="qd-video" src="./videos/居民怒火.mp4" controls playsinline preload="metadata" poster="./images/居民怒火預覽圖.jpg"></video>
-                <p class="qd-video-caption">▲ 茄萣居民與地方民代召開公聽會強烈反對訴求</p>
-            </div>
-
             <div class="qieding-text-container-2">
                 <p class="qd2-text qd2-text-1">這場政策對撞，戳破了台灣環境治理最諷刺的現實：</p>
                 <p class="qd2-text qd2-text-2 highlight-danger">體制的真空，並不會因為換了一個港灣就自動消失。</p>
@@ -452,19 +438,11 @@
                 <p class="qd2-text qd2-text-6">那條在旗津「半陸半海、同步污染土地與海洋」的潮線，</p>
                 <p class="qd2-text qd2-text-7 highlight-danger">隨時會在興達港的海岸線上複製。</p>
             </div>
-
-
-
         </div>
     </section>
 
-
-
-
-
-
     <section id="history-timeline">
-        <h2 class="timeline-main-title"><br>高雄拆船業大事記</h2>
+        <h2 class="timeline-main-title">高雄拆船業大事記</h2>
         <div class="timeline-container">
             <div class="timeline-line-progress"></div> 
             
@@ -542,7 +520,16 @@
         </div>
     </section>
 
-
+    <section id="conclusion" class="conclusion-section">
+        <div class="container text-center">
+            <h2 class="conclusion-title">下一個十年，台灣的海洋將駛向何方？</h2>
+            <p class="conclusion-desc">當老舊漁船一艘艘倒下，或許正是台灣遠洋漁業重新審視「永續與責任」的契機。<br>這不僅是高雄港的課題，更是整座島嶼必須共同面對的海洋陣痛期。</p>
+            <div class="cta-actions">
+                <button class="btn-primary" onclick="window.scrollTo({top:0, behavior:'smooth'})">回到首頁</button>
+                <button class="btn-secondary" onclick="alert('感謝您的閱讀與分享！')">分享報導</button>
+            </div>
+        </div>
+    </section>
 
     <script>
         gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
@@ -628,12 +615,6 @@
             );
         });
 
-        // 4. 小船沿路徑航行
-        gsap.to("#ship-group", {
-            scrollTrigger: { trigger: ".scrolly-section", start: "top top", end: "bottom bottom", scrub: 1 },
-            motionPath: { path: "#route-path", align: "#route-path", alignOrigin: [0.5, 0.5], autoRotate: true }
-        });
-
         // 5. 音樂播放器呼吸燈按鈕切換邏輯
         const bgm = document.getElementById('bgm');
         const musicBtn = document.getElementById('music-btn');
@@ -690,52 +671,48 @@
             .fromTo(".fleet-right-4", { x: "10vw", opacity: 0 }, { x: "-30vw", opacity: 0.9, duration: 3.6, ease: "power1.out" }, "fleetIn+=0.7")
             .to({}, { duration: 3 });
 
-        // 7. FAO 台灣地形陣列破散效果
+        // 7. FAO 台灣地形陣列破散效果 (動態內填補運算法)
         const faoContainer = document.getElementById('fao-icons-container');
         const faoIcons = [];
-        for (let i = 0; i < 200; i++) {
+        for (let i = 0; i < 400; i++) { 
             const icon = document.createElement('div');
             icon.className = 'fao-icon';
             faoContainer.appendChild(icon);
             faoIcons.push(icon);
         }
 
-        const taiwanCoords = [
-          {x:37, y:-171},  {x:54, y:-171},  {x:72, y:-171},  {x:10, y:-156},  {x:28, y:-156},
-          {x:45, y:-156},  {x:63, y:-156},  {x:81, y:-156},  {x:1, y:-141},   {x:19, y:-141},
-          {x:37, y:-141},  {x:54, y:-141},  {x:72, y:-141},  {x:89, y:-141},  {x:-7, y:-126},
-          {x:10, y:-126},  {x:28, y:-126},  {x:45, y:-126},  {x:63, y:-126},  {x:81, y:-126},
-          {x:-16, y:-110}, {x:1, y:-110},   {x:19, y:-110},  {x:37, y:-110},  {x:54, y:-110},
-          {x:72, y:-110},  {x:-25, y:-95},  {x:-7, y:-95},   {x:10, y:-95},   {x:28, y:-95},
-          {x:45, y:-95},   {x:63, y:-95},   {x:81, y:-95},   {x:-34, y:-80},  {x:-16, y:-80},
-          {x:1, y:-80},    {x:19, y:-80},   {x:37, y:-80},   {x:54, y:-80},   {x:72, y:-80},
-          {x:-42, y:-65},  {x:-25, y:-65},  {x:-7, y:-65},   {x:10, y:-65},   {x:28, y:-65},
-          {x:45, y:-65},   {x:63, y:-65},   {x:-51, y:-49},  {x:-34, y:-49},  {x:-16, y:-49},
-          {x:1, y:-49},    {x:19, y:-49},   {x:37, y:-49},   {x:54, y:-49},   {x:-60, y:-34},
-          {x:-42, y:-34},  {x:-25, y:-34},  {x:-7, y:-34},   {x:10, y:-34},   {x:28, y:-34},
-          {x:45, y:-34},   {x:63, y:-34},   {x:-69, y:-19},  {x:-51, y:-19},  {x:-34, y:-19},
-          {x:-16, y:-19},  {x:1, y:-19},    {x:19, y:-19},   {x:37, y:-19},   {x:54, y:-19},
-          {x:-78, y:-4},   {x:-60, y:-4},   {x:-42, y:-4},   {x:-25, y:-4},   {x:-7, y:-4},
-          {x:10, y:-4},    {x:28, y:-4},    {x:45, y:-4},    {x:-86, y:12},   {x:-69, y:12},
-          {x:-51, y:12},   {x:-34, y:12},   {x:-16, y:12},   {x:1, y:12},     {x:19, y:12},
-          {x:37, y:12},    {x:-78, y:27},   {x:-60, y:27},   {x:-42, y:27},   {x:-25, y:27},
-          {x:-7, y:27},    {x:10, y:27},    {x:28, y:27},    {x:45, y:27},    {x:-86, y:42},
-          {x:-69, y:42},   {x:-51, y:42},   {x:-34, y:42},   {x:-16, y:42},   {x:1, y:42},
-          {x:19, y:42},    {x:37, y:42},    {x:-78, y:57},   {x:-60, y:57},   {x:-42, y:57},
-          {x:-25, y:57},   {x:-7, y:57},    {x:10, y:57},    {x:28, y:57},    {x:-86, y:72},
-          {x:-69, y:72},   {x:-51, y:72},   {x:-34, y:72},   {x:-16, y:72},   {x:1, y:72},
-          {x:19, y:72},    {x:-78, y:88},   {x:-60, y:88},   {x:-42, y:88},   {x:-25, y:88},
-          {x:-7, y:88},    {x:10, y:88},    {x:-69, y:103},  {x:-51, y:103},  {x:-34, y:103},
-          {x:-16, y:103},  {x:1, y:103},    {x:-60, y:118},  {x:-42, y:118},  {x:-25, y:118},
-          {x:-7, y:118},   {x:-51, y:133},  {x:-34, y:133},  {x:-16, y:133},  {x:-25, y:149},
-          {x:-34, y:164},  {x:-16, y:164},  {x:-25, y:179}
+        // 原始使用者提供的完美外框邊界
+        const bounds = [
+            {y:-171, min:37, max:72}, {y:-156, min:10, max:81}, {y:-141, min:1, max:89},
+            {y:-126, min:-7, max:81}, {y:-110, min:-16, max:72}, {y:-95, min:-25, max:81},
+            {y:-80, min:-34, max:72}, {y:-65, min:-42, max:63}, {y:-49, min:-51, max:54},
+            {y:-34, min:-60, max:63}, {y:-19, min:-69, max:54}, {y:-4, min:-78, max:45},
+            {y:12, min:-86, max:37}, {y:27, min:-78, max:45}, {y:42, min:-86, max:37},
+            {y:57, min:-78, max:28}, {y:72, min:-86, max:19}, {y:88, min:-78, max:10},
+            {y:103, min:-69, max:1}, {y:118, min:-60, max:-7}, {y:133, min:-51, max:-16},
+            {y:149, min:-25, max:-25}, {y:164, min:-34, max:-16}, {y:179, min:-25, max:-25}
         ];
 
+        const taiwanCoords = [];
+        bounds.forEach(b => {
+            const stepX = 16; // 內部橫向填滿間距 (16px 完美貼合 30px 的船隻)
+            for (let x = b.min; x <= b.max; x += stepX) {
+                taiwanCoords.push({x: x, y: b.y});
+            }
+            // 強制確保最右邊的原始輪廓點存在，不會因為 stepX 除不盡而缺角
+            if (taiwanCoords[taiwanCoords.length - 1].x !== b.max) {
+                taiwanCoords.push({x: b.max, y: b.y});
+            }
+        });
+
         const taiwanIndices = [];
-        const step = Math.floor(200 / taiwanCoords.length); 
+        const step = 400 / taiwanCoords.length; 
+        // 平均抽出 170 艘船填滿臺灣，剩下的 230 艘船會隨機散落
         for (let i = 0; i < taiwanCoords.length; i++) {
-            taiwanIndices.push(i * step + (i % 3)); 
+            taiwanIndices.push(Math.floor(i * step)); 
         }
+
+
 
         const fleetTl = gsap.timeline({
             scrollTrigger: {
@@ -751,7 +728,7 @@
         fleetTl
             .to(".fleet-text-intro", { opacity: 1, duration: 2 })
             .to({}, { duration: 1 }) 
-            .to(".fleet-text-intro", { y: -40, duration: 2, ease: "power1.inOut" }, "slideIn")
+            .to(".fleet-text-intro", { y: -20, duration: 2, ease: "power1.inOut" }, "slideIn")
             .to(".fleet-stat-left", { opacity: 1, x: 0, y: 0, duration: 2.5, ease: "power2.out" }, "slideIn+=0.5")
             .to(".fleet-stat-right", { opacity: 1, x: 0, y: 0, duration: 2.5, ease: "power2.out" }, "slideIn+=0.5")
             .to({}, { duration: 1.5 }) 
@@ -763,12 +740,12 @@
             .fromTo(faoIcons, {
                 opacity: 0,
                 y: () => window.innerHeight,
-                x: (i) => ((i % 20) - 9.5) * 35
+                x: (i) => ((i % 40) - 19.5) * 26 // 40欄設定，展開寬度約 1040px
             }, {
                 opacity: 1,
-                y: (i) => (Math.floor(i / 20) - 4.5) * 35, 
+                y: (i) => (Math.floor(i / 40) - 4.5) * 26, 
                 duration: 2,
-                stagger: 0.005, 
+                stagger: 0.002, 
                 ease: "power2.out"
             }, "faoStart+=0.5")
             .to({}, { duration: 1.5 }) 
@@ -810,11 +787,11 @@
             .to(".policy-text-1", { opacity: 1, y: 0, duration: 2 }, "step1")
             .to(".left-card .card-inner", { rotateY: 0, duration: 2, ease: "power2.inOut" }, "step1")
             .to({}, { duration: 1 }) 
-            .to(".policy-text-1", { y: "-=25", duration: 1.5, ease: "power1.inOut" }, "step2")
+            .to(".policy-text-1", { y: "-=15", duration: 1.5, ease: "power1.inOut" }, "step2")
             .to(".policy-text-2", { opacity: 1, y: 0, duration: 2 }, "step2")
             .to(".center-card .card-inner", { rotateY: 0, duration: 2, ease: "power2.inOut" }, "step2")
             .to({}, { duration: 1 }) 
-            .to([".policy-text-1", ".policy-text-2"], { y: "-=25", duration: 1.5, ease: "power1.inOut" }, "step3")
+            .to([".policy-text-1", ".policy-text-2"], { y: "-=15", duration: 1.5, ease: "power1.inOut" }, "step3")
             .to(".policy-text-3", { opacity: 1, y: 0, duration: 2 }, "step3")
             .to(".right-card .card-inner", { rotateY: 0, duration: 2, ease: "power2.inOut" }, "step3")
             .to({}, { duration: 4 });
@@ -883,72 +860,44 @@
             .to([".dajingong-heading", ".dj-video-container"], { opacity: 0, y: -60, duration: 2, ease: "power2.inOut" }, "outro") 
             .to(".dj-bg-video", { opacity: 0, duration: 2, ease: "power2.inOut" }, "outro"); 
 
-        // 12. 全新加入：為什麼老船一直留在港裡？ 動畫邏輯
+        // 12. 為什麼老船一直留在港裡？ 動畫邏輯 (將左右卡片往內推進，縮小間距)
         const whyStayTl = gsap.timeline({
             scrollTrigger: {
                 trigger: "#why-stay-section",
                 start: "top top",
                 end: "bottom bottom",
-                scrub: 1.5, /* 這個設定就是讓動畫緊緊跟隨滾輪的核心 */
+                scrub: 1.5,
                 pin: ".why-stay-sticky",
                 anticipatePin: 1
             }
         });
 
         whyStayTl
-            // [分鏡1] 大標題滑入並定住
             .fromTo(".why-heading", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 2 })
-            .to({}, { duration: 1 }) // 利用空物件佔用滾動距離，達到「停留」效果
-
-            // [分鏡2] 大標題往上微調，第一張卡片從下方進入並置中
-            // 💡 xPercent 與 yPercent 是完美置中的魔法，不會和 CSS 的 transform 打架
+            .to({}, { duration: 1 })
             .to(".why-heading", { y: -40, duration: 2, ease: "power2.inOut" }, "step1")
             .fromTo(".why-card-1", 
                 { opacity: 0, left: "50%", xPercent: -50, yPercent: -30 },
                 { opacity: 1, left: "50%", xPercent: -50, yPercent: -50, duration: 2, ease: "power2.out" }, "step1"
             )
-            .to({}, { duration: 1.5 }) // 停留
-
-            // [分鏡3] 第一張卡片往左移動 (left 30%)，第二張卡片進場置於右側 (left 70%)
+            .to({}, { duration: 1.5 }) 
             .to(".why-card-1", { left: "30%", duration: 2, ease: "power2.inOut" }, "step2")
             .fromTo(".why-card-2",
                 { opacity: 0, left: "70%", xPercent: -50, yPercent: -30 },
                 { opacity: 1, left: "70%", xPercent: -50, yPercent: -50, duration: 2, ease: "power2.out" }, "step2"
             )
-            .to({}, { duration: 1.5 }) // 停留
-
-            // [分鏡4] 第一與第二張再往左移，第三張進場，呈現對稱三分佈 (16%, 50%, 84%)
-            .to(".why-card-1", { left: "16%", duration: 2, ease: "power2.inOut" }, "step3")
+            .to({}, { duration: 1.5 })
+            .to(".why-card-1", { left: "17%", duration: 2, ease: "power2.inOut" }, "step3") 
             .to(".why-card-2", { left: "50%", duration: 2, ease: "power2.inOut" }, "step3")
             .fromTo(".why-card-3",
-                { opacity: 0, left: "84%", xPercent: -50, yPercent: -30 },
-                { opacity: 1, left: "84%", xPercent: -50, yPercent: -50, duration: 2, ease: "power2.out" }, "step3"
+                { opacity: 0, left: "83%", xPercent: -50, yPercent: -30 }, 
+                { opacity: 1, left: "83%", xPercent: -50, yPercent: -50, duration: 2, ease: "power2.out" }, "step3"
             )
-            
-            // [分鏡5] 全部出現後，利用空物件拉長捲動距離，達到「停留 1.5 秒」的效果
             .to({}, { duration: 3 })
-            
-            // [分鏡6] 全部內容一起淡出並往上移出畫面退場（改用絕對數值防閃爍）
-            .to(".why-heading", { 
-                opacity: 0, 
-                y: -100, // 給予明確的絕對座標
-                duration: 2, 
-                ease: "power2.inOut" 
-            }, "outro")
-            .to([".why-card-1", ".why-card-2", ".why-card-3"], {
-                opacity: 0,
-                y: -60,  // 給予明確的絕對座標
-                duration: 2,
-                ease: "power2.inOut"
-            }, "outro");
+            .to(".why-heading", { opacity: 0, y: -100, duration: 2, ease: "power2.inOut" }, "outro")
+            .to([".why-card-1", ".why-card-2", ".why-card-3"], { opacity: 0, y: -60, duration: 2, ease: "power2.inOut" }, "outro");
 
-
-
-
-
-
-
-            // 13. 興達海基決策段落：虛線推移與逐句浮現
+        // 13. 興達海基決策段落
         const xingdaTl = gsap.timeline({
             scrollTrigger: {
                 trigger: "#xingda-section",
@@ -961,39 +910,24 @@
         });
 
         xingdaTl
-            // [分鏡1] 大標題浮現並定住
             .fromTo(".xingda-heading", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 2 })
             .to({}, { duration: 1 })
-
-            // [分鏡2] 兩艘船在畫面正中央出現
             .to([".xd-ship-left", ".xd-ship-right"], { opacity: 1, duration: 1.5 }, "shipsAppear")
             .to({}, { duration: 1 })
-
-            // [分鏡3] 兩艘船向左右拉開，同時中間的虛線長出來 (使用同一個標籤 "shipsMove" 讓它們同步發生)
             .to(".xd-ship-left", { left: "15%", duration: 3, ease: "power2.inOut" }, "shipsMove")
             .to(".xd-ship-right", { right: "15%", duration: 3, ease: "power2.inOut" }, "shipsMove")
             .to(".xingda-dashed-line", { width: "70%", duration: 3, ease: "power2.inOut" }, "shipsMove")
-            
-            // [分鏡4] 船抵達兩側後，底下的紅色文字 (旗津不能拆/前鎮放不下) 顯示出來
             .to(".xd-label", { opacity: 1, duration: 1.5 })
             .to({}, { duration: 1.5 })
-
-            // [分鏡5] 下方內文依序浮現 (使用 stagger 可以少寫很多行，或者像下方這樣一行一行精確控制時間)
             .to(".xd-text-1", { opacity: 1, y: 0, duration: 1.5 })
             .to(".xd-text-2", { opacity: 1, y: 0, duration: 1.5 })
-            .to(".xd-text-3", { opacity: 1, y: 0, duration: 1.5 })
             .to(".xd-text-4", { opacity: 1, y: 0, duration: 1.5 })
             .to(".xd-text-5", { opacity: 1, y: 0, duration: 1.5 })
             .to(".xd-text-6", { opacity: 1, y: 0, duration: 1.5 })
-
-            // [分鏡6] 停留一段時間讓讀者看完，最後可選全淡出（若希望接續下一個 section 較順暢）
             .to({}, { duration: 4 })
             .to(".xingda-sticky > *", { opacity: 0, y: -50, duration: 2, ease: "power2.inOut" });
 
-
-
-
-            // 14. 茄萣居民怒火段落：大標浮現、影片控制、接續深刻反思
+        // 14. 茄萣居民怒火段落
         const qiedingTl = gsap.timeline({
             scrollTrigger: {
                 trigger: "#qieding-section",
@@ -1006,51 +940,27 @@
         });
 
         qiedingTl
-            // [分鏡1] 大標題從下方移入浮現，固定定住
             .fromTo(".qieding-heading", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 2 })
             .to({}, { duration: 1 }) 
-
-            // [分鏡2] 內文第一句與第二句依序浮現
             .to(".qd-text-1", { opacity: 1, y: 0, duration: 1.5 })
             .to(".qd-text-2", { opacity: 1, y: 0, duration: 1.5 })
             .to({}, { duration: 1.5 })
-
-            // [分鏡3] 居民怒火影片區塊優雅滑入登場
             .to(".qieding-video-wrapper", { opacity: 1, y: 0, duration: 2, ease: "power2.out" })
-            
-            // [分鏡4] 預留停留時間讓使用者可以點擊播放影片
             .to({}, { duration: 4 })
-            
-            // [分鏡5] 影片與前兩句內文「退場」(往上淡出)，【但保留大標題】
             .to([".qieding-video-wrapper", ".qieding-text-container"], { opacity: 0, y: -40, duration: 2, ease: "power2.inOut" })
-            .to(".qieding-video-wrapper", { display: "none", duration: 0 }) // 徹底隱藏避免擋住點擊
-
-            // [分鏡6] 反思內文依序一句一句出現，像打字機節奏般重擊讀者
+            .to(".qieding-video-wrapper", { display: "none", duration: 0 }) 
             .to(".qd2-text-1", { opacity: 1, y: 0, duration: 1.5 }, "text2-start")
             .to(".qd2-text-2", { opacity: 1, y: 0, duration: 1.5 })
-            .to({}, { duration: 0.8 }) // 刻意頓一下，強調前兩句的結論
-
+            .to({}, { duration: 0.8 })
             .to(".qd2-text-3", { opacity: 1, y: 0, duration: 1.5 })
             .to(".qd2-text-4", { opacity: 1, y: 0, duration: 1.5 })
-            .to({}, { duration: 0.8 }) // 刻意頓一下
-
+            .to({}, { duration: 0.8 }) 
             .to(".qd2-text-5", { opacity: 1, y: 0, duration: 1.5 })
             .to(".qd2-text-6", { opacity: 1, y: 0, duration: 1.5 })
             .to(".qd2-text-7", { opacity: 1, y: 0, duration: 1.5 })
-
-            // [分鏡7] 留給讀者足夠的閱讀與反思時間
             .to({}, { duration: 5 })
-
-            // [分鏡8] 結尾全體淡出退場 (大標題與第二段文字)，乾淨地交接給【高雄拆船業大事記】
             .to(".qieding-sticky > *", { opacity: 0, y: -40, duration: 2, ease: "power2.inOut" });
 
-
-
-
-
-
-
-        // 全域組件排序刷新 (這行必須放在所有 ScrollTrigger 設定的最後)
         ScrollTrigger.sort();
         ScrollTrigger.refresh();
     </script>
