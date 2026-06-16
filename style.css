@@ -42,7 +42,7 @@ h1, h2, h3, .brand { font-family: var(--font-serif); font-weight: 700; }
 .card p { margin: 0 0 16px; color: #d5e2e8; }
 .muted { color: var(--muted) !important; }
 
-.section-head { margin-bottom: 50px; }
+.section-head { margin-bottom: 10px; }
 h1 { margin: 0; font-size: clamp(32px, 7vw, 56px); line-height: 1.1; letter-spacing: .05em; text-align: center; text-wrap: balance; }
 h2 { margin: 0; font-size: clamp(28px, 4vw, 48px); line-height: 1.25; text-align: center; text-wrap: balance; }
 .section-desc { margin: 0 auto; text-align: center; line-height: 1.8; max-width: 100vh; color: var(--muted); font-size: 18px; padding: 20px; }
@@ -109,18 +109,92 @@ h2 { margin: 0; font-size: clamp(28px, 4vw, 48px); line-height: 1.25; text-align
 /* ==========================================================================
    6. Fleet Impact & FAO Statistics 
    ========================================================================== */
-.fleet-impact-section { height: 900vh; position: relative; width: 100%; background-color: #000; background-image: linear-gradient(to bottom, rgba(4, 12, 18, 0.45), rgba(4, 12, 18, 0.65)), url('./images/ChatGPT/ChatGPT\ Image\ 2026年6月5日\ 下午12_01_51_wordMap.png'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; }
-.fleet-impact-sticky { position: sticky; top: 0; height: 100vh; width: 100%; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+
+/* 0. 加寬內容容器，給文字更多橫向空間 */
+.fleet-content { 
+    position: relative; 
+    z-index: 10; 
+    width: 92%; /* 從 90% 稍微加寬 */
+    max-width: 1400px; /* 從原本的 1200px 放寬最大限制，讓滿版時有更多橫向空間 */
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center; 
+}
+
+   .fleet-impact-section { height: 900vh; position: relative; width: 100%; background-color: #000; background-image: linear-gradient(to bottom, rgba(4, 12, 18, 0.45), rgba(4, 12, 18, 0.65)), url('./images/ChatGPT/ChatGPT\ Image\ 2026年6月5日\ 下午12_01_51_wordMap.png'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; }
+
+/* 1. 確保容器垂直置中時，避開頂部 Topbar 的高度 */
+.fleet-impact-sticky { 
+    position: sticky; 
+    top: 0; 
+    height: 100vh; 
+    width: 100%; 
+    overflow: hidden; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding-top: 70px; /* 新增：預留 Topbar 空間 */
+    box-sizing: border-box; /* 新增：確保 padding 不會撐爆 100vh */
+}
+
 .fleet-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 2; }
 .fleet-content { position: relative; z-index: 10; width: 90%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; text-align: center; }
-.fleet-text-intro { font-size: clamp(24px, 4vw, 42px); line-height: 1.6; color: #e9f2f6; text-shadow: 0 4px 20px rgba(0,0,0,0.9); opacity: 0; margin-bottom: -50px; }
-.fleet-stats-wrapper { display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 40px; margin-top: 20px; }
+
+/* 2. 稍微縮小前言的字體最大值，並防止中文字被不自然切斷 */
+.fleet-text-intro { 
+    font-size: clamp(20px, 3.2vmin, 35px); /* vmin (原本建議的3.5) 跟最大 px 都稍微調小一點點 */
+    line-height: 1.6; 
+    color: #e9f2f6; 
+    text-shadow: 0 4px 20px rgba(0,0,0,0.9); 
+    opacity: 0; 
+    margin-bottom: 2vh; 
+    word-break: keep-all; /* 新增：讓文字在換行時盡量保持詞彙（或標點符號前）的完整性，避免單一字元掉到下一行 */
+}
+
+/* 3. 調整排版間距 */
+.fleet-stats-wrapper { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    width: 100%; 
+    gap: 3vw; /* 縮小原有的 40px gap */
+    margin-top: 0; 
+}
+
 .fleet-stat-left, .fleet-stat-right { display: flex; flex-direction: column; align-items: center; width: 48%; opacity: 0; }
 .fleet-stat-left { transform: translateX(-150px); }
 .fleet-stat-right { transform: translateX(150px); }
-.fleet-stat-text { font-size: clamp(28px, 4.5vw, 48px); color: var(--accent2, #f59e0b); margin-bottom: 20px; text-shadow: 0 0 15px rgba(245, 158, 11, 0.5); }
-.fleet-stat-img { width: 100%; border-radius: 12px; box-shadow: 0 15px 40px rgba(0,0,0,0.8); aspect-ratio: 16 / 9; object-fit: cover; }
-.fleet-text-outro { font-size: clamp(32px, 5vw, 56px); font-weight: bold; color: var(--accent, #7dd3fc); margin-top: 60px; text-shadow: 0 0 20px rgba(125, 211, 252, 0.6); opacity: 0; transform: translateY(50px); }
+
+/* 4. 修正大數字的文字大小 */
+.fleet-stat-text { 
+    font-size: clamp(24px, 4vmin, 42px); /* 調整：vw 改為 vmin */
+    color: var(--accent2, #f59e0b); 
+    margin-bottom: 1.5vh; 
+    text-shadow: 0 0 15px rgba(245, 158, 11, 0.5); 
+}
+
+/* 5. 限制影片最大高度，避免螢幕寬度太寬時影片佔據過多垂直空間 */
+.fleet-stat-img { 
+    width: 100%; 
+    max-height: 35vh; /* 新增：限制最大高度 */
+    border-radius: 12px; 
+    box-shadow: 0 15px 40px rgba(0,0,0,0.8); 
+    aspect-ratio: 16 / 9; 
+    object-fit: cover; 
+}
+
+/* 6. 修正結尾文字的間距與大小 */
+.fleet-text-outro { 
+    font-size: clamp(24px, 4vmin, 48px); /* 調整：vw 改為 vmin */
+    font-weight: bold; 
+    color: var(--accent, #7dd3fc); 
+    margin-top: 4vh; /* 調整：60px 固定值改為自適應的 vh */
+    text-shadow: 0 0 20px rgba(125, 211, 252, 0.6); 
+    opacity: 0; 
+    transform: translateY(50px); 
+}
+
 .fao-section { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 15; pointer-events: none; }
 .fao-text-1, .fao-text-2 { font-size: clamp(24px, 4vw, 42px); color: #e9f2f6; text-shadow: 0 4px 20px rgba(0,0,0,0.9); opacity: 0; margin: 30px 0; text-align: center; }
 .fao-text-2 { color: var(--accent2, #f59e0b); font-weight: bold; }
@@ -186,8 +260,8 @@ h2 { margin: 0; font-size: clamp(28px, 4vw, 48px); line-height: 1.25; text-align
 .dajingong-heading { font-family: var(--font-serif); font-size: clamp(40px, 7vw, 76px); color: var(--danger); margin-bottom: 50px; text-shadow: 0 0 40px rgba(201, 59, 43, 0.6), 0 4px 20px rgba(0,0,0,0.9); letter-spacing: 0.08em; opacity: 0; transform: translateY(30px); }
 .dajingong-texts p { font-size: clamp(20px, 3.5vw, 32px); color: var(--text); margin: 15px 0; line-height: 1.8; text-shadow: 0 4px 20px rgba(0,0,0,0.9); opacity: 0; transform: translateY(20px); word-break: keep-all; }
 .dj-bg-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0; filter: grayscale(40%) contrast(1.2); }
-.dj-video-container { position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 1200px; display: flex; justify-content: space-between; gap: 40px; z-index: 45; pointer-events: none; }
-.dj-video-wrapper { width: 48%; pointer-events: auto; }
+.dj-video-container { position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 1200px; display: flex; justify-content: center; z-index: 45; pointer-events: none; }
+.dj-video-wrapper { width: 80%; max-width: 600px; pointer-events: auto; }
 .dj-video-wrapper video { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-lg); box-shadow: 0 20px 50px rgba(0,0,0,0.9); border: 1px solid rgba(255,255,255,0.15); background-color: #000; }
 .dj-video-caption { color: var(--muted); text-align: center; margin-top: 20px; font-size: 16px; letter-spacing: 2px; text-shadow: 0 2px 10px rgba(0,0,0,0.8); background-color: rgba(0, 0, 0, 0.7); padding: 8px 0; border-radius: 999px; }
 
@@ -224,13 +298,13 @@ h2 { margin: 0; font-size: clamp(28px, 4vw, 48px); line-height: 1.25; text-align
 .xd-ship-left .xd-label { right: 100%; margin-right: 25px; } .xd-ship-right .xd-label { left: 100%; margin-left: 25px; }
 
 .xingda-text-container { width: 90%; max-width: 900px; text-align: center; margin-top: -20px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
-.qieding-text-container { width: 90%; max-width: 900px; text-align: center; margin-top: 1rem; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+.qieding-text-container { width: 90%; max-width: 900px; text-align: center; margin-top: 1rem; display: flex; flex-direction: column; align-items: center; gap: 0px; }
 
 .xd-text, .qd-text, .qd2-text { font-size: clamp(18px, 2.5vw, 24px); color: var(--text); margin: 0; opacity: 0; transform: translateY(20px); line-height: 1.8; text-shadow: 0 4px 15px rgba(0,0,0,0.8); word-break: keep-all; }
 .qieding-text-container-2 { position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 900px; display: flex; flex-direction: column; align-items: center; gap: 20px; pointer-events: none; }
 .qd2-text.highlight-danger { color: var(--danger); font-weight: bold; font-size: 1.1em; }
 
-.qieding-video-wrapper { width: 85%; max-width: 900px; opacity: 0; transform: translateY(30px); display: flex; flex-direction: column; align-items: center; margin-top: 20px; }
+.qieding-video-wrapper { width: 85%; max-width: 800px; opacity: 0; transform: translateY(30px); display: flex; flex-direction: column; align-items: center; margin-top: 20px; }
 .qieding-video-wrapper video { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-xl); box-shadow: 0 20px 60px rgba(0,0,0,0.9); border: 1px solid rgba(201, 59, 43, 0.3); background-color: #000; }
 .qd-video-caption { color: var(--muted); text-align: center; margin-top: 20px; font-size: 16px; letter-spacing: 2px; }
 
@@ -252,6 +326,28 @@ h2 { margin: 0; font-size: clamp(28px, 4vw, 48px); line-height: 1.25; text-align
 .timeline-content { font-size: 18px; line-height: 1.8; background: rgba(255, 255, 255, 0.03); padding: 30px; border-radius: var(--radius-lg); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.08); text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
 .timeline-img { width: 100%; height: auto; margin-top: 25px; border-radius: 8px; display: block; box-shadow: 0 10px 20px rgba(0,0,0,0.5); filter: grayscale(20%) contrast(1.1); }
 
+
+
+/* ==========================================================================
+   新增：Quota Strangle Section (配額的絞殺線)
+   ========================================================================== */
+/* 容器高度設定極高 (1200vh)，確保 4 個場次有足夠的滾動長度 */
+.quota-section { height: 1200vh; position: relative; width: 100%; background-color: var(--bg2); background-image: linear-gradient(to bottom, rgba(4, 12, 18, 0.95), rgba(4, 12, 18, 0.8)), url('./images/ChatGPT/ChatGPT\ Image\ 2026年6月5日\ 下午12_01_51_wordMap.png'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; }
+.quota-sticky { position: sticky; top: 0; height: 100vh; width: 100%; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 70px; box-sizing: border-box; }
+
+/* 大標置中定位 */
+.quota-main-heading { font-family: var(--font-serif); font-size: clamp(32px, 5vw, 50px); color: var(--danger); text-shadow: 0 0 30px rgba(201, 59, 43, 0.4), 0 4px 20px rgba(0,0,0,0.8); text-align: center; opacity: 0; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; margin: 0; z-index: 20; }
+
+/* 場次內容容器與文字排版 */
+.quota-scenes-container { position: relative; width: 90%; max-width: 1000px; height: 60vh; margin-top: 10vh; display: flex; justify-content: center; z-index: 10; }
+.quota-scene { position: absolute; top: 0; left: 0; width: 100%; opacity: 0; pointer-events: none; display: flex; flex-direction: column; gap: 15px; text-align: left; text-align: center;}
+.quota-subheading { font-family: var(--font-serif); font-size: clamp(22px, 3.2vmin, 30px); color: var(--accent); margin: 0 0 15px 0; text-shadow: 0 4px 15px rgba(0,0,0,0.9); word-break: keep-all; line-height: 1.5; }
+.quota-scene p.quota-text { font-size: clamp(18px, 2.5vmin, 22px); color: var(--text); margin: 0; line-height: 1.8; text-shadow: 0 4px 15px rgba(0,0,0,0.9); word-break: keep-all; }
+.highlight-danger { color: var(--danger); font-weight: bold; }
+
+
+
+
 /* ==========================================================================
    11. Conclusion Section CTA
    ========================================================================== */
@@ -269,7 +365,7 @@ h2 { margin: 0; font-size: clamp(28px, 4vw, 48px); line-height: 1.25; text-align
 /* ==========================================================================
    12. Music Control
    ========================================================================== */
-.music-control { position: fixed; top: 75px; right: 25px; width: 45px; height: 45px; background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 999; backdrop-filter: blur(5px); transition: all 0.5s ease; }
+.music-control { position: fixed; top: 1.5%; right: 25px; width: 45px; height: 45px; background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 999; backdrop-filter: blur(5px); transition: all 0.5s ease; }
 .music-control:hover { background: rgba(255, 107, 0, 0.3); border-color: var(--accent); }
 .music-icon { font-size: 24px; user-select: none; }
 @keyframes musicBreathe { 0% { transform: scale(1); box-shadow: 0 0 5px rgba(255, 107, 0, 0.2); } 50% { transform: scale(1.1); box-shadow: 0 0 20px rgba(255, 107, 0, 0.6); } 100% { transform: scale(1); box-shadow: 0 0 5px rgba(255, 107, 0, 0.2); } }
@@ -323,8 +419,8 @@ h2 { margin: 0; font-size: clamp(28px, 4vw, 48px); line-height: 1.25; text-align
     .reality-heading { margin-bottom: 30px; font-size: 28px; }
     .reality-texts p { margin: 10px 0; font-size: 18px; }
 
-    .dj-video-container { flex-direction: column; top: 60%; gap: 20px; }
-    .dj-video-wrapper { width: 100%; }
+    .dj-video-container { position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 1200px; display: flex; justify-content: center; z-index: 45; pointer-events: none; }
+    .dj-video-wrapper { width: 80%; max-width: 900px; pointer-events: auto; }
     
     .why-card { width: 85% !important; min-width: 280px; padding: 25px; height: auto; min-height: 300px; }
     .why-heading { font-size: 32px; }
@@ -338,6 +434,11 @@ h2 { margin: 0; font-size: clamp(28px, 4vw, 48px); line-height: 1.25; text-align
 
     .conclusion-section { padding: 80px 20px; }
     .cta-actions { flex-direction: column; width: 100%; max-width: 300px; margin: 0 auto; }
+
+    .fleet-stats-wrapper { gap: 15px; } /* 縮小手機版區塊間距 */
+    .fleet-stat-img { max-height: 25vh; } /* 進一步限制手機版影片高度 */
+    .fleet-text-intro { margin-bottom: 15px; }
+    .fleet-text-outro { margin-top: 20px; }
 }
 
 @media (max-width: 640px) {
