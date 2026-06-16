@@ -86,36 +86,42 @@
 
     <section class="scroll-buffer"></section>
 
-    <section id="problem">
-        <div class="container">
-            <div class="section-head">
-                <h2>港灣裡的沉默船隊</h2>
-                <p class="section-desc">現在發生了什麼事？這些船為何會留在港裡？<br>又為什麼這件事不只是景觀問題，而是環境、管理與產業轉型的交叉議題？</p>
-            </div>
 
-            <div class="grid-2">
-                <div class="card pad">
-                    <h3>船還在，故事卻被時間拖慢了</h3>
-                    <p>高雄港部分水域停泊著多艘老舊遠洋漁船。有些仍在等待出售，有些已進入拆解程序，也有一些長期閒置，幾乎沒有人再使用。</p>
-                    <p>船體長年泡在海水中，鏽蝕不斷擴散；油料殘留、塗料剝落與廢棄零件，也讓港灣環境承受更高壓力。</p>
-                    
-                    <div class="stats">
-                        <div class="stat"><div class="num" style="color: var(--accent);">80</div><div class="txt">艘老舊漁船</div></div>
-                        <div class="stat"><div class="num" style="color: var(--accent);">3</div><div class="txt">家符合國際綠色拆船規範的拆船廠</div></div>
+
+    <section id="problem" class="problem-section">
+        <div class="problem-sticky">
+            <h2 class="problem-title">港灣裡的沉默船隊</h2>
+            
+            <div class="container problem-content-wrapper">
+                <p class="section-desc problem-desc">現在發生了什麼事？這些船為何會留在港裡？<br>又為什麼這件事不只是景觀問題，而是環境、管理與產業轉型的交叉議題？</p>
+
+                <div class="problem-grid">
+                    <div class="card pad problem-card-left">
+                        <h3>船還在，故事卻被時間拖慢了</h3>
+                        <p>高雄港部分水域停泊著多艘老舊遠洋漁船。有些仍在等待出售，有些已進入拆解程序，也有一些長期閒置，幾乎沒有人再使用。</p>
+                        <p>船體長年泡在海水中，鏽蝕不斷擴散；油料殘留、塗料剝落與廢棄零件，也讓港灣環境承受更高壓力。</p>
+                        
+                        <div class="stats">
+                            <div class="stat"><div class="num" style="color: var(--accent);">80</div><div class="txt">艘老舊漁船</div></div>
+                            <div class="stat"><div class="num" style="color: var(--accent);">3</div><div class="txt">家符合國際綠色拆船規範的拆船廠</div></div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="media-placeholder">
-                    <div style="width: 100%;">
-                        <strong>前鎮漁港</strong>
-                        <video style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;" autoplay muted loop playsinline>
-                            <source src="./videos/Video-3(拆船、廢船停靠).mp4" type="video/mp4">
-                        </video>
+                    <div class="media-placeholder problem-media-right">
+                        <div class="video-inner-wrapper">
+                            <strong>前鎮漁港</strong>
+                            <video autoplay muted loop playsinline>
+                                <source src="./videos/Video-3(拆船、廢船停靠).mp4" type="video/mp4">
+                            </video>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+
+
 
     <section class="scroll-buffer"></section>
 
@@ -596,7 +602,7 @@
     </section>
 
 
-    
+
 
     <script>
         gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
@@ -1174,6 +1180,41 @@
             .to({}, { duration: 2 }); // 空白緩衝時間
 
 
+
+            // 17. 港灣裡的沉默船隊 (Problem Section 動畫)
+        const problemTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#problem",
+                start: "top top",
+                end: "bottom bottom",
+                scrub: 1.5,
+                pin: ".problem-sticky",
+                anticipatePin: 1
+            }
+        });
+
+        problemTl
+            // 場次 1：大標在正中間浮現
+            .fromTo(".problem-title", { opacity: 0, top: "50%" }, { opacity: 1, top: "50%", duration: 2 })
+            .to({}, { duration: 0.5 })
+            
+            // 場次 2：大標滑動到頂部固定位置 (大約 12% 的高度)
+            .to(".problem-title", { top: "12%", duration: 2, ease: "power2.inOut" })
+            .to({}, { duration: 0.5 })
+            
+            // 場次 3：小標出現
+            .fromTo(".problem-desc", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1.5, ease: "power2.out" })
+            .to({}, { duration: 0.5 })
+            
+            // 場次 4：左邊區塊與右邊影片區塊，同時從兩側滑入
+            .fromTo(".problem-card-left", { opacity: 0, x: -100 }, { opacity: 1, x: 0, duration: 2, ease: "power2.out" }, "cardsIn")
+            .fromTo(".problem-media-right", { opacity: 0, x: 100 }, { opacity: 1, x: 0, duration: 2, ease: "power2.out" }, "cardsIn")
+            
+            // 停留觀看時間，讓使用者閱讀卡片數據與觀看影片
+            .to({}, { duration: 4 });
+
+
+            
 
         ScrollTrigger.sort();
         ScrollTrigger.refresh();

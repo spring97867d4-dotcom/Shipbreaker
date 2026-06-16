@@ -205,6 +205,77 @@ h2 { margin: 0; font-size: clamp(28px, 4vw, 48px); line-height: 1.25; text-align
 .fao-icon { position: absolute; top: 50%; left: 50%; width: 30px; height: 30px; background-image: url('./images/Gemini/icon/Gemini_Generated_Image_xgokv3xgokv3xgok_380噸級鮪延繩釣漁船_alpha_10.png'); background-size: contain; background-repeat: no-repeat; background-position: center; margin-left: -15px; margin-top: -15px; opacity: 0; }
 
 
+
+
+/* ==========================================================================
+   修改：港灣裡的沉默船隊 (Problem Section 動畫排版)
+   ========================================================================== */
+.problem-section { height: 400vh; position: relative; width: 100%; z-index: 10; }
+.problem-sticky { position: sticky; top: 0; height: 100vh; width: 100%; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 70px; box-sizing: border-box; }
+
+/* 大標初始設定 */
+.problem-title { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0; margin: 0; width: 90%; text-align: center; z-index: 20; text-shadow: 0 4px 20px rgba(0,0,0,0.8); }
+
+/* 內容區塊設定：大幅縮減 margin-top (從 15vh 改為 8vh) 讓小標更貼近大標 */
+.problem-content-wrapper { position: relative; width: 100%; margin-top: 8vh; display: flex; flex-direction: column; align-items: center; z-index: 10; pointer-events: none; }
+.problem-desc { opacity: 0; transform: translateY(20px); margin-bottom: 40px; pointer-events: auto; }
+
+/* 網格區塊設定：對齊方式改為 start，避免強制拉伸破壞 16:9 比例 */
+.problem-grid { 
+    width: 100%; 
+    pointer-events: auto; 
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 左右精準等分 */
+    gap: 30px;
+    align-items: start; 
+}
+
+/* 左側文字卡片與右側影片區塊：強制鎖定 16:9 比例 */
+.problem-card-left, .problem-media-right { 
+    aspect-ratio: 16 / 9;
+    height: auto;
+    width: 100%;
+    opacity: 0; 
+}
+
+/* 左側文字卡片內部排版 */
+.problem-card-left { 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+}
+
+/* 右側影片區塊內部排版 */
+.problem-media-right { 
+    padding: 30px; 
+    display: flex;
+    flex-direction: column;
+}
+
+.video-inner-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.video-inner-wrapper strong {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: var(--accent); 
+}
+
+.video-inner-wrapper video {
+    width: 100%;
+    height: 0; 
+    flex-grow: 1; 
+    object-fit: cover; 
+    border-radius: 8px;
+}
+
+
+
+
 /* ==========================================================================
    7. Policy & Reality 
    ========================================================================== */
