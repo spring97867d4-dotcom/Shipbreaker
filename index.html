@@ -490,6 +490,32 @@
 
 
 
+
+    <!-- 新增：老船的終點，也是產業轉型的起點 -->
+    <section id="endpoint-section" class="endpoint-section">
+        <div class="endpoint-sticky">
+            <h2 class="endpoint-heading">老船的終點，也是產業轉型的起點</h2>
+            
+            <div class="endpoint-content">
+                <p class="endpoint-text ep-text-1">當一艘遠洋漁船結束數十年的航程，等待它的本該是一場安全、合法且完整的退場機制。然而在台灣，老舊船舶的去處，卻成為橫跨產業、環境、地方發展與政策治理的複雜課題。</p>
+                <p class="endpoint-text ep-text-2">從遠洋漁業面臨國際規範壓力，到拆船產業逐漸式微；從港區空間不足，到地方居民對環境衝擊的擔憂，每一艘停泊在港邊的老船，都映照著台灣海洋產業轉型過程中的矛盾與挑戰。</p>
+                <p class="endpoint-text ep-text-3">拆除一艘船或許只需要數個月，但建立一套兼顧產業需求、環境保護與社會共識的制度，卻可能需要更長的時間。</p>
+                <p class="endpoint-text ep-text-4">當老船陸續退役，真正需要被重新思考的，不只是船舶的最終歸宿，而是台灣如何在永續與發展之間，找到下一個航向。</p>
+            </div>
+
+            <div class="endpoint-conclusion">
+                <div class="ep-outro ep-outro-1">老船的故事即將落幕</div>
+                <div class="ep-outro ep-outro-2">而台灣海洋的未來</div>
+                <div class="ep-outro ep-outro-3">仍在航行之中</div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
     <section id="history-timeline">
         <h2 class="timeline-main-title">高雄拆船業大事記</h2>
         <div class="timeline-container">
@@ -569,16 +595,8 @@
         </div>
     </section>
 
-    <section id="conclusion" class="conclusion-section">
-        <div class="container text-center">
-            <h2 class="conclusion-title">下一個十年，台灣的海洋將駛向何方？</h2>
-            <p class="conclusion-desc">當老舊漁船一艘艘倒下，或許正是台灣遠洋漁業重新審視「永續與責任」的契機。<br>這不僅是高雄港的課題，更是整座島嶼必須共同面對的海洋陣痛期。</p>
-            <div class="cta-actions">
-                <button class="btn-primary" onclick="window.scrollTo({top:0, behavior:'smooth'})">回到首頁</button>
-                <button class="btn-secondary" onclick="alert('感謝您的閱讀與分享！')">分享報導</button>
-            </div>
-        </div>
-    </section>
+
+    
 
     <script>
         gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
@@ -906,7 +924,8 @@
             .fromTo(".dj-video-wrapper", { opacity: 0, y: "10vh" }, { opacity: 1, y: 0, duration: 2.5, ease: "power2.out" }, "slideIn")
             .to({}, { duration: 3.5 })
             .to([".dajingong-heading", ".dj-video-container"], { opacity: 0, y: -60, duration: 2, ease: "power2.inOut" }, "outro") 
-            .to(".dj-bg-video", { opacity: 0, duration: 2, ease: "power2.inOut" }, "outro"); 
+            .to(".dj-bg-video", { opacity: 0, duration: 2, ease: "power2.inOut" }, "outro")
+            .to({}, { duration: 2 }); // 新增這行：加入空白緩衝時間
 
         // 12. 為什麼老船一直留在港裡？ 動畫邏輯 (將左右卡片往內推進，縮小間距)
         const whyStayTl = gsap.timeline({
@@ -943,7 +962,9 @@
             )
             .to({}, { duration: 3 })
             .to(".why-heading", { opacity: 0, y: -100, duration: 2, ease: "power2.inOut" }, "outro")
-            .to([".why-card-1", ".why-card-2", ".why-card-3"], { opacity: 0, y: -60, duration: 2, ease: "power2.inOut" }, "outro");
+            .to([".why-card-1", ".why-card-2", ".why-card-3"], { opacity: 0, y: -60, duration: 2, ease: "power2.inOut" }, "outro")
+            .to({}, { duration: 2 }); // 新增這行：加入空白緩衝時間
+
 
         // 13. 興達海基決策段落
         const xingdaTl = gsap.timeline({
@@ -973,7 +994,8 @@
             .to(".xd-text-5", { opacity: 1, y: 0, duration: 1.5 })
             .to(".xd-text-6", { opacity: 1, y: 0, duration: 1.5 })
             .to({}, { duration: 4 })
-            .to(".xingda-sticky > *", { opacity: 0, y: -50, duration: 2, ease: "power2.inOut" });
+            .to(".xingda-sticky > *", { opacity: 0, y: -50, duration: 2, ease: "power2.inOut" })
+            .to({}, { duration: 2 }); // 新增這行：加入空白緩衝時間
 
         // 14. 茄萣居民怒火段落
         const qiedingTl = gsap.timeline({
@@ -1007,8 +1029,8 @@
             .to(".qd2-text-6", { opacity: 1, y: 0, duration: 1.5 })
             .to(".qd2-text-7", { opacity: 1, y: 0, duration: 1.5 })
             .to({}, { duration: 5 })
-            .to(".qieding-sticky > *", { opacity: 0, y: -40, duration: 2, ease: "power2.inOut" });
-
+            .to(".qieding-sticky > *", { opacity: 0, y: -40, duration: 2, ease: "power2.inOut" })
+            .to({}, { duration: 2 }); // 新增這行：加入空白緩衝時間
 
 
         // 15. 配額的絞殺線 (4個場次逐句浮現)
@@ -1074,7 +1096,83 @@
             .to({}, { duration: 5 })
             
             // 整個區塊結束，大標與場次四一起淡出往上滑
-            .to([".quota-main-heading", ".scene-4"], { opacity: 0, y: -50, duration: 2, ease: "power2.inOut" });
+            .to([".quota-main-heading", ".scene-4"], { opacity: 0, y: -50, duration: 2, ease: "power2.inOut" })
+            .to({}, { duration: 2 }); // 新增這行：加入空白緩衝時間
+
+
+            // 16. 老船的終點，也是產業轉型的起點 (分六個場次)
+        const endpointTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#endpoint-section",
+                start: "top top",
+                end: "bottom bottom",
+                scrub: 1.5,
+                pin: ".endpoint-sticky",
+                anticipatePin: 1
+            }
+        });
+
+        endpointTl
+            // 場次 1：大標在正中間浮現，接著滑動到頂端固定
+            .fromTo(".endpoint-heading", { opacity: 0, top: "50%" }, { opacity: 1, top: "50%", duration: 2 })
+            .to({}, { duration: 1 })
+            .to(".endpoint-heading", { top: "15%", duration: 2, ease: "power2.inOut" })
+            
+            // 場次 2：內文1 出現
+            .to({}, { duration: 0.5 })
+            .to(".ep-text-1", { opacity: 1, y: 0, duration: 1.5 })
+            
+            // 場次 3：內文2 出現
+            .to({}, { duration: 0.5 })
+            .to(".ep-text-2", { opacity: 1, y: 0, duration: 1.5 })
+            
+            // 場次 4：內文3 出現
+            .to({}, { duration: 0.5 })
+            .to(".ep-text-3", { opacity: 1, y: 0, duration: 1.5 })
+            
+            // 場次 5：內文4 出現
+            .to({}, { duration: 0.5 })
+            .to(".ep-text-4", { opacity: 1, y: 0, duration: 1.5 })
+            
+            // 停留閱讀時間
+            .to({}, { duration: 4 })
+            
+            // 場次 6：大標與所有內文通通消失，接著出現結語
+            .to([".endpoint-heading", ".endpoint-content"], { opacity: 0, y: -50, duration: 2, ease: "power2.inOut" })
+            .to([".endpoint-heading", ".endpoint-content"], { display: "none", duration: 0 })
+            
+            // 單獨出現結語 (帶有微微放大的氣勢感)
+            .to({}, { duration: 1 })
+            .fromTo(".endpoint-conclusion", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 2.5, ease: "power2.out" })
+            
+            // 結語停留時間
+            .to({}, { duration: 1 })
+            
+            // 場次 6：大標與所有內文通通消失，準備進入對話結語
+            .to([".endpoint-heading", ".endpoint-content"], { opacity: 0, y: -50, duration: 2, ease: "power2.inOut" })
+            .to([".endpoint-heading", ".endpoint-content"], { display: "none", duration: 0 })
+            
+            // 結語 1：老船的故事即將落幕 (淡入 -> 停留 -> 淡出)
+            .to({}, { duration: 1 })
+            .fromTo(".ep-outro-1", { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 2, ease: "power2.out" })
+            .to({}, { duration: 1.5 })
+            .to(".ep-outro-1", { opacity: 0, y: -20, duration: 1.5, ease: "power2.inOut" })
+            
+            // 結語 2：而台灣海洋的未來 (淡入 -> 停留 -> 淡出)
+            .to({}, { duration: 0.5 })
+            .fromTo(".ep-outro-2", { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 2, ease: "power2.out" })
+            .to({}, { duration: 1.5 })
+            .to(".ep-outro-2", { opacity: 0, y: -20, duration: 1.5, ease: "power2.inOut" })
+            
+            // 結語 3：仍在航行之中。 (淡入 -> 停留更長 -> 淡出並結束區塊)
+            .to({}, { duration: 0.5 })
+            .fromTo(".ep-outro-3", { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 2.5, ease: "power2.out" })
+            .to({}, { duration: 3 })
+            
+            // 整個區塊結束，最後一句淡出往上滑
+            .to(".ep-outro-3", { opacity: 0, y: -40, duration: 2, ease: "power2.inOut" })
+            .to({}, { duration: 2 }); // 空白緩衝時間
+
 
 
         ScrollTrigger.sort();

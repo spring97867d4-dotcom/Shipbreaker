@@ -347,6 +347,28 @@ h2 { margin: 0; font-size: clamp(28px, 4vw, 48px); line-height: 1.25; text-align
 
 
 
+/* ==========================================================================
+   新增：老船的終點 (Endpoint Section)
+   ========================================================================== */
+/* 高度設定為 800vh，確保動畫有足夠的滾動行程。背景加上暫時的 placeholder 圖片供後續替換 */
+.endpoint-section { height: 800vh; position: relative; width: 100%; background-color: var(--bg2); background-image: linear-gradient(to bottom, rgba(4, 12, 18, 0.8), rgba(4, 12, 18, 0.95)), url('https://images.unsplash.com/photo-1503756234508-e32369269deb?q=80&w=1920&auto=format&fit=crop'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; }
+.endpoint-sticky { position: sticky; top: 0; height: 100vh; width: 100%; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 70px; box-sizing: border-box; }
+
+/* 大標置中定位 */
+.endpoint-heading { font-family: var(--font-serif); font-size: clamp(32px, 5vw, 50px); color: var(--accent); text-shadow: 0 4px 20px rgba(0,0,0,0.8); text-align: center; opacity: 0; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; margin: 0; z-index: 20; }
+
+/* 內文容器與排版 */
+.endpoint-content { position: relative; width: 90%; max-width: 900px; margin-top: 10vh; display: flex; flex-direction: column; gap: 30px; text-align: center; z-index: 10; }
+.endpoint-text { font-size: clamp(18px, 2.5vw, 24px); color: var(--text); margin: 0; opacity: 0; transform: translateY(20px); line-height: 1.8; text-shadow: 0 4px 15px rgba(0,0,0,0.9); word-break: keep-all; }
+
+/* 結語獨立樣式修改為疊加顯示 */
+.endpoint-conclusion { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 900px; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 30; }
+.ep-outro { position: absolute; font-family: var(--font-serif); font-size: clamp(32px, 5vw, 48px); color: #fff; text-shadow: 0 0 30px rgba(255,255,255,0.4), 0 4px 20px rgba(0,0,0,0.9); text-align: center; opacity: 0; line-height: 1.6; word-break: keep-all; width: 100%; }
+
+
+
+
+
 
 /* ==========================================================================
    11. Conclusion Section CTA
